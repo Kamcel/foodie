@@ -16,7 +16,7 @@ abstract class FilterOptions with _$FilterOptions {
     bool? freeDelivery,
     bool? openNow,
     String? sortBy,
-    @Default([]) List<DietaryPreference> dietary,
+    @Default([]) List<RestaurantDietaryPreference> dietary,
     @Default([]) List<CuisineType> cuisines,
     @Default([]) List<PriceRange> priceRange,
     @Default([]) List<Amenity> amenities,

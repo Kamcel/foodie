@@ -20,7 +20,7 @@ abstract class RestaurantMenuItem with _$RestaurantMenuItem {
     double? originalPrice,
     @Default([]) List<String> images,
     @Default(MenuItemStatus.available) MenuItemStatus status,
-    @Default([]) List<DietaryPreference> dietaryTags,
+    @Default([]) List<RestaurantDietaryPreference> dietaryTags,
     @Default([]) List<String> allergens,
     int? calories,
     Map<String, dynamic>? nutritionFacts,

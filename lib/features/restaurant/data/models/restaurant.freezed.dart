@@ -52,7 +52,7 @@ mixin _$Restaurant {
   double? get foodRating;
   double? get deliveryRating;
   double? get packagingRating; // ========== FEATURES ==========
-  List<DietaryPreference> get dietaryOptions;
+  List<RestaurantDietaryPreference> get dietaryOptions;
   List<Amenity> get amenities;
   bool get acceptsCustomRequests;
   bool get hasAlcohol;
@@ -283,7 +283,7 @@ abstract mixin class $RestaurantCopyWith<$Res> {
       double? foodRating,
       double? deliveryRating,
       double? packagingRating,
-      List<DietaryPreference> dietaryOptions,
+      List<RestaurantDietaryPreference> dietaryOptions,
       List<Amenity> amenities,
       bool acceptsCustomRequests,
       bool hasAlcohol,
@@ -516,7 +516,7 @@ class _$RestaurantCopyWithImpl<$Res> implements $RestaurantCopyWith<$Res> {
       dietaryOptions: null == dietaryOptions
           ? _self.dietaryOptions
           : dietaryOptions // ignore: cast_nullable_to_non_nullable
-              as List<DietaryPreference>,
+              as List<RestaurantDietaryPreference>,
       amenities: null == amenities
           ? _self.amenities
           : amenities // ignore: cast_nullable_to_non_nullable
@@ -721,7 +721,7 @@ extension RestaurantPatterns on Restaurant {
             double? foodRating,
             double? deliveryRating,
             double? packagingRating,
-            List<DietaryPreference> dietaryOptions,
+            List<RestaurantDietaryPreference> dietaryOptions,
             List<Amenity> amenities,
             bool acceptsCustomRequests,
             bool hasAlcohol,
@@ -853,7 +853,7 @@ extension RestaurantPatterns on Restaurant {
             double? foodRating,
             double? deliveryRating,
             double? packagingRating,
-            List<DietaryPreference> dietaryOptions,
+            List<RestaurantDietaryPreference> dietaryOptions,
             List<Amenity> amenities,
             bool acceptsCustomRequests,
             bool hasAlcohol,
@@ -983,7 +983,7 @@ extension RestaurantPatterns on Restaurant {
             double? foodRating,
             double? deliveryRating,
             double? packagingRating,
-            List<DietaryPreference> dietaryOptions,
+            List<RestaurantDietaryPreference> dietaryOptions,
             List<Amenity> amenities,
             bool acceptsCustomRequests,
             bool hasAlcohol,
@@ -1103,7 +1103,7 @@ class _Restaurant extends Restaurant {
       this.foodRating,
       this.deliveryRating,
       this.packagingRating,
-      final List<DietaryPreference> dietaryOptions = const [],
+      final List<RestaurantDietaryPreference> dietaryOptions = const [],
       final List<Amenity> amenities = const [],
       this.acceptsCustomRequests = true,
       this.hasAlcohol = false,
@@ -1273,11 +1273,11 @@ class _Restaurant extends Restaurant {
   @override
   final double? packagingRating;
 // ========== FEATURES ==========
-  final List<DietaryPreference> _dietaryOptions;
+  final List<RestaurantDietaryPreference> _dietaryOptions;
 // ========== FEATURES ==========
   @override
   @JsonKey()
-  List<DietaryPreference> get dietaryOptions {
+  List<RestaurantDietaryPreference> get dietaryOptions {
     if (_dietaryOptions is EqualUnmodifiableListView) return _dietaryOptions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_dietaryOptions);
@@ -1584,7 +1584,7 @@ abstract mixin class _$RestaurantCopyWith<$Res>
       double? foodRating,
       double? deliveryRating,
       double? packagingRating,
-      List<DietaryPreference> dietaryOptions,
+      List<RestaurantDietaryPreference> dietaryOptions,
       List<Amenity> amenities,
       bool acceptsCustomRequests,
       bool hasAlcohol,
@@ -1818,7 +1818,7 @@ class __$RestaurantCopyWithImpl<$Res> implements _$RestaurantCopyWith<$Res> {
       dietaryOptions: null == dietaryOptions
           ? _self._dietaryOptions
           : dietaryOptions // ignore: cast_nullable_to_non_nullable
-              as List<DietaryPreference>,
+              as List<RestaurantDietaryPreference>,
       amenities: null == amenities
           ? _self._amenities
           : amenities // ignore: cast_nullable_to_non_nullable

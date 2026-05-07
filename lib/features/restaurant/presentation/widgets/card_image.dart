@@ -64,10 +64,11 @@ class CardImage extends StatelessWidget {
                   ),
 
                   //Tier  Tag - always shown
-                  FoodieTagFactories.restaurantTier(r.tier!,
-                      size: TagSize.small,
-                      variant: TagVariant.filled,
-                      useBadge: true),
+                  if (r.tier != null)
+                    FoodieTagFactories.restaurantTier(r.tier!,
+                        size: TagSize.small,
+                        variant: TagVariant.filled,
+                        useBadge: true),
                 ],
               )),
           // top Right. Favorite Button

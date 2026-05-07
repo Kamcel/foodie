@@ -4,10 +4,12 @@ import 'package:foodie/core/theme/app_dimensions.dart';
 class SearchAndBack extends StatefulWidget {
   final VoidCallback? onSearchTap;
   final VoidCallback? onBackTap;
+  final void Function(String)? onSubmit;
   const SearchAndBack({
     super.key,
-    this.onSearchTap,
     this.onBackTap,
+    this.onSearchTap,
+    this.onSubmit,
     //required Null Function() onTap
   });
 
@@ -39,11 +41,11 @@ class _SearchAndBackState extends State<SearchAndBack> {
               GestureDetector(
                 onTap: widget.onBackTap,
                 child: Container(
-                  padding: EdgeInsets.all(AppDimensions.spaceXS),
+                  padding: EdgeInsets.all(AppDimensions.spaceSM),
                   decoration: BoxDecoration(
                       borderRadius:
                           BorderRadius.circular(AppDimensions.radiusXS),
-                      color: colors.surfaceContainer),
+                      color: colors.surface),
                   child: Icon(Icons.arrow_back),
                 ),
               ),
@@ -53,9 +55,9 @@ class _SearchAndBackState extends State<SearchAndBack> {
               Expanded(
                   child: SizedBox(
                       child: TextField(
+                onSubmitted: widget.onSubmit,
                 controller: _searchController,
                 onTap: widget.onSearchTap,
-                readOnly: true,
                 decoration: InputDecoration(
                     prefixIcon: Icon(
                       Icons.search_rounded,

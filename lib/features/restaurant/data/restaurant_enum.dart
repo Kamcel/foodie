@@ -124,7 +124,7 @@ enum DayOfWeek {
 
 // ==================== DIETARY PREFERENCE ====================
 
-enum DietaryPreference {
+enum RestaurantDietaryPreference {
   @JsonValue('vegetarian')
   vegetarian('Vegetarian', '🥬', AppColors.tertiary),
   @JsonValue('vegan')
@@ -153,7 +153,7 @@ enum DietaryPreference {
   final String displayName;
   final String emoji;
   final Color color;
-  const DietaryPreference(this.displayName, this.emoji, this.color);
+  const RestaurantDietaryPreference(this.displayName, this.emoji, this.color);
 }
 
 // ==================== CUISINE TYPE ====================
@@ -428,4 +428,20 @@ enum Amenity {
   final String displayName;
   final String emoji;
   const Amenity(this.displayName, this.emoji);
+}
+
+// ==================== SORT BY ====================
+
+enum SortBy {
+  @JsonValue('rating')
+  rating('Rating', '⭐', AppColors.warning),
+  @JsonValue('fastest')
+  fastest('Fastest', '⚡', AppColors.info),
+  @JsonValue('nearest')
+  nearest('Nearest', '📍', AppColors.primary);
+
+  final String displayName;
+  final String emoji;
+  final Color color;
+  const SortBy(this.displayName, this.emoji, this.color);
 }

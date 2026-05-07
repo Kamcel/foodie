@@ -220,7 +220,7 @@ extension FoodieTagFactories on FoodieTag {
 
   // ── DietaryPreference ──────────────────────────────────────────────────────
   static FoodieTag dietaryPreference(
-    DietaryPreference diet, {
+    RestaurantDietaryPreference diet, {
     TagSize size = TagSize.medium,
     TagVariant variant = TagVariant.soft,
     VoidCallback? onTap,

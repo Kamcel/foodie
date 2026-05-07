@@ -67,7 +67,7 @@ _Restaurant _$RestaurantFromJson(Map<String, dynamic> json) => _Restaurant(
       deliveryRating: (json['deliveryRating'] as num?)?.toDouble(),
       packagingRating: (json['packagingRating'] as num?)?.toDouble(),
       dietaryOptions: (json['dietaryOptions'] as List<dynamic>?)
-              ?.map((e) => $enumDecode(_$DietaryPreferenceEnumMap, e))
+              ?.map((e) => $enumDecode(_$RestaurantDietaryPreferenceEnumMap, e))
               .toList() ??
           const [],
       amenities: (json['amenities'] as List<dynamic>?)
@@ -145,7 +145,7 @@ Map<String, dynamic> _$RestaurantToJson(_Restaurant instance) =>
       'deliveryRating': instance.deliveryRating,
       'packagingRating': instance.packagingRating,
       'dietaryOptions': instance.dietaryOptions
-          .map((e) => _$DietaryPreferenceEnumMap[e]!)
+          .map((e) => _$RestaurantDietaryPreferenceEnumMap[e]!)
           .toList(),
       'amenities': instance.amenities.map((e) => _$AmenityEnumMap[e]!).toList(),
       'acceptsCustomRequests': instance.acceptsCustomRequests,
@@ -221,19 +221,19 @@ const _$OrderTypeEnumMap = {
   OrderType.driveThru: 'driveThru',
 };
 
-const _$DietaryPreferenceEnumMap = {
-  DietaryPreference.vegetarian: 'vegetarian',
-  DietaryPreference.vegan: 'vegan',
-  DietaryPreference.glutenFree: 'glutenFree',
-  DietaryPreference.halal: 'halal',
-  DietaryPreference.kosher: 'kosher',
-  DietaryPreference.dairyFree: 'dairyFree',
-  DietaryPreference.nutFree: 'nutFree',
-  DietaryPreference.keto: 'keto',
-  DietaryPreference.paleo: 'paleo',
-  DietaryPreference.lowSodium: 'lowSodium',
-  DietaryPreference.lowCarb: 'lowCarb',
-  DietaryPreference.organic: 'organic',
+const _$RestaurantDietaryPreferenceEnumMap = {
+  RestaurantDietaryPreference.vegetarian: 'vegetarian',
+  RestaurantDietaryPreference.vegan: 'vegan',
+  RestaurantDietaryPreference.glutenFree: 'glutenFree',
+  RestaurantDietaryPreference.halal: 'halal',
+  RestaurantDietaryPreference.kosher: 'kosher',
+  RestaurantDietaryPreference.dairyFree: 'dairyFree',
+  RestaurantDietaryPreference.nutFree: 'nutFree',
+  RestaurantDietaryPreference.keto: 'keto',
+  RestaurantDietaryPreference.paleo: 'paleo',
+  RestaurantDietaryPreference.lowSodium: 'lowSodium',
+  RestaurantDietaryPreference.lowCarb: 'lowCarb',
+  RestaurantDietaryPreference.organic: 'organic',
 };
 
 const _$AmenityEnumMap = {

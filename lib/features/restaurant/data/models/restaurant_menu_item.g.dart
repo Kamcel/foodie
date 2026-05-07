@@ -20,7 +20,7 @@ _RestaurantMenuItem _$RestaurantMenuItemFromJson(Map<String, dynamic> json) =>
       status: $enumDecodeNullable(_$MenuItemStatusEnumMap, json['status']) ??
           MenuItemStatus.available,
       dietaryTags: (json['dietaryTags'] as List<dynamic>?)
-              ?.map((e) => $enumDecode(_$DietaryPreferenceEnumMap, e))
+              ?.map((e) => $enumDecode(_$RestaurantDietaryPreferenceEnumMap, e))
               .toList() ??
           const [],
       allergens: (json['allergens'] as List<dynamic>?)
@@ -49,7 +49,7 @@ Map<String, dynamic> _$RestaurantMenuItemToJson(_RestaurantMenuItem instance) =>
       'images': instance.images,
       'status': _$MenuItemStatusEnumMap[instance.status]!,
       'dietaryTags': instance.dietaryTags
-          .map((e) => _$DietaryPreferenceEnumMap[e]!)
+          .map((e) => _$RestaurantDietaryPreferenceEnumMap[e]!)
           .toList(),
       'allergens': instance.allergens,
       'calories': instance.calories,
@@ -68,17 +68,17 @@ const _$MenuItemStatusEnumMap = {
   MenuItemStatus.limitedTime: 'limitedTime',
 };
 
-const _$DietaryPreferenceEnumMap = {
-  DietaryPreference.vegetarian: 'vegetarian',
-  DietaryPreference.vegan: 'vegan',
-  DietaryPreference.glutenFree: 'glutenFree',
-  DietaryPreference.halal: 'halal',
-  DietaryPreference.kosher: 'kosher',
-  DietaryPreference.dairyFree: 'dairyFree',
-  DietaryPreference.nutFree: 'nutFree',
-  DietaryPreference.keto: 'keto',
-  DietaryPreference.paleo: 'paleo',
-  DietaryPreference.lowSodium: 'lowSodium',
-  DietaryPreference.lowCarb: 'lowCarb',
-  DietaryPreference.organic: 'organic',
+const _$RestaurantDietaryPreferenceEnumMap = {
+  RestaurantDietaryPreference.vegetarian: 'vegetarian',
+  RestaurantDietaryPreference.vegan: 'vegan',
+  RestaurantDietaryPreference.glutenFree: 'glutenFree',
+  RestaurantDietaryPreference.halal: 'halal',
+  RestaurantDietaryPreference.kosher: 'kosher',
+  RestaurantDietaryPreference.dairyFree: 'dairyFree',
+  RestaurantDietaryPreference.nutFree: 'nutFree',
+  RestaurantDietaryPreference.keto: 'keto',
+  RestaurantDietaryPreference.paleo: 'paleo',
+  RestaurantDietaryPreference.lowSodium: 'lowSodium',
+  RestaurantDietaryPreference.lowCarb: 'lowCarb',
+  RestaurantDietaryPreference.organic: 'organic',
 };

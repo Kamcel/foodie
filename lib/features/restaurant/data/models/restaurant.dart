@@ -66,7 +66,7 @@ abstract class Restaurant with _$Restaurant {
     double? packagingRating,
 
     // ========== FEATURES ==========
-    @Default([]) List<DietaryPreference> dietaryOptions,
+    @Default([]) List<RestaurantDietaryPreference> dietaryOptions,
     @Default([]) List<Amenity> amenities,
     @Default(true) bool acceptsCustomRequests,
     @Default(false) bool hasAlcohol,

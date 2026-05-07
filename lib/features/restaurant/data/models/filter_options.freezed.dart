@@ -19,7 +19,7 @@ mixin _$FilterOptions {
   bool? get freeDelivery;
   bool? get openNow;
   String? get sortBy;
-  List<DietaryPreference> get dietary;
+  List<RestaurantDietaryPreference> get dietary;
   List<CuisineType> get cuisines;
   List<PriceRange> get priceRange;
   List<Amenity> get amenities;
@@ -94,7 +94,7 @@ abstract mixin class $FilterOptionsCopyWith<$Res> {
       bool? freeDelivery,
       bool? openNow,
       String? sortBy,
-      List<DietaryPreference> dietary,
+      List<RestaurantDietaryPreference> dietary,
       List<CuisineType> cuisines,
       List<PriceRange> priceRange,
       List<Amenity> amenities,
@@ -148,7 +148,7 @@ class _$FilterOptionsCopyWithImpl<$Res>
       dietary: null == dietary
           ? _self.dietary
           : dietary // ignore: cast_nullable_to_non_nullable
-              as List<DietaryPreference>,
+              as List<RestaurantDietaryPreference>,
       cuisines: null == cuisines
           ? _self.cuisines
           : cuisines // ignore: cast_nullable_to_non_nullable
@@ -275,7 +275,7 @@ extension FilterOptionsPatterns on FilterOptions {
             bool? freeDelivery,
             bool? openNow,
             String? sortBy,
-            List<DietaryPreference> dietary,
+            List<RestaurantDietaryPreference> dietary,
             List<CuisineType> cuisines,
             List<PriceRange> priceRange,
             List<Amenity> amenities,
@@ -325,7 +325,7 @@ extension FilterOptionsPatterns on FilterOptions {
             bool? freeDelivery,
             bool? openNow,
             String? sortBy,
-            List<DietaryPreference> dietary,
+            List<RestaurantDietaryPreference> dietary,
             List<CuisineType> cuisines,
             List<PriceRange> priceRange,
             List<Amenity> amenities,
@@ -373,7 +373,7 @@ extension FilterOptionsPatterns on FilterOptions {
             bool? freeDelivery,
             bool? openNow,
             String? sortBy,
-            List<DietaryPreference> dietary,
+            List<RestaurantDietaryPreference> dietary,
             List<CuisineType> cuisines,
             List<PriceRange> priceRange,
             List<Amenity> amenities,
@@ -411,7 +411,7 @@ class _FilterOptions extends FilterOptions {
       this.freeDelivery,
       this.openNow,
       this.sortBy,
-      final List<DietaryPreference> dietary = const [],
+      final List<RestaurantDietaryPreference> dietary = const [],
       final List<CuisineType> cuisines = const [],
       final List<PriceRange> priceRange = const [],
       final List<Amenity> amenities = const [],
@@ -438,10 +438,10 @@ class _FilterOptions extends FilterOptions {
   final bool? openNow;
   @override
   final String? sortBy;
-  final List<DietaryPreference> _dietary;
+  final List<RestaurantDietaryPreference> _dietary;
   @override
   @JsonKey()
-  List<DietaryPreference> get dietary {
+  List<RestaurantDietaryPreference> get dietary {
     if (_dietary is EqualUnmodifiableListView) return _dietary;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_dietary);
@@ -575,7 +575,7 @@ abstract mixin class _$FilterOptionsCopyWith<$Res>
       bool? freeDelivery,
       bool? openNow,
       String? sortBy,
-      List<DietaryPreference> dietary,
+      List<RestaurantDietaryPreference> dietary,
       List<CuisineType> cuisines,
       List<PriceRange> priceRange,
       List<Amenity> amenities,
@@ -629,7 +629,7 @@ class __$FilterOptionsCopyWithImpl<$Res>
       dietary: null == dietary
           ? _self._dietary
           : dietary // ignore: cast_nullable_to_non_nullable
-              as List<DietaryPreference>,
+              as List<RestaurantDietaryPreference>,
       cuisines: null == cuisines
           ? _self._cuisines
           : cuisines // ignore: cast_nullable_to_non_nullable

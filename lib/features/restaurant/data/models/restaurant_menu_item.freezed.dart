@@ -22,7 +22,7 @@ mixin _$RestaurantMenuItem {
   double? get originalPrice;
   List<String> get images;
   MenuItemStatus get status;
-  List<DietaryPreference> get dietaryTags;
+  List<RestaurantDietaryPreference> get dietaryTags;
   List<String> get allergens;
   int? get calories;
   Map<String, dynamic>? get nutritionFacts;
@@ -113,7 +113,7 @@ abstract mixin class $RestaurantMenuItemCopyWith<$Res> {
       double? originalPrice,
       List<String> images,
       MenuItemStatus status,
-      List<DietaryPreference> dietaryTags,
+      List<RestaurantDietaryPreference> dietaryTags,
       List<String> allergens,
       int? calories,
       Map<String, dynamic>? nutritionFacts,
@@ -184,7 +184,7 @@ class _$RestaurantMenuItemCopyWithImpl<$Res>
       dietaryTags: null == dietaryTags
           ? _self.dietaryTags
           : dietaryTags // ignore: cast_nullable_to_non_nullable
-              as List<DietaryPreference>,
+              as List<RestaurantDietaryPreference>,
       allergens: null == allergens
           ? _self.allergens
           : allergens // ignore: cast_nullable_to_non_nullable
@@ -318,7 +318,7 @@ extension RestaurantMenuItemPatterns on RestaurantMenuItem {
             double? originalPrice,
             List<String> images,
             MenuItemStatus status,
-            List<DietaryPreference> dietaryTags,
+            List<RestaurantDietaryPreference> dietaryTags,
             List<String> allergens,
             int? calories,
             Map<String, dynamic>? nutritionFacts,
@@ -376,7 +376,7 @@ extension RestaurantMenuItemPatterns on RestaurantMenuItem {
             double? originalPrice,
             List<String> images,
             MenuItemStatus status,
-            List<DietaryPreference> dietaryTags,
+            List<RestaurantDietaryPreference> dietaryTags,
             List<String> allergens,
             int? calories,
             Map<String, dynamic>? nutritionFacts,
@@ -432,7 +432,7 @@ extension RestaurantMenuItemPatterns on RestaurantMenuItem {
             double? originalPrice,
             List<String> images,
             MenuItemStatus status,
-            List<DietaryPreference> dietaryTags,
+            List<RestaurantDietaryPreference> dietaryTags,
             List<String> allergens,
             int? calories,
             Map<String, dynamic>? nutritionFacts,
@@ -478,7 +478,7 @@ class _RestaurantMenuItem extends RestaurantMenuItem {
       this.originalPrice,
       final List<String> images = const [],
       this.status = MenuItemStatus.available,
-      final List<DietaryPreference> dietaryTags = const [],
+      final List<RestaurantDietaryPreference> dietaryTags = const [],
       final List<String> allergens = const [],
       this.calories,
       final Map<String, dynamic>? nutritionFacts,
@@ -518,10 +518,10 @@ class _RestaurantMenuItem extends RestaurantMenuItem {
   @override
   @JsonKey()
   final MenuItemStatus status;
-  final List<DietaryPreference> _dietaryTags;
+  final List<RestaurantDietaryPreference> _dietaryTags;
   @override
   @JsonKey()
-  List<DietaryPreference> get dietaryTags {
+  List<RestaurantDietaryPreference> get dietaryTags {
     if (_dietaryTags is EqualUnmodifiableListView) return _dietaryTags;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_dietaryTags);
@@ -656,7 +656,7 @@ abstract mixin class _$RestaurantMenuItemCopyWith<$Res>
       double? originalPrice,
       List<String> images,
       MenuItemStatus status,
-      List<DietaryPreference> dietaryTags,
+      List<RestaurantDietaryPreference> dietaryTags,
       List<String> allergens,
       int? calories,
       Map<String, dynamic>? nutritionFacts,
@@ -727,7 +727,7 @@ class __$RestaurantMenuItemCopyWithImpl<$Res>
       dietaryTags: null == dietaryTags
           ? _self._dietaryTags
           : dietaryTags // ignore: cast_nullable_to_non_nullable
-              as List<DietaryPreference>,
+              as List<RestaurantDietaryPreference>,
       allergens: null == allergens
           ? _self._allergens
           : allergens // ignore: cast_nullable_to_non_nullable
