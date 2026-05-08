@@ -18,6 +18,8 @@ void main() async {
   await Hive.openBox('auth_box');
   await Hive.openBox('user_box');
   await Hive.openBox('profile_box');
+  await Hive.openBox('favorites');
+  await Hive.openBox('recent_searches');
   runApp(ProviderScope(child: const FoodieApp()));
 }
 

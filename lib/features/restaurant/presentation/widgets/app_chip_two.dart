@@ -28,6 +28,7 @@ class AppChipTwo extends StatelessWidget {
               fontWeight: FontWeight.w600),
         ),
         visualDensity: VisualDensity.compact,
+        showCheckmark: false,
         avatar: icon,
         selected: isSelected,
         selectedColor: colors.primary,

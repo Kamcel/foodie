@@ -3,6 +3,7 @@ import 'package:foodie/features/restaurant/data/models/restaurant.dart';
 import 'package:foodie/features/restaurant/data/models/restaurant_screen_state.dart';
 import 'package:foodie/features/restaurant/data/restaurant_enum.dart';
 import 'package:foodie/features/profile/data/enums.dart';
+import 'package:foodie/features/restaurant/data/services/restaurant_services.dart';
 import 'package:foodie/features/restaurant/data/storage/favorites_hive.dart';
 import 'package:foodie/features/restaurant/data/storage/recent_searches_hive.dart';
 
@@ -26,6 +27,7 @@ class RestaurantScreenNotifier extends _$RestaurantScreenNotifier {
   final FavoriteStorage _favoriteStorage = FavoriteStorage.instance;
   final RecsentSearchesStorage _recentSearchStorage =
       RecsentSearchesStorage.instance;
+  final _service = RestaurantService();
 
   bool isFavorite(String favoriteId) =>
       favoriteedRestaurants.contains(favoriteId);
@@ -208,9 +210,10 @@ class RestaurantScreenNotifier extends _$RestaurantScreenNotifier {
   Future<void> loadRestaurant() async {
     state = const RestaurantScreenState.loading(); // 1. tell UI loading
     try {
-      await Future.delayed(const Duration(seconds: 1));
-      // final result = await _api.method(); // 2. call server/service   //TODO: fix when api is ready
-      _allRestaurant = mockRestaurants;
+      final result = await _service.getAll();
+
+      // TODO: Remove mock fallback when the backend/API is ready.
+      _allRestaurant = result.isNotEmpty ? result : mockRestaurants;
 
       // await _storage.save(result);           // 3. save to Hive (if needed)
 
@@ -219,7 +222,12 @@ class RestaurantScreenNotifier extends _$RestaurantScreenNotifier {
       state = RestaurantScreenState.success(
           restaurants: _allRestaurant); // 4. tell UI result
     } catch (e) {
-      state = RestaurantScreenState.error(message: e.toString());
+      // Fallback to mock restaurants when the API/backend is unavailable.
+      _allRestaurant = mockRestaurants;
+      favoriteedRestaurants = _favoriteStorage.favoriteIds;
+      _recentSearch = _recentSearchStorage.recentSearches;
+      state = RestaurantScreenState.success(
+          restaurants: _allRestaurant); // 4. tell UI result
     }
   }
 }

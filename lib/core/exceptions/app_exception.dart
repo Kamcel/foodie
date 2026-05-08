@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'app_exception.freezed.dart';
 
 @freezed
-abstract class AppException with _$AppException {
+class AppException with _$AppException {
   const AppException._();
   const factory AppException.unauthorized() = _Unauthorized;
   const factory AppException.notFound() = _NotFound;

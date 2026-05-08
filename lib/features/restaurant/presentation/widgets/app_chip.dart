@@ -3,7 +3,7 @@ import 'package:foodie/core/theme/app_dimensions.dart';
 
 class AppChip extends StatelessWidget {
   final String label;
-  final Icon? icon;
+  final Widget? icon;
   final bool isSelected;
   final Function(bool) onSelected;
   const AppChip(
@@ -32,6 +32,7 @@ class AppChip extends StatelessWidget {
         onSelected: onSelected,
         backgroundColor: colors.surfaceContainer,
         shape: StadiumBorder(),
+        showCheckmark: false,
       ),
     );
   }

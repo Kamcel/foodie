@@ -42,7 +42,7 @@ final class RestaurantScreenNotifierProvider
 }
 
 String _$restaurantScreenNotifierHash() =>
-    r'2b5060e7e38d9fc9f093e02321407d972b3e25dc';
+    r'cb3d0e78aca2d74c87845925b07d0c246244f003';
 
 abstract class _$RestaurantScreenNotifier
     extends $Notifier<RestaurantScreenState> {

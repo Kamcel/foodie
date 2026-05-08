@@ -240,56 +240,62 @@ class _RestaurantScreenState extends ConsumerState<RestaurantScreen> {
         ),
       ),
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(280),
+        preferredSize: Size.fromHeight(350),
         child: AppBar(
           backgroundColor: colors.surfaceContainer,
-          flexibleSpace: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              //search and back
-              SearchAndBack(
-                onBackTap: () => Navigator.pop(context), //TODO: bach home
-                onSubmit: (query) => notifier.onSearchSubmit(query),
-                onSearchTap: () {},
+          flexibleSpace: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  //search and back
+                  SearchAndBack(
+                    onBackTap: () => Navigator.pop(context), //TODO: bach home
+                    onSubmit: (query) => notifier.onSearchSubmit(query),
+                    onSearchTap: () {},
+                  ),
+                  SizedBox(
+                    height: AppDimensions.spaceXXS,
+                  ),
+                  //
+                  CategoryFilter(
+                    onCategorySelected: (category) {
+                      notifier.selectedCategory(category);
+                    },
+                    selectedCuisineType: notifier.selectedCuisineType,
+                  ),
+                  SizedBox(
+                    height: AppDimensions.spaceSM,
+                  ),
+                  //refinement
+                  RefinementFilter(
+                      onSelectedRefineFilter: (refine) {
+                        notifier.toggleRefinement(refine);
+                      },
+                      selectedRefinement: notifier.selectedRefinement,
+                      onOpenFilter: () {
+                        showModalBottomSheet(
+                            showDragHandle: true,
+                            isScrollControlled: true,
+                            context: context,
+                            builder: (context) => Filter(
+                                  initialCusines: const {},
+                                  initialPriceRange: null,
+                                  initialDietaryPreferences: const {},
+                                  initialSortBy: null,
+                                  restaurantCount: notifier.restaurantCount,
+                                  onReset: () => notifier.resetFilters(),
+                                  onApply: (cuisines, priceRange, dietary,
+                                          sortBy) =>
+                                      notifier.applyFilters(
+                                          cuisines, priceRange, dietary, sortBy),
+                                ));
+                      }),
+                  SizedBox(
+                    height: AppDimensions.spaceSM,
+                  ),
+                ],
               ),
-              SizedBox(
-                height: AppDimensions.spaceXXS,
-              ),
-              //
-              CategoryFilter(
-                onCategorySelected: (category) {
-                  notifier.selectedCategory(category);
-                },
-                selectedCuisineType: notifier.selectedCuisineType,
-              ),
-              SizedBox(
-                height: AppDimensions.spaceSM,
-              ),
-              //refinement
-              RefinementFilter(
-                  onSelectedRefineFilter: (refine) {
-                    notifier.toggleRefinement(refine);
-                  },
-                  selectedRefinement: notifier.selectedRefinement,
-                  onOpenFilter: () {
-                    showModalBottomSheet(
-                        showDragHandle: true,
-                        isScrollControlled: true,
-                        context: context,
-                        builder: (context) => Filter(
-                              initialCusines: const {},
-                              initialPriceRange: null,
-                              initialDietaryPreferences: const {},
-                              initialSortBy: null,
-                              restaurantCount: notifier.restaurantCount,
-                              onReset: () => notifier.resetFilters(),
-                              onApply: (cuisines, priceRange, dietary,
-                                      sortBy) =>
-                                  notifier.applyFilters(
-                                      cuisines, priceRange, dietary, sortBy),
-                            ));
-                  }),
-            ],
+            ),
           ),
         ),
       ),

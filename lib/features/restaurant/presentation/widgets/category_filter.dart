@@ -17,9 +17,18 @@ class CategoryFilter extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<({String label, CuisineType? type})> categories = [
       (label: 'All', type: null),
-      ...CuisineType.values
-          .take(10)
-          .map((cuisine) => (label: cuisine.displayName, type: cuisine)),
+      ...[
+        CuisineType.italian,
+        CuisineType.american,
+        CuisineType.mexican,
+        CuisineType.chinese,
+        CuisineType.japanese,
+        CuisineType.indian,
+        CuisineType.nigerian,
+        CuisineType.mediterranean,
+        CuisineType.french,
+        CuisineType.korean,
+      ].map((cuisine) => (label: cuisine.displayName, type: cuisine)),
     ];
 
     return Wrap(
@@ -28,6 +37,12 @@ class CategoryFilter extends StatelessWidget {
       children: categories.map((category) {
         return AppChip(
           label: category.label,
+          icon: category.type != null
+              ? Padding(
+                  padding: const EdgeInsets.only(right: 4.0),
+                  child: Text(category.type!.emoji),
+                )
+              : null,
           isSelected: category.type == selectedCuisineType,
           onSelected: (_) => onCategorySelected(category.type),
         );
