@@ -9,7 +9,7 @@ class RestaurantEmpty extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Padding(
-      padding: const EdgeInsets.all(AppDimensions.spaceMD),
+      padding: const EdgeInsets.all(AppDimensions.spaceLG),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

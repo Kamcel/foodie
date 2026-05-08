@@ -29,44 +29,95 @@ class _RestaurantSuccessState extends State<RestaurantSuccess> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final hasRecent = widget.recentSearches.isNotEmpty;
-    return ListView.builder(
-        itemCount: widget.restaurants.length +
-            (hasRecent ? widget.recentSearches.length + 1 : 0),
+    return CustomScrollView(slivers: [
+      if (hasRecent)
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppDimensions.spaceMD,
+                vertical: AppDimensions.spaceLG),
+            child: Text(
+              'Recent Searches',
+              style: textTheme.titleMedium,
+            ),
+          ),
+        ),
+      if (hasRecent)
+        SliverList.builder(
+          itemCount: widget.recentSearches.length,
+          itemBuilder: (context, index) {
+            final recent = widget.recentSearches[index];
+            return RecentSearchTile(
+                label: recent,
+                onCancel: () => widget.onRemoveRecent(recent),
+                onOpen: () => widget.onTapRecent(recent),
+                size: 8);
+          },
+        ),
+      SliverToBoxAdapter(
+        child: Padding(
+          padding: const EdgeInsets.all(AppDimensions.spaceMD),
+          child: Text(
+            '${widget.restaurants.length} restaurants nearby',
+            style: textTheme.titleMedium,
+          ),
+        ),
+      ),
+      SliverList.builder(
+        itemCount: widget.restaurants.length,
         itemBuilder: (context, index) {
-          if (hasRecent) {
-            if (index == 0) {
-              return Padding(
-                padding: const EdgeInsets.fromLTRB(
-                    AppDimensions.spaceMD,
-                    AppDimensions.spaceSM,
-                    AppDimensions.spaceMD,
-                    AppDimensions.spaceXXS),
-                child: Text(
-                  'Recent Search',
-                  style: textTheme.titleMedium
-                      ?.copyWith(fontWeight: FontWeight.w600),
-                ),
-              );
-            }
-            if (index <= widget.recentSearches.length) {
-              final searchIndex = index - 1;
-              return RecentSearchTile(
-                  label: widget.recentSearches[searchIndex],
-                  onCancel: () =>
-                      widget.onRemoveRecent(widget.recentSearches[searchIndex]),
-                  onOpen: () =>
-                      widget.onTapRecent(widget.recentSearches[searchIndex]),
-                  size: 8);
-            }
-          }
-          final restaurantIndex =
-              hasRecent ? index - (widget.recentSearches.length + 1) : index;
-          final restaurant = widget.restaurants[restaurantIndex];
+          final restaurant = widget.restaurants[index];
           return RestaurantCard(
               restaurant: restaurant,
               isFavorited: widget.isFavorite(restaurant.id),
               onFavoriteTap: () => widget.onToggleFavorite(restaurant.id),
               variant: RestaurantCardVariant.big);
-        });
+        },
+      ),
+    ]);
   }
 }
+
+
+// itemCount: widget.restaurants.length +
+//             (hasRecent ? widget.recentSearches.length + 1 : 0),
+//         itemBuilder: (context, index) {
+//           if (hasRecent) {
+//             if (index == 0) {
+//               return Padding(
+//                 padding: const EdgeInsets.fromLTRB(
+//                     AppDimensions.spaceMD,
+//                     AppDimensions.spaceSM,
+//                     AppDimensions.spaceMD,
+//                     AppDimensions.spaceXXS),
+//                 child: Text(
+//                   'Recent Search',
+//                   style: textTheme.titleMedium
+//                       ?.copyWith(fontWeight: FontWeight.w600),
+//                 ),
+//               );
+//             }
+//             if (index <= widget.recentSearches.length) {
+//               final searchIndex = index - 1;
+//               return RecentSearchTile(
+//                   label: widget.recentSearches[searchIndex],
+//                   onCancel: () =>
+//                       widget.onRemoveRecent(widget.recentSearches[searchIndex]),
+//                   onOpen: () =>
+//                       widget.onTapRecent(widget.recentSearches[searchIndex]),
+//                   size: 8);
+//             }
+//           }
+//           final restaurantIndex =
+//               hasRecent ? index - (widget.recentSearches.length + 1) : index;
+//           final restaurant = widget.restaurants[restaurantIndex];
+//           return RestaurantCard(
+//               restaurant: restaurant,
+//               isFavorited: widget.isFavorite(restaurant.id),
+//               onFavoriteTap: () => widget.onToggleFavorite(restaurant.id),
+//               variant: RestaurantCardVariant.big);
+//         }
+
+
+
+ 
