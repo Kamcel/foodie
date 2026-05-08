@@ -205,7 +205,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:foodie/core/theme/app_dimensions.dart';
 import 'package:foodie/core/widgets/app_nav_bar.dart';
 import 'package:foodie/features/restaurant/data/models/restaurant_screen_state.dart';
-import 'package:foodie/features/restaurant/data/restaurant_enum.dart';
 import 'package:foodie/features/restaurant/presentation/providers/restaurant_screen_notifier.dart';
 import 'package:foodie/features/restaurant/presentation/widgets/category_filter.dart';
 import 'package:foodie/features/restaurant/presentation/widgets/filter_buttom_sheet.dart';
@@ -215,7 +214,6 @@ import 'package:foodie/features/restaurant/presentation/widgets/restaurant_error
 import 'package:foodie/features/restaurant/presentation/widgets/restaurant_loading.dart';
 import 'package:foodie/features/restaurant/presentation/widgets/restaurant_success.dart';
 import 'package:foodie/features/restaurant/presentation/widgets/search_and_back.dart';
-import 'package:foodie/features/profile/data/enums.dart';
 
 class RestaurantScreen extends ConsumerStatefulWidget {
   const RestaurantScreen({super.key});
@@ -242,7 +240,7 @@ class _RestaurantScreenState extends ConsumerState<RestaurantScreen> {
         ),
       ),
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(300),
+        preferredSize: Size.fromHeight(280),
         child: AppBar(
           backgroundColor: colors.surfaceContainer,
           flexibleSpace: Column(
@@ -255,15 +253,15 @@ class _RestaurantScreenState extends ConsumerState<RestaurantScreen> {
                 onSearchTap: () {},
               ),
               SizedBox(
-                height: AppDimensions.spaceSM,
+                height: AppDimensions.spaceXXS,
               ),
               //
               CategoryFilter(
-                  onCategorySelected: (category) {
-                    notifier.selectedCategory(category ?? FoodCategory.all);
-                  },
-                  selectedFoodCategory:
-                      notifier.selectedFoodCategory ?? FoodCategory.all),
+                onCategorySelected: (category) {
+                  notifier.selectedCategory(category);
+                },
+                selectedCuisineType: notifier.selectedCuisineType,
+              ),
               SizedBox(
                 height: AppDimensions.spaceSM,
               ),

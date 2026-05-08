@@ -3,7 +3,9 @@ import 'package:foodie/features/restaurant/data/models/restaurant.dart';
 import 'package:foodie/features/restaurant/data/models/restaurant_screen_state.dart';
 import 'package:foodie/features/restaurant/data/restaurant_enum.dart';
 import 'package:foodie/features/profile/data/enums.dart';
-import 'package:foodie/features/restaurant/presentation/widgets/category_filter.dart';
+import 'package:foodie/features/restaurant/data/storage/favorites_hive.dart';
+import 'package:foodie/features/restaurant/data/storage/recent_searches_hive.dart';
+
 import 'package:foodie/features/restaurant/presentation/widgets/refinement_filter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -14,18 +16,21 @@ class RestaurantScreenNotifier extends _$RestaurantScreenNotifier {
   List<Restaurant> _allRestaurant = [];
   String _searchResult = '';
   List<String> _recentSearch = [];
-  FoodCategory? selectedFoodCategory;
+  CuisineType? selectedCuisineType;
   Set<RefinementType> selectedRefinement = {};
   Set<CuisineType> _selectedCuisines = {};
   PriceRange? _selectedPriceRange;
   Set<DietaryPreference> _selectedDietary = {};
   SortBy? _selectedSortBy;
   Set<String> favoriteedRestaurants = {};
+  final FavoriteStorage _favoriteStorage = FavoriteStorage.instance;
+  final RecsentSearchesStorage _recentSearchStorage =
+      RecsentSearchesStorage.instance;
 
   bool isFavorite(String favoriteId) =>
       favoriteedRestaurants.contains(favoriteId);
 
-  FoodCategory? get activeCategory => selectedFoodCategory;
+  CuisineType? get activeCategory => selectedCuisineType;
   Set<RefinementType> get activeRefinement => selectedRefinement;
   List<String> get recentSearches => _recentSearch;
 
@@ -41,6 +46,8 @@ class RestaurantScreenNotifier extends _$RestaurantScreenNotifier {
     if (_recentSearch.length > 3) {
       _recentSearch.removeLast();
     }
+
+    _recentSearchStorage.saveSearches(_recentSearch);
     _emit();
   }
 
@@ -56,15 +63,15 @@ class RestaurantScreenNotifier extends _$RestaurantScreenNotifier {
     _emit();
   }
 
-  void selectedCategory(FoodCategory category) {
+  void selectedCategory(CuisineType? cuisineType) {
     //Recieve food catrgory
     ///1. tap to select and deselect if already selected
     ///2.pick one at at time
     ///update screen
-    if (selectedFoodCategory == category) {
-      selectedFoodCategory = null;
+    if (selectedCuisineType == cuisineType) {
+      selectedCuisineType = null;
     } else {
-      selectedFoodCategory = category;
+      selectedCuisineType = cuisineType;
     }
     _emit();
   }
@@ -95,6 +102,7 @@ class RestaurantScreenNotifier extends _$RestaurantScreenNotifier {
     // 2. update
 
     _recentSearch.remove(query);
+    _recentSearchStorage.saveSearches(_recentSearch);
     _emit();
   }
 
@@ -124,6 +132,7 @@ class RestaurantScreenNotifier extends _$RestaurantScreenNotifier {
     } else {
       favoriteedRestaurants.add(restaurant);
     }
+    _favoriteStorage.saveFavorites(favoriteedRestaurants);
     _emit();
   }
 
@@ -142,15 +151,20 @@ class RestaurantScreenNotifier extends _$RestaurantScreenNotifier {
     //3. if refinement is seleted keep
     //4. if search query, keep match
     List<Restaurant> result = List.from(_allRestaurant);
-    if (selectedFoodCategory != null) {
+    if (selectedCuisineType != null) {
       result = result
-          .where((r) => _matchesCategory(r, selectedFoodCategory!))
+          .where((r) => _matchesCuisine(r, selectedCuisineType!))
           .toList();
     }
 
     if (_searchResult.isNotEmpty) {
       final q = _searchResult.toLowerCase();
-      result = result.where((r) => r.name.toLowerCase().contains(q)).toList();
+      result = result.where((r) {
+        return r.name.toLowerCase().contains(q) ||
+            r.cuisines.any((c) => c.displayName.toLowerCase().contains(q)) ||
+            r.tags.any((t) => t.toLowerCase().contains(q)) ||
+            r.description.toLowerCase().contains(q);
+      }).toList();
     }
 
     if (selectedRefinement.contains(RefinementType.rating4Plus)) {
@@ -181,21 +195,8 @@ class RestaurantScreenNotifier extends _$RestaurantScreenNotifier {
     return result;
   }
 
-  bool _matchesCategory(Restaurant r, FoodCategory selectedFoodCategory) {
-    switch (selectedFoodCategory) {
-      case FoodCategory.burgers:
-        return r.cuisines.contains(CuisineType.burger);
-      case FoodCategory.pizza:
-        return r.cuisines.contains(CuisineType.pizza);
-      case FoodCategory.sushi:
-        return r.cuisines.contains(CuisineType.sushi);
-      case FoodCategory.mexican:
-        return r.cuisines.contains(CuisineType.mexican);
-      case FoodCategory.all:
-        return true;
-      default:
-        return false;
-    }
+  bool _matchesCuisine(Restaurant r, CuisineType selectedCuisineType) {
+    return r.cuisines.contains(selectedCuisineType);
   }
 
   @override
@@ -210,7 +211,11 @@ class RestaurantScreenNotifier extends _$RestaurantScreenNotifier {
       await Future.delayed(const Duration(seconds: 1));
       // final result = await _api.method(); // 2. call server/service   //TODO: fix when api is ready
       _allRestaurant = mockRestaurants;
+
       // await _storage.save(result);           // 3. save to Hive (if needed)
+
+      favoriteedRestaurants = _favoriteStorage.favoriteIds;
+      _recentSearch = _recentSearchStorage.recentSearches;
       state = RestaurantScreenState.success(
           restaurants: _allRestaurant); // 4. tell UI result
     } catch (e) {

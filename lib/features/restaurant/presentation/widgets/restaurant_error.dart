@@ -13,47 +13,51 @@ class RestaurantError extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          //illustration
-          SizedBox(
-            width: 200,
-            height: 200,
-            child: Lottie.asset(
-              'assets/animations/bicycle-guy.json',
-              repeat: true,
-            ),
-          ),
-          SizedBox(
-            height: AppDimensions.spaceMD,
-          ),
-          //text
-          Text(
-            'It\'s not you it\'s us',
-            style: textTheme.titleLarge,
-          ),
-          SizedBox(
-            height: AppDimensions.spaceSM,
-          ),
-          Text(
-            'Please try again, we\'re sure this time it would work',
-            style: textTheme.bodyLarge,
-          ),
-          SizedBox(
-            height: AppDimensions.spaceMD,
-          ),
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: colors.primary,
+    return Padding(
+      padding: const EdgeInsets.all(AppDimensions.spaceMD),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            //illustration
+            SizedBox(
+              width: 200,
+              height: 200,
+              child: Lottie.asset(
+                'assets/animations/bicycle-guy.json',
+                repeat: true,
               ),
-              onPressed: onRetry,
-              child: Text(
-                'Try again',
-                style: textTheme.bodyLarge,
-              ))
-        ],
+            ),
+            SizedBox(
+              height: AppDimensions.spaceMD,
+            ),
+            //text
+            Text(
+              'It\'s not you it\'s us',
+              style: textTheme.titleLarge,
+            ),
+            SizedBox(
+              height: AppDimensions.spaceSM,
+            ),
+            Text(
+              'Please try again, we\'re sure this time it would work',
+              style: textTheme.bodyLarge,
+            ),
+            SizedBox(
+              height: AppDimensions.spaceMD,
+            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: colors.primary,
+                ),
+                onPressed: onRetry,
+                child: Text(
+                  'Try again',
+                  style: textTheme.bodyLarge,
+                ))
+          ],
+        ),
       ),
     );
   }
