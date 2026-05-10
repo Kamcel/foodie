@@ -23,6 +23,7 @@ class RestaurantScreenNotifier extends _$RestaurantScreenNotifier {
   PriceRange? _selectedPriceRange;
   Set<DietaryPreference> _selectedDietary = {};
   SortBy? _selectedSortBy;
+
   Set<String> favoriteedRestaurants = {};
   final FavoriteStorage _favoriteStorage = FavoriteStorage.instance;
   final RecsentSearchesStorage _recentSearchStorage =
@@ -75,6 +76,7 @@ class RestaurantScreenNotifier extends _$RestaurantScreenNotifier {
     } else {
       selectedCuisineType = cuisineType;
     }
+
     _emit();
   }
 
@@ -89,12 +91,13 @@ class RestaurantScreenNotifier extends _$RestaurantScreenNotifier {
     } else {
       selectedRefinement.add(refine);
     }
+
     _emit();
   }
 
   int get restaurantCount {
     return state.maybeWhen(
-      success: (restaurants) => restaurants.length,
+      success: (restaurants, _, __, ___, ____) => restaurants.length,
       orElse: () => 0,
     );
   }
@@ -114,6 +117,7 @@ class RestaurantScreenNotifier extends _$RestaurantScreenNotifier {
     _selectedPriceRange = priceRange;
     _selectedDietary = dietary;
     _selectedSortBy = sortBy;
+
     _emit();
   }
 
@@ -122,6 +126,7 @@ class RestaurantScreenNotifier extends _$RestaurantScreenNotifier {
     _selectedPriceRange = null;
     _selectedDietary.clear();
     _selectedSortBy = null;
+
     _emit();
   }
 
@@ -141,9 +146,17 @@ class RestaurantScreenNotifier extends _$RestaurantScreenNotifier {
   void _emit() {
     final filtered = _applyFilter();
     if (filtered.isEmpty) {
-      state = const RestaurantScreenState.empty();
+      state = RestaurantScreenState.empty(
+          selectedCusineType: selectedCuisineType,
+          selectedRefinement: selectedRefinement,
+          searchResult: _searchResult);
     } else {
-      state = RestaurantScreenState.success(restaurants: filtered);
+      state = RestaurantScreenState.success(
+          restaurants: filtered,
+          selectedCusineType: selectedCuisineType,
+          selectedRefinement: selectedRefinement,
+          searchResult: '',
+          restaurantCount: filtered.length);
     }
   }
 
@@ -220,14 +233,22 @@ class RestaurantScreenNotifier extends _$RestaurantScreenNotifier {
       favoriteedRestaurants = _favoriteStorage.favoriteIds;
       _recentSearch = _recentSearchStorage.recentSearches;
       state = RestaurantScreenState.success(
-          restaurants: _allRestaurant); // 4. tell UI result
+          restaurants: _allRestaurant,
+          selectedCusineType: selectedCuisineType,
+          selectedRefinement: selectedRefinement,
+          searchResult: _searchResult,
+          restaurantCount: _allRestaurant.length); // 4. tell UI result
     } catch (e) {
       // Fallback to mock restaurants when the API/backend is unavailable.
       _allRestaurant = mockRestaurants;
       favoriteedRestaurants = _favoriteStorage.favoriteIds;
       _recentSearch = _recentSearchStorage.recentSearches;
       state = RestaurantScreenState.success(
-          restaurants: _allRestaurant); // 4. tell UI result
+          restaurants: _allRestaurant,
+          selectedCusineType: selectedCuisineType,
+          selectedRefinement: selectedRefinement,
+          searchResult: _searchResult,
+          restaurantCount: _allRestaurant.length); // 4. tell UI result
     }
   }
 }

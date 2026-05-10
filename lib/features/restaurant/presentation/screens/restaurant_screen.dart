@@ -230,6 +230,18 @@ class _RestaurantScreenState extends ConsumerState<RestaurantScreen> {
     final state = ref.watch(restaurantScreenProvider);
     final notifier = ref.read(restaurantScreenProvider.notifier);
 
+    final currentCuisine = state.maybeWhen(
+      success: (_, cuisine, __, ___, ____) => cuisine,
+      empty: (cuisine, __, ___) => cuisine,
+      orElse: () => null,
+    );
+
+    final currentRefinements = state.maybeWhen(
+      success: (_, __, refinements, ___, ____) => refinements,
+      empty: (_, refinements, ___) => refinements,
+      orElse: () => <RefinementType>{},
+    );
+
     return Scaffold(
       backgroundColor: colors.surface,
       bottomNavigationBar: SizedBox(
@@ -261,7 +273,7 @@ class _RestaurantScreenState extends ConsumerState<RestaurantScreen> {
                     onCategorySelected: (category) {
                       notifier.selectedCategory(category);
                     },
-                    selectedCuisineType: notifier.selectedCuisineType,
+                    selectedCuisineType: currentCuisine,
                   ),
                   SizedBox(
                     height: AppDimensions.spaceSM,
@@ -271,7 +283,7 @@ class _RestaurantScreenState extends ConsumerState<RestaurantScreen> {
                       onSelectedRefineFilter: (refine) {
                         notifier.toggleRefinement(refine);
                       },
-                      selectedRefinement: notifier.selectedRefinement,
+                      selectedRefinement: currentRefinements,
                       onOpenFilter: () {
                         showModalBottomSheet(
                             showDragHandle: true,
@@ -284,10 +296,10 @@ class _RestaurantScreenState extends ConsumerState<RestaurantScreen> {
                                   initialSortBy: null,
                                   restaurantCount: notifier.restaurantCount,
                                   onReset: () => notifier.resetFilters(),
-                                  onApply: (cuisines, priceRange, dietary,
-                                          sortBy) =>
-                                      notifier.applyFilters(
-                                          cuisines, priceRange, dietary, sortBy),
+                                  onApply:
+                                      (cuisines, priceRange, dietary, sortBy) =>
+                                          notifier.applyFilters(cuisines,
+                                              priceRange, dietary, sortBy),
                                 ));
                       }),
                   SizedBox(

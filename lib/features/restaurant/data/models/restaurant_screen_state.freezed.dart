@@ -154,8 +154,16 @@ extension RestaurantScreenStatePatterns on RestaurantScreenState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Restaurant> restaurants)? success,
-    TResult Function()? empty,
+    TResult Function(
+            List<Restaurant> restaurants,
+            CuisineType? selectedCusineType,
+            Set<RefinementType> selectedRefinement,
+            String searchResult,
+            int restaurantCount)?
+        success,
+    TResult Function(CuisineType? selectedCusineType,
+            Set<RefinementType> selectedRefinement, String searchResult)?
+        empty,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -164,9 +172,15 @@ extension RestaurantScreenStatePatterns on RestaurantScreenState {
       case _Loading() when loading != null:
         return loading();
       case _Success() when success != null:
-        return success(_that.restaurants);
+        return success(
+            _that.restaurants,
+            _that.selectedCusineType,
+            _that.selectedRefinement,
+            _that.searchResult,
+            _that.restaurantCount);
       case _Empty() when empty != null:
-        return empty();
+        return empty(_that.selectedCusineType, _that.selectedRefinement,
+            _that.searchResult);
       case _Error() when error != null:
         return error(_that.message);
       case _:
@@ -190,8 +204,16 @@ extension RestaurantScreenStatePatterns on RestaurantScreenState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Restaurant> restaurants) success,
-    required TResult Function() empty,
+    required TResult Function(
+            List<Restaurant> restaurants,
+            CuisineType? selectedCusineType,
+            Set<RefinementType> selectedRefinement,
+            String searchResult,
+            int restaurantCount)
+        success,
+    required TResult Function(CuisineType? selectedCusineType,
+            Set<RefinementType> selectedRefinement, String searchResult)
+        empty,
     required TResult Function(String message) error,
   }) {
     final _that = this;
@@ -199,9 +221,15 @@ extension RestaurantScreenStatePatterns on RestaurantScreenState {
       case _Loading():
         return loading();
       case _Success():
-        return success(_that.restaurants);
+        return success(
+            _that.restaurants,
+            _that.selectedCusineType,
+            _that.selectedRefinement,
+            _that.searchResult,
+            _that.restaurantCount);
       case _Empty():
-        return empty();
+        return empty(_that.selectedCusineType, _that.selectedRefinement,
+            _that.searchResult);
       case _Error():
         return error(_that.message);
     }
@@ -222,8 +250,16 @@ extension RestaurantScreenStatePatterns on RestaurantScreenState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Restaurant> restaurants)? success,
-    TResult? Function()? empty,
+    TResult? Function(
+            List<Restaurant> restaurants,
+            CuisineType? selectedCusineType,
+            Set<RefinementType> selectedRefinement,
+            String searchResult,
+            int restaurantCount)?
+        success,
+    TResult? Function(CuisineType? selectedCusineType,
+            Set<RefinementType> selectedRefinement, String searchResult)?
+        empty,
     TResult? Function(String message)? error,
   }) {
     final _that = this;
@@ -231,9 +267,15 @@ extension RestaurantScreenStatePatterns on RestaurantScreenState {
       case _Loading() when loading != null:
         return loading();
       case _Success() when success != null:
-        return success(_that.restaurants);
+        return success(
+            _that.restaurants,
+            _that.selectedCusineType,
+            _that.selectedRefinement,
+            _that.searchResult,
+            _that.restaurantCount);
       case _Empty() when empty != null:
-        return empty();
+        return empty(_that.selectedCusineType, _that.selectedRefinement,
+            _that.searchResult);
       case _Error() when error != null:
         return error(_that.message);
       case _:
@@ -265,8 +307,14 @@ class _Loading implements RestaurantScreenState {
 /// @nodoc
 
 class _Success implements RestaurantScreenState {
-  const _Success({required final List<Restaurant> restaurants})
-      : _restaurants = restaurants;
+  const _Success(
+      {required final List<Restaurant> restaurants,
+      required this.selectedCusineType,
+      required final Set<RefinementType> selectedRefinement,
+      required this.searchResult,
+      required this.restaurantCount})
+      : _restaurants = restaurants,
+        _selectedRefinement = selectedRefinement;
 
   final List<Restaurant> _restaurants;
   List<Restaurant> get restaurants {
@@ -274,6 +322,18 @@ class _Success implements RestaurantScreenState {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_restaurants);
   }
+
+  final CuisineType? selectedCusineType;
+  final Set<RefinementType> _selectedRefinement;
+  Set<RefinementType> get selectedRefinement {
+    if (_selectedRefinement is EqualUnmodifiableSetView)
+      return _selectedRefinement;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(_selectedRefinement);
+  }
+
+  final String searchResult;
+  final int restaurantCount;
 
   /// Create a copy of RestaurantScreenState
   /// with the given fields replaced by the non-null parameter values.
@@ -288,16 +348,29 @@ class _Success implements RestaurantScreenState {
         (other.runtimeType == runtimeType &&
             other is _Success &&
             const DeepCollectionEquality()
-                .equals(other._restaurants, _restaurants));
+                .equals(other._restaurants, _restaurants) &&
+            (identical(other.selectedCusineType, selectedCusineType) ||
+                other.selectedCusineType == selectedCusineType) &&
+            const DeepCollectionEquality()
+                .equals(other._selectedRefinement, _selectedRefinement) &&
+            (identical(other.searchResult, searchResult) ||
+                other.searchResult == searchResult) &&
+            (identical(other.restaurantCount, restaurantCount) ||
+                other.restaurantCount == restaurantCount));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_restaurants));
+      runtimeType,
+      const DeepCollectionEquality().hash(_restaurants),
+      selectedCusineType,
+      const DeepCollectionEquality().hash(_selectedRefinement),
+      searchResult,
+      restaurantCount);
 
   @override
   String toString() {
-    return 'RestaurantScreenState.success(restaurants: $restaurants)';
+    return 'RestaurantScreenState.success(restaurants: $restaurants, selectedCusineType: $selectedCusineType, selectedRefinement: $selectedRefinement, searchResult: $searchResult, restaurantCount: $restaurantCount)';
   }
 }
 
@@ -307,7 +380,12 @@ abstract mixin class _$SuccessCopyWith<$Res>
   factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) =
       __$SuccessCopyWithImpl;
   @useResult
-  $Res call({List<Restaurant> restaurants});
+  $Res call(
+      {List<Restaurant> restaurants,
+      CuisineType? selectedCusineType,
+      Set<RefinementType> selectedRefinement,
+      String searchResult,
+      int restaurantCount});
 }
 
 /// @nodoc
@@ -322,12 +400,32 @@ class __$SuccessCopyWithImpl<$Res> implements _$SuccessCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   $Res call({
     Object? restaurants = null,
+    Object? selectedCusineType = freezed,
+    Object? selectedRefinement = null,
+    Object? searchResult = null,
+    Object? restaurantCount = null,
   }) {
     return _then(_Success(
       restaurants: null == restaurants
           ? _self._restaurants
           : restaurants // ignore: cast_nullable_to_non_nullable
               as List<Restaurant>,
+      selectedCusineType: freezed == selectedCusineType
+          ? _self.selectedCusineType
+          : selectedCusineType // ignore: cast_nullable_to_non_nullable
+              as CuisineType?,
+      selectedRefinement: null == selectedRefinement
+          ? _self._selectedRefinement
+          : selectedRefinement // ignore: cast_nullable_to_non_nullable
+              as Set<RefinementType>,
+      searchResult: null == searchResult
+          ? _self.searchResult
+          : searchResult // ignore: cast_nullable_to_non_nullable
+              as String,
+      restaurantCount: null == restaurantCount
+          ? _self.restaurantCount
+          : restaurantCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -335,20 +433,94 @@ class __$SuccessCopyWithImpl<$Res> implements _$SuccessCopyWith<$Res> {
 /// @nodoc
 
 class _Empty implements RestaurantScreenState {
-  const _Empty();
+  const _Empty(
+      {required this.selectedCusineType,
+      required final Set<RefinementType> selectedRefinement,
+      required this.searchResult})
+      : _selectedRefinement = selectedRefinement;
+
+  final CuisineType? selectedCusineType;
+  final Set<RefinementType> _selectedRefinement;
+  Set<RefinementType> get selectedRefinement {
+    if (_selectedRefinement is EqualUnmodifiableSetView)
+      return _selectedRefinement;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(_selectedRefinement);
+  }
+
+  final String searchResult;
+
+  /// Create a copy of RestaurantScreenState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$EmptyCopyWith<_Empty> get copyWith =>
+      __$EmptyCopyWithImpl<_Empty>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _Empty);
+        (other.runtimeType == runtimeType &&
+            other is _Empty &&
+            (identical(other.selectedCusineType, selectedCusineType) ||
+                other.selectedCusineType == selectedCusineType) &&
+            const DeepCollectionEquality()
+                .equals(other._selectedRefinement, _selectedRefinement) &&
+            (identical(other.searchResult, searchResult) ||
+                other.searchResult == searchResult));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, selectedCusineType,
+      const DeepCollectionEquality().hash(_selectedRefinement), searchResult);
 
   @override
   String toString() {
-    return 'RestaurantScreenState.empty()';
+    return 'RestaurantScreenState.empty(selectedCusineType: $selectedCusineType, selectedRefinement: $selectedRefinement, searchResult: $searchResult)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$EmptyCopyWith<$Res>
+    implements $RestaurantScreenStateCopyWith<$Res> {
+  factory _$EmptyCopyWith(_Empty value, $Res Function(_Empty) _then) =
+      __$EmptyCopyWithImpl;
+  @useResult
+  $Res call(
+      {CuisineType? selectedCusineType,
+      Set<RefinementType> selectedRefinement,
+      String searchResult});
+}
+
+/// @nodoc
+class __$EmptyCopyWithImpl<$Res> implements _$EmptyCopyWith<$Res> {
+  __$EmptyCopyWithImpl(this._self, this._then);
+
+  final _Empty _self;
+  final $Res Function(_Empty) _then;
+
+  /// Create a copy of RestaurantScreenState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? selectedCusineType = freezed,
+    Object? selectedRefinement = null,
+    Object? searchResult = null,
+  }) {
+    return _then(_Empty(
+      selectedCusineType: freezed == selectedCusineType
+          ? _self.selectedCusineType
+          : selectedCusineType // ignore: cast_nullable_to_non_nullable
+              as CuisineType?,
+      selectedRefinement: null == selectedRefinement
+          ? _self._selectedRefinement
+          : selectedRefinement // ignore: cast_nullable_to_non_nullable
+              as Set<RefinementType>,
+      searchResult: null == searchResult
+          ? _self.searchResult
+          : searchResult // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
   }
 }
 
