@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:foodie/features/restaurant/data/models/restaurant.dart';
+import 'package:foodie/features/restaurant/presentation/providers/restaurant_screen_notifier.dart';
 import 'package:foodie/features/restaurant/presentation/widgets/restaurant_details.dart';
 import 'package:foodie/features/restaurant/presentation/widgets/restaurant_hero_header.dart';
 import 'package:foodie/features/restaurant/presentation/widgets/restaurant_tab_bar.dart';
 
-class RestaurantDetailScreen extends StatefulWidget {
+class RestaurantDetailScreen extends ConsumerStatefulWidget {
   final Restaurant restaurant;
 
   const RestaurantDetailScreen({super.key, required this.restaurant});
 
   @override
-  State<RestaurantDetailScreen> createState() =>
+  ConsumerState<RestaurantDetailScreen> createState() =>
       _RestaurantDetailsScreenState();
 }
 
-class _RestaurantDetailsScreenState extends State<RestaurantDetailScreen>
+class _RestaurantDetailsScreenState
+    extends ConsumerState<RestaurantDetailScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
@@ -32,6 +35,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailScreen>
 
   @override
   Widget build(BuildContext context) {
+    final notifier = ref.read(restaurantScreenProvider.notifier);
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
@@ -43,6 +47,9 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailScreen>
                 background: RestaurantHeroHeader(
                   imageUrl: widget.restaurant.imageUrl,
                   height: 300,
+                  isFavorited: notifier.isFavorite(widget.restaurant.id),
+                  onFavorited: () =>
+                      notifier.favoriteRestaurant(widget.restaurant.id),
                 ),
               ),
             ),

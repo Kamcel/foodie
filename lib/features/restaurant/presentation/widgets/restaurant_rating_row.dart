@@ -41,14 +41,12 @@ class RestaurantRatingRow extends StatelessWidget {
                 ),
                 Text(
                   '${_formatCount(restaurant.reviewCount)} ratings',
-                  style: textTheme.bodySmall
-                      ?.copyWith(color: colors.onSurfaceVariant),
+                  style: textTheme.bodySmall?.copyWith(color: colors.onSurface),
                 )
               ],
             ),
           ),
-          VerticalDivider(
-              width: 1, thickness: 0.5, color: colors.onSurfaceVariant),
+          VerticalDivider(width: 1, thickness: 0.5, color: colors.onSurface),
           Expanded(
             child: Column(
               children: [
@@ -62,14 +60,12 @@ class RestaurantRatingRow extends StatelessWidget {
                 ),
                 Text(
                   'Delivery',
-                  style: textTheme.bodySmall
-                      ?.copyWith(color: colors.onSurfaceVariant),
+                  style: textTheme.bodySmall?.copyWith(color: colors.onSurface),
                 )
               ],
             ),
           ),
-          VerticalDivider(
-              width: 1, thickness: 0.5, color: colors.onSurfaceVariant),
+          VerticalDivider(width: 1, thickness: 0.5, color: colors.onSurface),
           Expanded(
             child: Column(
               children: [
@@ -83,14 +79,12 @@ class RestaurantRatingRow extends StatelessWidget {
                 ),
                 Text(
                   'Away',
-                  style: textTheme.bodySmall
-                      ?.copyWith(color: colors.onSurfaceVariant),
+                  style: textTheme.bodySmall?.copyWith(color: colors.onSurface),
                 )
               ],
             ),
           ),
-          VerticalDivider(
-              width: 1, thickness: 0.5, color: colors.onSurfaceVariant),
+          VerticalDivider(width: 1, thickness: 0.5, color: colors.onSurface),
           Expanded(
             child: Column(
               children: [
@@ -106,8 +100,7 @@ class RestaurantRatingRow extends StatelessWidget {
                 ),
                 Text(
                   'Delivery',
-                  style: textTheme.bodySmall
-                      ?.copyWith(color: colors.onSurfaceVariant),
+                  style: textTheme.bodySmall?.copyWith(color: colors.onSurface),
                 )
               ],
             ),

@@ -8,8 +8,14 @@ import 'package:foodie/features/restaurant/presentation/widgets/image_placeholde
 class RestaurantHeroHeader extends StatelessWidget {
   final String imageUrl;
   final double height;
+  final bool isFavorited;
+  final VoidCallback onFavorited;
   const RestaurantHeroHeader(
-      {super.key, required this.imageUrl, required this.height});
+      {super.key,
+      required this.imageUrl,
+      required this.height,
+      required this.isFavorited,
+      required this.onFavorited});
 
   @override
   Widget build(BuildContext context) {
@@ -55,13 +61,11 @@ class RestaurantHeroHeader extends StatelessWidget {
             top: AppDimensions.spaceMD,
             right: AppDimensions.spaceMD,
             child: FavoriteAndShare(
-                onFavorite: () {
-                  //TODO: favorite logic
-                },
+                onFavorite: onFavorited,
                 onShare: () {
                   //TODO: share logic
                 },
-                isFavorited: true))
+                isFavorited: isFavorited))
       ],
     );
   }

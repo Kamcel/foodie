@@ -16,6 +16,7 @@ class FavoriteAndShare extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Row(
       children: [
         GestureDetector(
@@ -41,7 +42,7 @@ class FavoriteAndShare extends StatelessWidget {
                               : Icons.favorite_outlined,
                           color: isFavorited
                               ? AppColors.error
-                              : Colors.transparent),
+                              : colors.onSurfaceVariant),
                     )
                   ],
                 )),
