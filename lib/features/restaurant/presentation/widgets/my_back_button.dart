@@ -10,18 +10,42 @@ class MyBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: onBack,
-        child: Container(
+      onTap: onBack,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(AppDimensions.radiusSM),
+        child: SizedBox(
             height: 40,
             width: 40,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(AppDimensions.spaceXS),
-                color: Colors.black),
-            child: Icon(
-              Icons.arrow_back,
-            )));
+            child: Stack(
+              children: [
+                BackdropFilter(
+                  filter: ImageFilter.blur(
+                    sigmaX: 5,
+                    sigmaY: 5,
+                  ),
+                  child: Container(),
+                ),
+                Center(
+                  child: Icon(Icons.arrow_back),
+                )
+              ],
+            )),
+      ),
+    );
   }
 }
+
+// GestureDetector(
+//         onTap: onBack,
+//         child: Container(
+//             height: 40,
+//             width: 40,
+//             decoration: BoxDecoration(
+//                 borderRadius: BorderRadius.circular(AppDimensions.spaceXS),
+//                 color: Colors.black),
+//             child: Icon(
+//               Icons.arrow_back,
+//             )));
 
 // GestureDetector(
 //         onTap: onBack,

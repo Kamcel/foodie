@@ -44,12 +44,9 @@ class RestaurantHeroHeader extends StatelessWidget {
                     padding: EdgeInsets.all(AppDimensions.spaceXS),
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(8)),
-                    child: Container(
-                        color: Colors.white.withValues(alpha: 0.2),
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                        )),
+                    child: Icon(
+                      Icons.arrow_back,
+                    ),
                   ),
                 ),
               ),

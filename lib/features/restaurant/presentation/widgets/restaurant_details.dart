@@ -29,7 +29,7 @@ class RestaurantDetails extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return Container(
       color: colors.surfaceContainer,
-      padding: const EdgeInsets.symmetric(horizontal: AppDimensions.spaceMD),
+      padding: const EdgeInsets.all(AppDimensions.spaceMD),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

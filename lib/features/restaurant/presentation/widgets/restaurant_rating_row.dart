@@ -21,8 +21,8 @@ class RestaurantRatingRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: AppDimensions.spaceSM),
       decoration: BoxDecoration(
         border: BoxBorder.fromSTEB(
-          top: BorderSide(width: 0.1, color: colors.onSurfaceVariant),
-          bottom: BorderSide(width: 0.1, color: colors.onSurfaceVariant),
+          top: BorderSide(width: 0.3, color: colors.onSurfaceVariant),
+          bottom: BorderSide(width: 0.4, color: colors.onSurfaceVariant),
         ),
       ),
       child: Row(
@@ -33,7 +33,8 @@ class RestaurantRatingRow extends StatelessWidget {
               children: [
                 Text(
                   restaurant.rating.toString(),
-                  style: textTheme.bodyLarge,
+                  style: textTheme.bodyLarge
+                      ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: AppDimensions.spaceXXS,
@@ -47,15 +48,14 @@ class RestaurantRatingRow extends StatelessWidget {
             ),
           ),
           VerticalDivider(
-              width: 1,
-              thickness: 0.5,
-              color: colors.onSurfaceVariant.withOpacity(0.3)),
+              width: 1, thickness: 0.5, color: colors.onSurfaceVariant),
           Expanded(
             child: Column(
               children: [
                 Text(
                   '${restaurant.deliveryTimeMin.toInt()}-${restaurant.deliveryTimeMax.toInt()} min',
-                  style: textTheme.bodyLarge,
+                  style: textTheme.bodyLarge
+                      ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: AppDimensions.spaceXXS,
@@ -69,15 +69,14 @@ class RestaurantRatingRow extends StatelessWidget {
             ),
           ),
           VerticalDivider(
-              width: 1,
-              thickness: 0.5,
-              color: colors.onSurfaceVariant.withOpacity(0.3)),
+              width: 1, thickness: 0.5, color: colors.onSurfaceVariant),
           Expanded(
             child: Column(
               children: [
                 Text(
                   '0.4 mi',
-                  style: textTheme.bodyLarge,
+                  style: textTheme.bodyLarge
+                      ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: AppDimensions.spaceXXS,
@@ -91,9 +90,7 @@ class RestaurantRatingRow extends StatelessWidget {
             ),
           ),
           VerticalDivider(
-              width: 1,
-              thickness: 0.5,
-              color: colors.onSurfaceVariant.withOpacity(0.3)),
+              width: 1, thickness: 0.5, color: colors.onSurfaceVariant),
           Expanded(
             child: Column(
               children: [
@@ -101,7 +98,8 @@ class RestaurantRatingRow extends StatelessWidget {
                   restaurant.deliveryFee == 0
                       ? 'Free'
                       : 'N${restaurant.deliveryFee}',
-                  style: textTheme.bodyLarge,
+                  style: textTheme.bodyLarge
+                      ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: AppDimensions.spaceXXS,
