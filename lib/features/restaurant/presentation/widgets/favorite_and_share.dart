@@ -33,8 +33,11 @@ class FavoriteAndShare extends StatelessWidget {
                   child: Container(
                       color: Colors.white.withValues(alpha: 0.2),
                       child: Icon(
-                        isFavorited ? Icons.favorite : Icons.favorite_border,
-                        color: isFavorited ? AppColors.error : Colors.white,
+                        isFavorited
+                            ? Icons.favorite_border_rounded
+                            : Icons.favorite_border_outlined,
+                        color:
+                            isFavorited ? AppColors.error : Colors.transparent,
                       )),
                 ),
               ),

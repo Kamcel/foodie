@@ -38,6 +38,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailScreen>
           slivers: [
             SliverAppBar(
               expandedHeight: 300,
+              automaticallyImplyLeading: false,
               flexibleSpace: FlexibleSpaceBar(
                 background: RestaurantHeroHeader(
                   imageUrl: widget.restaurant.imageUrl,
