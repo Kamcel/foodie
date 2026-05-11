@@ -102,6 +102,10 @@ _Restaurant _$RestaurantFromJson(Map<String, dynamic> json) => _Restaurant(
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       ownerId: json['ownerId'] as String?,
+      reviews: (json['reviews'] as List<dynamic>?)
+              ?.map((e) => Review.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$RestaurantToJson(_Restaurant instance) =>
@@ -164,6 +168,7 @@ Map<String, dynamic> _$RestaurantToJson(_Restaurant instance) =>
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt.toIso8601String(),
       'ownerId': instance.ownerId,
+      'reviews': instance.reviews,
     };
 
 const _$CuisineTypeEnumMap = {

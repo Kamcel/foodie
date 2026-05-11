@@ -12,7 +12,9 @@ import 'package:foodie/features/onboarding/presentation/screens/splash_screen.da
 import 'package:foodie/features/onboarding/presentation/screens/welcome_screen.dart';
 import 'package:foodie/features/profile/presentation/screens/profile_setup_screen.dart';
 import 'package:foodie/features/restaurant/data/models/restaurant.dart';
+import 'package:foodie/features/restaurant/data/models/review.dart';
 import 'package:foodie/features/restaurant/presentation/screens/restaurant_detail_screen.dart';
+import 'package:foodie/features/restaurant/presentation/screens/restaurant_review_screen.dart';
 import 'package:foodie/features/restaurant/presentation/screens/restaurant_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -110,5 +112,14 @@ final GoRouter router = GoRouter(
         return RestaurantDetailScreen(restaurant: restaurant);
       },
     ),
+    GoRoute(
+        path: '/restaurant-review',
+        name: 'restaurantReviewScreen',
+        builder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>;
+          return RestaurantReviewScreen(
+              restaurant: extra['restaurant'] as Restaurant,
+              reviews: extra['reviews'] as List<Review>);
+        })
   ],
 );

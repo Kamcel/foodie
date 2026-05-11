@@ -2,6 +2,7 @@ import 'package:foodie/features/restaurant/data/models/restaurant_address.dart';
 import 'package:foodie/features/restaurant/data/models/restaurant_menu_category.dart';
 import 'package:foodie/features/restaurant/data/models/restaurant_opening_hours.dart';
 import 'package:foodie/features/restaurant/data/models/restaurant_promotion.dart';
+import 'package:foodie/features/restaurant/data/models/review.dart';
 import 'package:foodie/features/restaurant/data/restaurant_enum.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -93,6 +94,9 @@ abstract class Restaurant with _$Restaurant {
     required DateTime createdAt,
     required DateTime updatedAt,
     String? ownerId,
+
+    // ========== REVIEW ==========
+    @Default([]) List<Review> reviews,
   }) = _Restaurant;
 
   // M -- Map: fromJson

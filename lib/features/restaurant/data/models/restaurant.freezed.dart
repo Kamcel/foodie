@@ -68,7 +68,8 @@ mixin _$Restaurant {
   String? get email; // ========== METADATA ==========
   DateTime get createdAt;
   DateTime get updatedAt;
-  String? get ownerId;
+  String? get ownerId; // ========== REVIEW ==========
+  List<Review> get reviews;
 
   /// Create a copy of Restaurant
   /// with the given fields replaced by the non-null parameter values.
@@ -173,7 +174,8 @@ mixin _$Restaurant {
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
-            (identical(other.ownerId, ownerId) || other.ownerId == ownerId));
+            (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
+            const DeepCollectionEquality().equals(other.reviews, reviews));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -231,12 +233,13 @@ mixin _$Restaurant {
         email,
         createdAt,
         updatedAt,
-        ownerId
+        ownerId,
+        const DeepCollectionEquality().hash(reviews)
       ]);
 
   @override
   String toString() {
-    return 'Restaurant(id: $id, name: $name, slug: $slug, description: $description, imageUrl: $imageUrl, tagline: $tagline, logoUrl: $logoUrl, coverImages: $coverImages, cuisines: $cuisines, categories: $categories, priceRange: $priceRange, tags: $tags, status: $status, tier: $tier, address: $address, latitude: $latitude, longitude: $longitude, deliveryRadiusKm: $deliveryRadiusKm, openingHours: $openingHours, isOpenNow: $isOpenNow, isTemporarilyClosed: $isTemporarilyClosed, nextOpeningTime: $nextOpeningTime, nextClosingTime: $nextClosingTime, deliveryFee: $deliveryFee, deliveryTimeMin: $deliveryTimeMin, deliveryTimeMax: $deliveryTimeMax, minimumOrderAmount: $minimumOrderAmount, offersDelivery: $offersDelivery, offersPickup: $offersPickup, offersCatering: $offersCatering, orderTypes: $orderTypes, rating: $rating, reviewCount: $reviewCount, foodRating: $foodRating, deliveryRating: $deliveryRating, packagingRating: $packagingRating, dietaryOptions: $dietaryOptions, amenities: $amenities, acceptsCustomRequests: $acceptsCustomRequests, hasAlcohol: $hasAlcohol, isChain: $isChain, isSponsored: $isSponsored, acceptedPaymentMethods: $acceptedPaymentMethods, activePromotions: $activePromotions, menuCategories: $menuCategories, popularItemIds: $popularItemIds, phoneNumber: $phoneNumber, websiteUrl: $websiteUrl, email: $email, createdAt: $createdAt, updatedAt: $updatedAt, ownerId: $ownerId)';
+    return 'Restaurant(id: $id, name: $name, slug: $slug, description: $description, imageUrl: $imageUrl, tagline: $tagline, logoUrl: $logoUrl, coverImages: $coverImages, cuisines: $cuisines, categories: $categories, priceRange: $priceRange, tags: $tags, status: $status, tier: $tier, address: $address, latitude: $latitude, longitude: $longitude, deliveryRadiusKm: $deliveryRadiusKm, openingHours: $openingHours, isOpenNow: $isOpenNow, isTemporarilyClosed: $isTemporarilyClosed, nextOpeningTime: $nextOpeningTime, nextClosingTime: $nextClosingTime, deliveryFee: $deliveryFee, deliveryTimeMin: $deliveryTimeMin, deliveryTimeMax: $deliveryTimeMax, minimumOrderAmount: $minimumOrderAmount, offersDelivery: $offersDelivery, offersPickup: $offersPickup, offersCatering: $offersCatering, orderTypes: $orderTypes, rating: $rating, reviewCount: $reviewCount, foodRating: $foodRating, deliveryRating: $deliveryRating, packagingRating: $packagingRating, dietaryOptions: $dietaryOptions, amenities: $amenities, acceptsCustomRequests: $acceptsCustomRequests, hasAlcohol: $hasAlcohol, isChain: $isChain, isSponsored: $isSponsored, acceptedPaymentMethods: $acceptedPaymentMethods, activePromotions: $activePromotions, menuCategories: $menuCategories, popularItemIds: $popularItemIds, phoneNumber: $phoneNumber, websiteUrl: $websiteUrl, email: $email, createdAt: $createdAt, updatedAt: $updatedAt, ownerId: $ownerId, reviews: $reviews)';
   }
 }
 
@@ -298,7 +301,8 @@ abstract mixin class $RestaurantCopyWith<$Res> {
       String? email,
       DateTime createdAt,
       DateTime updatedAt,
-      String? ownerId});
+      String? ownerId,
+      List<Review> reviews});
 
   $RestaurantAddressCopyWith<$Res> get address;
 }
@@ -367,6 +371,7 @@ class _$RestaurantCopyWithImpl<$Res> implements $RestaurantCopyWith<$Res> {
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? ownerId = freezed,
+    Object? reviews = null,
   }) {
     return _then(_self.copyWith(
       id: null == id
@@ -577,6 +582,10 @@ class _$RestaurantCopyWithImpl<$Res> implements $RestaurantCopyWith<$Res> {
           ? _self.ownerId
           : ownerId // ignore: cast_nullable_to_non_nullable
               as String?,
+      reviews: null == reviews
+          ? _self.reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<Review>,
     ));
   }
 
@@ -736,7 +745,8 @@ extension RestaurantPatterns on Restaurant {
             String? email,
             DateTime createdAt,
             DateTime updatedAt,
-            String? ownerId)?
+            String? ownerId,
+            List<Review> reviews)?
         $default, {
     required TResult orElse(),
   }) {
@@ -795,7 +805,8 @@ extension RestaurantPatterns on Restaurant {
             _that.email,
             _that.createdAt,
             _that.updatedAt,
-            _that.ownerId);
+            _that.ownerId,
+            _that.reviews);
       case _:
         return orElse();
     }
@@ -868,7 +879,8 @@ extension RestaurantPatterns on Restaurant {
             String? email,
             DateTime createdAt,
             DateTime updatedAt,
-            String? ownerId)
+            String? ownerId,
+            List<Review> reviews)
         $default,
   ) {
     final _that = this;
@@ -926,7 +938,8 @@ extension RestaurantPatterns on Restaurant {
             _that.email,
             _that.createdAt,
             _that.updatedAt,
-            _that.ownerId);
+            _that.ownerId,
+            _that.reviews);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -998,7 +1011,8 @@ extension RestaurantPatterns on Restaurant {
             String? email,
             DateTime createdAt,
             DateTime updatedAt,
-            String? ownerId)?
+            String? ownerId,
+            List<Review> reviews)?
         $default,
   ) {
     final _that = this;
@@ -1056,7 +1070,8 @@ extension RestaurantPatterns on Restaurant {
             _that.email,
             _that.createdAt,
             _that.updatedAt,
-            _that.ownerId);
+            _that.ownerId,
+            _that.reviews);
       case _:
         return null;
     }
@@ -1121,7 +1136,8 @@ class _Restaurant extends Restaurant {
       this.email,
       required this.createdAt,
       required this.updatedAt,
-      this.ownerId})
+      this.ownerId,
+      final List<Review> reviews = const []})
       : _coverImages = coverImages,
         _cuisines = cuisines,
         _categories = categories,
@@ -1134,6 +1150,7 @@ class _Restaurant extends Restaurant {
         _activePromotions = activePromotions,
         _menuCategories = menuCategories,
         _popularItemIds = popularItemIds,
+        _reviews = reviews,
         super._();
   factory _Restaurant.fromJson(Map<String, dynamic> json) =>
       _$RestaurantFromJson(json);
@@ -1362,6 +1379,16 @@ class _Restaurant extends Restaurant {
   final DateTime updatedAt;
   @override
   final String? ownerId;
+// ========== REVIEW ==========
+  final List<Review> _reviews;
+// ========== REVIEW ==========
+  @override
+  @JsonKey()
+  List<Review> get reviews {
+    if (_reviews is EqualUnmodifiableListView) return _reviews;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_reviews);
+  }
 
   /// Create a copy of Restaurant
   /// with the given fields replaced by the non-null parameter values.
@@ -1472,7 +1499,8 @@ class _Restaurant extends Restaurant {
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
-            (identical(other.ownerId, ownerId) || other.ownerId == ownerId));
+            (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
+            const DeepCollectionEquality().equals(other._reviews, _reviews));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1530,12 +1558,13 @@ class _Restaurant extends Restaurant {
         email,
         createdAt,
         updatedAt,
-        ownerId
+        ownerId,
+        const DeepCollectionEquality().hash(_reviews)
       ]);
 
   @override
   String toString() {
-    return 'Restaurant(id: $id, name: $name, slug: $slug, description: $description, imageUrl: $imageUrl, tagline: $tagline, logoUrl: $logoUrl, coverImages: $coverImages, cuisines: $cuisines, categories: $categories, priceRange: $priceRange, tags: $tags, status: $status, tier: $tier, address: $address, latitude: $latitude, longitude: $longitude, deliveryRadiusKm: $deliveryRadiusKm, openingHours: $openingHours, isOpenNow: $isOpenNow, isTemporarilyClosed: $isTemporarilyClosed, nextOpeningTime: $nextOpeningTime, nextClosingTime: $nextClosingTime, deliveryFee: $deliveryFee, deliveryTimeMin: $deliveryTimeMin, deliveryTimeMax: $deliveryTimeMax, minimumOrderAmount: $minimumOrderAmount, offersDelivery: $offersDelivery, offersPickup: $offersPickup, offersCatering: $offersCatering, orderTypes: $orderTypes, rating: $rating, reviewCount: $reviewCount, foodRating: $foodRating, deliveryRating: $deliveryRating, packagingRating: $packagingRating, dietaryOptions: $dietaryOptions, amenities: $amenities, acceptsCustomRequests: $acceptsCustomRequests, hasAlcohol: $hasAlcohol, isChain: $isChain, isSponsored: $isSponsored, acceptedPaymentMethods: $acceptedPaymentMethods, activePromotions: $activePromotions, menuCategories: $menuCategories, popularItemIds: $popularItemIds, phoneNumber: $phoneNumber, websiteUrl: $websiteUrl, email: $email, createdAt: $createdAt, updatedAt: $updatedAt, ownerId: $ownerId)';
+    return 'Restaurant(id: $id, name: $name, slug: $slug, description: $description, imageUrl: $imageUrl, tagline: $tagline, logoUrl: $logoUrl, coverImages: $coverImages, cuisines: $cuisines, categories: $categories, priceRange: $priceRange, tags: $tags, status: $status, tier: $tier, address: $address, latitude: $latitude, longitude: $longitude, deliveryRadiusKm: $deliveryRadiusKm, openingHours: $openingHours, isOpenNow: $isOpenNow, isTemporarilyClosed: $isTemporarilyClosed, nextOpeningTime: $nextOpeningTime, nextClosingTime: $nextClosingTime, deliveryFee: $deliveryFee, deliveryTimeMin: $deliveryTimeMin, deliveryTimeMax: $deliveryTimeMax, minimumOrderAmount: $minimumOrderAmount, offersDelivery: $offersDelivery, offersPickup: $offersPickup, offersCatering: $offersCatering, orderTypes: $orderTypes, rating: $rating, reviewCount: $reviewCount, foodRating: $foodRating, deliveryRating: $deliveryRating, packagingRating: $packagingRating, dietaryOptions: $dietaryOptions, amenities: $amenities, acceptsCustomRequests: $acceptsCustomRequests, hasAlcohol: $hasAlcohol, isChain: $isChain, isSponsored: $isSponsored, acceptedPaymentMethods: $acceptedPaymentMethods, activePromotions: $activePromotions, menuCategories: $menuCategories, popularItemIds: $popularItemIds, phoneNumber: $phoneNumber, websiteUrl: $websiteUrl, email: $email, createdAt: $createdAt, updatedAt: $updatedAt, ownerId: $ownerId, reviews: $reviews)';
   }
 }
 
@@ -1599,7 +1628,8 @@ abstract mixin class _$RestaurantCopyWith<$Res>
       String? email,
       DateTime createdAt,
       DateTime updatedAt,
-      String? ownerId});
+      String? ownerId,
+      List<Review> reviews});
 
   @override
   $RestaurantAddressCopyWith<$Res> get address;
@@ -1669,6 +1699,7 @@ class __$RestaurantCopyWithImpl<$Res> implements _$RestaurantCopyWith<$Res> {
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? ownerId = freezed,
+    Object? reviews = null,
   }) {
     return _then(_Restaurant(
       id: null == id
@@ -1879,6 +1910,10 @@ class __$RestaurantCopyWithImpl<$Res> implements _$RestaurantCopyWith<$Res> {
           ? _self.ownerId
           : ownerId // ignore: cast_nullable_to_non_nullable
               as String?,
+      reviews: null == reviews
+          ? _self._reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<Review>,
     ));
   }
 

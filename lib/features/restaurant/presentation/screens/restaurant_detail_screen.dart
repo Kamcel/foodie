@@ -68,15 +68,25 @@ class _RestaurantDetailsScreenState
                       },
                     ),
                     height: 48)),
-            SliverList.builder(
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text('Dish ${index + 1}'),
-                    subtitle: Text('Description of Dish ${index + 1}'),
-                    trailing: Text('\$${(index + 1) * 5}'),
-                  );
-                },
-                itemCount: 20)
+            SliverFillRemaining(
+                child: TabBarView(controller: _tabController, children: [
+              //TODO: add real data when discard is ready
+              ListView.builder(
+                itemBuilder: (BuildContext context, int index) {},
+              ),
+              ListView.builder(
+                itemBuilder: (BuildContext context, int index) {},
+              ),
+              ListView.builder(
+                itemBuilder: (BuildContext context, int index) {},
+              ),
+              ListView.builder(
+                itemBuilder: (BuildContext context, int index) {},
+              ),
+              ListView.builder(
+                itemBuilder: (BuildContext context, int index) {},
+              ),
+            ]))
             // SliverList(delegate: delegate),
           ],
         ),

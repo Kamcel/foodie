@@ -4,6 +4,7 @@ import 'package:foodie/features/restaurant/data/models/restaurant.dart';
 import 'package:foodie/features/restaurant/presentation/widgets/restaurant_rating_row.dart';
 import 'package:foodie/features/restaurant/presentation/widgets/restaurant_tag.dart';
 import 'package:foodie/features/restaurant/presentation/widgets/restaurant_tile.dart';
+import 'package:go_router/go_router.dart';
 
 class RestaurantDetails extends StatelessWidget {
   final Restaurant restaurant;
@@ -82,7 +83,12 @@ class RestaurantDetails extends StatelessWidget {
               Expanded(
                 child: OutlinedButton(
                     style: OutlinedButton.styleFrom(),
-                    onPressed: () {},
+                    onPressed: () {
+                      context.pushNamed('restaurantReviewScreen', extra: {
+                        'restaurant': restaurant,
+                        'reviews': restaurant.reviews
+                      });
+                    },
                     child: Text(
                       'Review',
                       style: textTheme.bodyLarge,
