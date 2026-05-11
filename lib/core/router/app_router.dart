@@ -11,6 +11,8 @@ import 'package:foodie/features/auth/presentation/screens/register_screen.dart';
 import 'package:foodie/features/onboarding/presentation/screens/splash_screen.dart';
 import 'package:foodie/features/onboarding/presentation/screens/welcome_screen.dart';
 import 'package:foodie/features/profile/presentation/screens/profile_setup_screen.dart';
+import 'package:foodie/features/restaurant/data/models/restaurant.dart';
+import 'package:foodie/features/restaurant/presentation/screens/restaurant_detail_screen.dart';
 import 'package:foodie/features/restaurant/presentation/screens/restaurant_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -99,6 +101,14 @@ final GoRouter router = GoRouter(
       path: '/restaurants',
       name: 'restaurantScreen',
       builder: (context, state) => const RestaurantScreen(),
+    ),
+    GoRoute(
+      path: '/restaurant-detail',
+      name: 'restaurantDetailScreen',
+      builder: (context, state) {
+        final restaurant = state.extra as Restaurant;
+        return RestaurantDetailScreen(restaurant: restaurant);
+      },
     ),
   ],
 );

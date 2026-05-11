@@ -12,11 +12,11 @@ class RestaurantTile extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           restaurant.name,
-          style: textTheme.titleLarge,
+          style: textTheme.displayMedium,
         ),
         SizedBox(height: AppDimensions.spaceXS),
         Text(

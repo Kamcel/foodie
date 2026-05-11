@@ -9,16 +9,38 @@ class RestaurantDetails extends StatelessWidget {
   final Restaurant restaurant;
   const RestaurantDetails({super.key, required this.restaurant});
 
+  String paymentLabel() {
+    if (restaurant.acceptedPaymentMethods.isEmpty) return 'Cash only';
+    if (restaurant.acceptedPaymentMethods.length >= 3) return 'All Cards';
+    return restaurant.acceptedPaymentMethods
+        .map((p) => p.displayName)
+        .join(', ');
+  }
+
+  String? dietaryLabel() {
+    if (restaurant.dietaryOptions.isEmpty) return null;
+    if (restaurant.dietaryOptions.length >= 3) return 'Dietary Options';
+    return restaurant.dietaryOptions.first.displayName;
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     return Container(
+      color: colors.surfaceContainer,
       padding: const EdgeInsets.symmetric(horizontal: AppDimensions.spaceMD),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           RestaurantTile(restaurant: restaurant),
+          SizedBox(
+            height: AppDimensions.spaceMD,
+          ),
           RestaurantRatingRow(restaurant: restaurant),
+          SizedBox(
+            height: AppDimensions.spaceMD,
+          ),
           Row(
             children: [
               RestaurantTag(
@@ -32,59 +54,63 @@ class RestaurantDetails extends StatelessWidget {
               ),
               RestaurantTag(
                 icon: Icons.credit_card,
-                label: 'All Cards',
+                label: paymentLabel(),
               ),
               SizedBox(
                 width: AppDimensions.spaceXS,
               ),
-              RestaurantTag(
-                icon: Icons.eco,
-                label: restaurant.dietaryOptions.isNotEmpty
-                    ? 'Veg Options'
-                    : 'No Veg Option',
+              if (restaurant.dietaryOptions.isNotEmpty)
+                RestaurantTag(
+                  icon: Icons.eco,
+                  label: restaurant.dietaryOptions.isNotEmpty
+                      ? 'Veg Options'
+                      : 'No Veg Option',
+                ),
+              SizedBox(
+                height: AppDimensions.spaceMD,
               ),
               SizedBox(
                 width: AppDimensions.spaceXS,
               )
             ],
           ),
+          SizedBox(
+            height: AppDimensions.spaceMD,
+          ),
           Row(
             children: [
-              OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    backgroundColor: colors.onSurfaceVariant,
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'Review',
-                    style: textTheme.bodyLarge,
-                  )),
+              Expanded(
+                child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(),
+                    onPressed: () {},
+                    child: Text(
+                      'Review',
+                      style: textTheme.bodyLarge,
+                    )),
+              ),
               SizedBox(
                 width: AppDimensions.spaceSM,
               ),
-              OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    backgroundColor: colors.onSurfaceVariant,
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'Offers',
-                    style: textTheme.bodyLarge,
-                  )),
+              Expanded(
+                child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(),
+                    onPressed: () {},
+                    child: Text(
+                      'Offers',
+                      style: textTheme.bodyLarge,
+                    )),
+              ),
               SizedBox(
                 width: AppDimensions.spaceSM,
               ),
-              OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    backgroundColor: colors.onSurfaceVariant,
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'Info',
-                    style: textTheme.bodyLarge,
-                  )),
-              SizedBox(
-                width: AppDimensions.spaceSM,
+              Expanded(
+                child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(),
+                    onPressed: () {},
+                    child: Text(
+                      'Info',
+                      style: textTheme.bodyLarge,
+                    )),
               ),
             ],
           )

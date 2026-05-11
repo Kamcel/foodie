@@ -21,15 +21,14 @@ class RestaurantRatingRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: AppDimensions.spaceSM),
       decoration: BoxDecoration(
         border: BoxBorder.fromSTEB(
-          top: BorderSide(width: 1, color: colors.onSurfaceVariant),
-          bottom: BorderSide(width: 1, color: colors.onSurfaceVariant),
+          top: BorderSide(width: 0.1, color: colors.onSurfaceVariant),
+          bottom: BorderSide(width: 0.1, color: colors.onSurfaceVariant),
         ),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: AppDimensions.spaceSM),
+          Expanded(
             child: Column(
               children: [
                 Text(
@@ -47,14 +46,11 @@ class RestaurantRatingRow extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            padding:
-                const EdgeInsets.symmetric(vertical: AppDimensions.spaceSM),
-            decoration: BoxDecoration(
-                border: BoxBorder.fromLTRB(
-              left: BorderSide(width: 1, color: colors.onSurfaceVariant),
-              right: BorderSide(width: 1, color: colors.onSurfaceVariant),
-            )),
+          VerticalDivider(
+              width: 1,
+              thickness: 0.5,
+              color: colors.onSurfaceVariant.withOpacity(0.3)),
+          Expanded(
             child: Column(
               children: [
                 Text(
@@ -72,14 +68,11 @@ class RestaurantRatingRow extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            padding:
-                const EdgeInsets.symmetric(vertical: AppDimensions.spaceSM),
-            decoration: BoxDecoration(
-                border: BoxBorder.fromLTRB(
-              left: BorderSide(width: 1, color: colors.onSurfaceVariant),
-              right: BorderSide(width: 1, color: colors.onSurfaceVariant),
-            )),
+          VerticalDivider(
+              width: 1,
+              thickness: 0.5,
+              color: colors.onSurfaceVariant.withOpacity(0.3)),
+          Expanded(
             child: Column(
               children: [
                 Text(
@@ -97,9 +90,11 @@ class RestaurantRatingRow extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: AppDimensions.spaceSM),
+          VerticalDivider(
+              width: 1,
+              thickness: 0.5,
+              color: colors.onSurfaceVariant.withOpacity(0.3)),
+          Expanded(
             child: Column(
               children: [
                 Text(
@@ -118,7 +113,7 @@ class RestaurantRatingRow extends StatelessWidget {
                 )
               ],
             ),
-          )
+          ),
         ],
       ),
     );

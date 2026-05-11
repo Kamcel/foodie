@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:foodie/core/theme/app_dimensions.dart';
 import 'package:foodie/features/restaurant/presentation/widgets/favorite_and_share.dart';
 import 'package:foodie/features/restaurant/presentation/widgets/image_placeholder.dart';
-import 'package:foodie/features/restaurant/presentation/widgets/my_back_button.dart';
 
 class RestaurantHeroHeader extends StatelessWidget {
   final String imageUrl;
@@ -28,14 +27,6 @@ class RestaurantHeroHeader extends StatelessWidget {
                 ImagePlaceholder(size: height),
           ),
         ),
-        Positioned(
-            top: AppDimensions.spaceMD,
-            left: AppDimensions.spaceMD,
-            child: MyBackButton(
-              onBack: () {
-                //TODO: back to restaurant screen
-              },
-            )),
         Positioned(
             top: AppDimensions.spaceMD,
             right: AppDimensions.spaceMD,

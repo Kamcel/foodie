@@ -25,17 +25,16 @@ class FavoriteAndShare extends StatelessWidget {
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                 child: Container(
+                  height: 40,
+                  width: 40,
                   padding: EdgeInsets.all(AppDimensions.spaceXS),
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(8)),
                   child: Container(
                       color: Colors.white.withValues(alpha: 0.2),
                       child: Icon(
-                        isFavorited
-                            ? Icons.favorite_border_rounded
-                            : Icons.favorite_border_outlined,
-                        color:
-                            isFavorited ? AppColors.error : Colors.transparent,
+                        isFavorited ? Icons.favorite : Icons.favorite_border,
+                        color: isFavorited ? AppColors.error : Colors.white,
                       )),
                 ),
               ),
@@ -48,6 +47,8 @@ class FavoriteAndShare extends StatelessWidget {
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                 child: Container(
+                  height: 40,
+                  width: 40,
                   padding: EdgeInsets.all(AppDimensions.spaceXS),
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(8)),
@@ -55,7 +56,6 @@ class FavoriteAndShare extends StatelessWidget {
                       color: Colors.white.withValues(alpha: 0.2),
                       child: Icon(
                         Icons.share_outlined,
-                        color: Colors.white,
                       )),
                 ),
               ),
@@ -64,3 +64,40 @@ class FavoriteAndShare extends StatelessWidget {
     );
   }
 }
+
+
+// GestureDetector(
+//         onTap: onBack,
+//         child: Container(
+//             height: 40,
+//             width: 40,
+//             decoration: BoxDecoration(
+//                 borderRadius: BorderRadius.circular(AppDimensions.spaceXS),
+//                 color: Colors.black),
+//             child: Icon(
+//               Icons.arrow_back,
+//             )));
+
+
+//             GestureDetector(
+//             onTap: onFavorite,
+//             child: ClipRRect(
+//               borderRadius: BorderRadius.circular(8),
+//               child: BackdropFilter(
+//                 filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+//                 child: Container(
+//                   padding: EdgeInsets.all(AppDimensions.spaceXS),
+//                   decoration:
+//                       BoxDecoration(borderRadius: BorderRadius.circular(8)),
+//                   child: Container(
+//                       color: Colors.white.withValues(alpha: 0.2),
+//                       child: Icon(
+//                         isFavorited
+//                             ? Icons.favorite_border_rounded
+//                             : Icons.favorite_border_outlined,
+//                         color:
+//                             isFavorited ? AppColors.error : Colors.transparent,
+//                       )),
+//                 ),
+//               ),
+//             )),

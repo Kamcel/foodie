@@ -24,13 +24,12 @@ class RestaurantTag extends StatelessWidget {
             Icon(
               icon,
               size: 16,
-              color: colors.onSurfaceVariant,
+              color: colors.onPrimary,
             ),
             const SizedBox(width: 4),
           ],
           Text(label,
-              style:
-                  textTheme.bodySmall?.copyWith(color: colors.onSurfaceVariant))
+              style: textTheme.bodySmall?.copyWith(color: colors.onPrimary))
         ],
       ),
     );

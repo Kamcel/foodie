@@ -3,6 +3,7 @@ import 'package:foodie/core/theme/app_dimensions.dart';
 import 'package:foodie/features/restaurant/data/models/restaurant.dart';
 import 'package:foodie/features/restaurant/presentation/widgets/recent_search_tile.dart';
 import 'package:foodie/features/restaurant/presentation/widgets/restaurant_card.dart';
+import 'package:go_router/go_router.dart';
 
 class RestaurantSuccess extends StatefulWidget {
   final List<Restaurant> restaurants;
@@ -68,6 +69,9 @@ class _RestaurantSuccessState extends State<RestaurantSuccess> {
         itemBuilder: (context, index) {
           final restaurant = widget.restaurants[index];
           return RestaurantCard(
+              onTap: () {
+                context.pushNamed('restaurantDetailScreen', extra: restaurant);
+              },
               restaurant: restaurant,
               isFavorited: widget.isFavorite(restaurant.id),
               onFavoriteTap: () => widget.onToggleFavorite(restaurant.id),
@@ -77,47 +81,3 @@ class _RestaurantSuccessState extends State<RestaurantSuccess> {
     ]);
   }
 }
-
-
-// itemCount: widget.restaurants.length +
-//             (hasRecent ? widget.recentSearches.length + 1 : 0),
-//         itemBuilder: (context, index) {
-//           if (hasRecent) {
-//             if (index == 0) {
-//               return Padding(
-//                 padding: const EdgeInsets.fromLTRB(
-//                     AppDimensions.spaceMD,
-//                     AppDimensions.spaceSM,
-//                     AppDimensions.spaceMD,
-//                     AppDimensions.spaceXXS),
-//                 child: Text(
-//                   'Recent Search',
-//                   style: textTheme.titleMedium
-//                       ?.copyWith(fontWeight: FontWeight.w600),
-//                 ),
-//               );
-//             }
-//             if (index <= widget.recentSearches.length) {
-//               final searchIndex = index - 1;
-//               return RecentSearchTile(
-//                   label: widget.recentSearches[searchIndex],
-//                   onCancel: () =>
-//                       widget.onRemoveRecent(widget.recentSearches[searchIndex]),
-//                   onOpen: () =>
-//                       widget.onTapRecent(widget.recentSearches[searchIndex]),
-//                   size: 8);
-//             }
-//           }
-//           final restaurantIndex =
-//               hasRecent ? index - (widget.recentSearches.length + 1) : index;
-//           final restaurant = widget.restaurants[restaurantIndex];
-//           return RestaurantCard(
-//               restaurant: restaurant,
-//               isFavorited: widget.isFavorite(restaurant.id),
-//               onFavoriteTap: () => widget.onToggleFavorite(restaurant.id),
-//               variant: RestaurantCardVariant.big);
-//         }
-
-
-
- 
