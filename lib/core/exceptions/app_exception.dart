@@ -15,6 +15,7 @@ class AppException with _$AppException {
   const factory AppException.unknown(String message) = _Unknown;
   const factory AppException.tooManyRequests() = _TooManyRequest;
   const factory AppException.forbidden() = _Forbidden;
+  const factory AppException.connectionTimeout() = _ConnectionTimeout;
 
   //User friendly message
   String get userMessage {
@@ -29,6 +30,7 @@ class AppException with _$AppException {
       unknown: (message) => message,
       tooManyRequests: () => 'Too many request. Please try again later',
       forbidden: () => 'Request is forbidden',
+      connectionTimeout: () => 'Connection timed out. Please try again',
     );
   }
 }

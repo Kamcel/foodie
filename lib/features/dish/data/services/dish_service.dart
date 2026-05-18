@@ -1,14 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:foodie/core/exceptions/app_exception.dart';
 import 'package:foodie/core/network/api_service.dart';
-import 'package:foodie/features/restaurant/data/models/restaurant.dart';
+import 'package:foodie/features/dish/data/models/dish.dart';
 
-class RestaurantService {
+class DishService {
   final Dio _dio = ApiService.instance.dio;
-  static const String _path = '/restaurants';
+  static const String _path = '/dishes';
 
   // ── GET ALL ─────────────────────────────────────────────
-  Future<List<Restaurant>> getAll({
+  Future<List<Dish>> getAll({
     int page = 1,
     int limit = 20,
     Map<String, dynamic>? filters,
@@ -22,9 +22,7 @@ class RestaurantService {
       );
       // T -- Translate  M -- Map
       final List data = response.data['data'] ?? response.data;
-      return data
-          .map((e) => Restaurant.fromJson(e as Map<String, dynamic>))
-          .toList();
+      return data.map((e) => Dish.fromJson(e as Map<String, dynamic>)).toList();
     } on DioException catch (e) {
       // S -- Status: map to typed exception
       throw _mapError(e);
@@ -32,42 +30,11 @@ class RestaurantService {
   }
 
   // ── GET ONE ─────────────────────────────────────────────
-  Future<Restaurant> getOne(String id) async {
+  Future<Dish> getOne(String id) async {
     try {
       final response = await _dio.get('$_path/$id');
       final data = response.data['data'] ?? response.data;
-      return Restaurant.fromJson(data as Map<String, dynamic>);
-    } on DioException catch (e) {
-      throw _mapError(e);
-    }
-  }
-
-  // ── CREATE ──────────────────────────────────────────────
-  Future<Restaurant> create(Restaurant restaurant) async {
-    try {
-      final response = await _dio.post(_path, data: restaurant.toJson());
-      final data = response.data['data'] ?? response.data;
-      return Restaurant.fromJson(data as Map<String, dynamic>);
-    } on DioException catch (e) {
-      throw _mapError(e);
-    }
-  }
-
-  // ── UPDATE ──────────────────────────────────────────────
-  Future<Restaurant> update(String id, Restaurant restaurant) async {
-    try {
-      final response = await _dio.put('$_path/$id', data: restaurant.toJson());
-      final data = response.data['data'] ?? response.data;
-      return Restaurant.fromJson(data as Map<String, dynamic>);
-    } on DioException catch (e) {
-      throw _mapError(e);
-    }
-  }
-
-  // ── DELETE ──────────────────────────────────────────────
-  Future<void> delete(String id) async {
-    try {
-      await _dio.delete('$_path/$id');
+      return Dish.fromJson(data as Map<String, dynamic>);
     } on DioException catch (e) {
       throw _mapError(e);
     }

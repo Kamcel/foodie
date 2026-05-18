@@ -60,6 +60,7 @@ extension AppExceptionPatterns on AppException {
     TResult Function(_Unknown value)? unknown,
     TResult Function(_TooManyRequest value)? tooManyRequests,
     TResult Function(_Forbidden value)? forbidden,
+    TResult Function(_ConnectionTimeout value)? connectionTimeout,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -84,6 +85,8 @@ extension AppExceptionPatterns on AppException {
         return tooManyRequests(_that);
       case _Forbidden() when forbidden != null:
         return forbidden(_that);
+      case _ConnectionTimeout() when connectionTimeout != null:
+        return connectionTimeout(_that);
       case _:
         return orElse();
     }
@@ -114,6 +117,7 @@ extension AppExceptionPatterns on AppException {
     required TResult Function(_Unknown value) unknown,
     required TResult Function(_TooManyRequest value) tooManyRequests,
     required TResult Function(_Forbidden value) forbidden,
+    required TResult Function(_ConnectionTimeout value) connectionTimeout,
   }) {
     final _that = this;
     switch (_that) {
@@ -137,6 +141,8 @@ extension AppExceptionPatterns on AppException {
         return tooManyRequests(_that);
       case _Forbidden():
         return forbidden(_that);
+      case _ConnectionTimeout():
+        return connectionTimeout(_that);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -166,6 +172,7 @@ extension AppExceptionPatterns on AppException {
     TResult? Function(_Unknown value)? unknown,
     TResult? Function(_TooManyRequest value)? tooManyRequests,
     TResult? Function(_Forbidden value)? forbidden,
+    TResult? Function(_ConnectionTimeout value)? connectionTimeout,
   }) {
     final _that = this;
     switch (_that) {
@@ -189,6 +196,8 @@ extension AppExceptionPatterns on AppException {
         return tooManyRequests(_that);
       case _Forbidden() when forbidden != null:
         return forbidden(_that);
+      case _ConnectionTimeout() when connectionTimeout != null:
+        return connectionTimeout(_that);
       case _:
         return null;
     }
@@ -218,6 +227,7 @@ extension AppExceptionPatterns on AppException {
     TResult Function(String message)? unknown,
     TResult Function()? tooManyRequests,
     TResult Function()? forbidden,
+    TResult Function()? connectionTimeout,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -242,6 +252,8 @@ extension AppExceptionPatterns on AppException {
         return tooManyRequests();
       case _Forbidden() when forbidden != null:
         return forbidden();
+      case _ConnectionTimeout() when connectionTimeout != null:
+        return connectionTimeout();
       case _:
         return orElse();
     }
@@ -272,6 +284,7 @@ extension AppExceptionPatterns on AppException {
     required TResult Function(String message) unknown,
     required TResult Function() tooManyRequests,
     required TResult Function() forbidden,
+    required TResult Function() connectionTimeout,
   }) {
     final _that = this;
     switch (_that) {
@@ -295,6 +308,8 @@ extension AppExceptionPatterns on AppException {
         return tooManyRequests();
       case _Forbidden():
         return forbidden();
+      case _ConnectionTimeout():
+        return connectionTimeout();
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -324,6 +339,7 @@ extension AppExceptionPatterns on AppException {
     TResult? Function(String message)? unknown,
     TResult? Function()? tooManyRequests,
     TResult? Function()? forbidden,
+    TResult? Function()? connectionTimeout,
   }) {
     final _that = this;
     switch (_that) {
@@ -347,6 +363,8 @@ extension AppExceptionPatterns on AppException {
         return tooManyRequests();
       case _Forbidden() when forbidden != null:
         return forbidden();
+      case _ConnectionTimeout() when connectionTimeout != null:
+        return connectionTimeout();
       case _:
         return null;
     }
@@ -720,6 +738,26 @@ class _Forbidden extends AppException {
   @override
   String toString() {
     return 'AppException.forbidden()';
+  }
+}
+
+/// @nodoc
+
+class _ConnectionTimeout extends AppException {
+  const _ConnectionTimeout() : super._();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _ConnectionTimeout);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'AppException.connectionTimeout()';
   }
 }
 

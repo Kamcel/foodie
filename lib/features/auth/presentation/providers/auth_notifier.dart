@@ -62,6 +62,7 @@ class AuthNotifier extends _$AuthNotifier {
               notFound: () => 'Not found',
               tooManyRequests: () => 'Too many attempts, slow down',
               validation: (message) => message,
+              connectionTimeout: () => 'Connection timed out. Try again',
             )
           : 'Somthing went wrong';
 
@@ -97,6 +98,7 @@ class AuthNotifier extends _$AuthNotifier {
               notFound: () => 'Not found',
               tooManyRequests: () => 'Too many attempts, slow down',
               validation: (message) => message,
+              connectionTimeout: () => 'Connection timed out. Try again',
             )
           : 'Somthing went wrong';
 
@@ -129,6 +131,7 @@ class AuthNotifier extends _$AuthNotifier {
               notFound: () => 'Not found',
               tooManyRequests: () => 'Too many attempts, slow down',
               validation: (message) => message,
+              connectionTimeout: () => 'Connection timed out. Try again',
             )
           : 'Somthing went wrong';
 
@@ -158,6 +161,7 @@ class AuthNotifier extends _$AuthNotifier {
               notFound: () => 'Not found',
               tooManyRequests: () => 'Too many attempts, slow down',
               validation: (message) => message,
+              connectionTimeout: () => 'Connection timed out. Try again',
             )
           : 'Somthing went wrong';
 
@@ -189,6 +193,7 @@ class AuthNotifier extends _$AuthNotifier {
               notFound: () => 'Not found',
               tooManyRequests: () => 'Too many attempts, slow down',
               validation: (message) => message,
+              connectionTimeout: () => 'Connection timed out. Try again',
             )
           : 'Somthing went wrong';
 
