@@ -50,21 +50,21 @@ extension DishListStatePatterns on DishListState {
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
-    TResult Function(_Empty value)? empty,
-    TResult Function(_Error value)? error,
+    TResult Function(Loading value)? loading,
+    TResult Function(Success value)? success,
+    TResult Function(Empty value)? empty,
+    TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _Loading() when loading != null:
+      case Loading() when loading != null:
         return loading(_that);
-      case _Success() when success != null:
+      case Success() when success != null:
         return success(_that);
-      case _Empty() when empty != null:
+      case Empty() when empty != null:
         return empty(_that);
-      case _Error() when error != null:
+      case Error() when error != null:
         return error(_that);
       case _:
         return orElse();
@@ -86,23 +86,21 @@ extension DishListStatePatterns on DishListState {
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Empty value) empty,
-    required TResult Function(_Error value) error,
+    required TResult Function(Loading value) loading,
+    required TResult Function(Success value) success,
+    required TResult Function(Empty value) empty,
+    required TResult Function(Error value) error,
   }) {
     final _that = this;
     switch (_that) {
-      case _Loading():
+      case Loading():
         return loading(_that);
-      case _Success():
+      case Success():
         return success(_that);
-      case _Empty():
+      case Empty():
         return empty(_that);
-      case _Error():
+      case Error():
         return error(_that);
-      case _:
-        throw StateError('Unexpected subclass');
     }
   }
 
@@ -120,20 +118,20 @@ extension DishListStatePatterns on DishListState {
 
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Empty value)? empty,
-    TResult? Function(_Error value)? error,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(Success value)? success,
+    TResult? Function(Empty value)? empty,
+    TResult? Function(Error value)? error,
   }) {
     final _that = this;
     switch (_that) {
-      case _Loading() when loading != null:
+      case Loading() when loading != null:
         return loading(_that);
-      case _Success() when success != null:
+      case Success() when success != null:
         return success(_that);
-      case _Empty() when empty != null:
+      case Empty() when empty != null:
         return empty(_that);
-      case _Error() when error != null:
+      case Error() when error != null:
         return error(_that);
       case _:
         return null;
@@ -155,20 +153,27 @@ extension DishListStatePatterns on DishListState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Dish> dishes)? success,
+    TResult Function(
+            Dish dish,
+            PortionSize? selectedSize,
+            List<CustomizationOption> selectedToppings,
+            String note,
+            int quantity)?
+        success,
     TResult Function()? empty,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _Loading() when loading != null:
+      case Loading() when loading != null:
         return loading();
-      case _Success() when success != null:
-        return success(_that.dishes);
-      case _Empty() when empty != null:
+      case Success() when success != null:
+        return success(_that.dish, _that.selectedSize, _that.selectedToppings,
+            _that.note, _that.quantity);
+      case Empty() when empty != null:
         return empty();
-      case _Error() when error != null:
+      case Error() when error != null:
         return error(_that.message);
       case _:
         return orElse();
@@ -191,22 +196,27 @@ extension DishListStatePatterns on DishListState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Dish> dishes) success,
+    required TResult Function(
+            Dish dish,
+            PortionSize? selectedSize,
+            List<CustomizationOption> selectedToppings,
+            String note,
+            int quantity)
+        success,
     required TResult Function() empty,
     required TResult Function(String message) error,
   }) {
     final _that = this;
     switch (_that) {
-      case _Loading():
+      case Loading():
         return loading();
-      case _Success():
-        return success(_that.dishes);
-      case _Empty():
+      case Success():
+        return success(_that.dish, _that.selectedSize, _that.selectedToppings,
+            _that.note, _that.quantity);
+      case Empty():
         return empty();
-      case _Error():
+      case Error():
         return error(_that.message);
-      case _:
-        throw StateError('Unexpected subclass');
     }
   }
 
@@ -225,19 +235,26 @@ extension DishListStatePatterns on DishListState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Dish> dishes)? success,
+    TResult? Function(
+            Dish dish,
+            PortionSize? selectedSize,
+            List<CustomizationOption> selectedToppings,
+            String note,
+            int quantity)?
+        success,
     TResult? Function()? empty,
     TResult? Function(String message)? error,
   }) {
     final _that = this;
     switch (_that) {
-      case _Loading() when loading != null:
+      case Loading() when loading != null:
         return loading();
-      case _Success() when success != null:
-        return success(_that.dishes);
-      case _Empty() when empty != null:
+      case Success() when success != null:
+        return success(_that.dish, _that.selectedSize, _that.selectedToppings,
+            _that.note, _that.quantity);
+      case Empty() when empty != null:
         return empty();
-      case _Error() when error != null:
+      case Error() when error != null:
         return error(_that.message);
       case _:
         return null;
@@ -247,13 +264,13 @@ extension DishListStatePatterns on DishListState {
 
 /// @nodoc
 
-class _Loading implements DishListState {
-  const _Loading();
+class Loading implements DishListState {
+  const Loading();
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _Loading);
+        (other.runtimeType == runtimeType && other is Loading);
   }
 
   @override
@@ -267,81 +284,140 @@ class _Loading implements DishListState {
 
 /// @nodoc
 
-class _Success implements DishListState {
-  const _Success({required final List<Dish> dishes}) : _dishes = dishes;
+class Success implements DishListState {
+  const Success(
+      {required this.dish,
+      this.selectedSize,
+      final List<CustomizationOption> selectedToppings = const [],
+      this.note = '',
+      this.quantity = 1})
+      : _selectedToppings = selectedToppings;
 
-  final List<Dish> _dishes;
-  List<Dish> get dishes {
-    if (_dishes is EqualUnmodifiableListView) return _dishes;
+  final Dish dish;
+  final PortionSize? selectedSize;
+  final List<CustomizationOption> _selectedToppings;
+  @JsonKey()
+  List<CustomizationOption> get selectedToppings {
+    if (_selectedToppings is EqualUnmodifiableListView)
+      return _selectedToppings;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_dishes);
+    return EqualUnmodifiableListView(_selectedToppings);
   }
+
+  @JsonKey()
+  final String note;
+  @JsonKey()
+  final int quantity;
 
   /// Create a copy of DishListState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$SuccessCopyWith<_Success> get copyWith =>
-      __$SuccessCopyWithImpl<_Success>(this, _$identity);
+  $SuccessCopyWith<Success> get copyWith =>
+      _$SuccessCopyWithImpl<Success>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Success &&
-            const DeepCollectionEquality().equals(other._dishes, _dishes));
+            other is Success &&
+            (identical(other.dish, dish) || other.dish == dish) &&
+            (identical(other.selectedSize, selectedSize) ||
+                other.selectedSize == selectedSize) &&
+            const DeepCollectionEquality()
+                .equals(other._selectedToppings, _selectedToppings) &&
+            (identical(other.note, note) || other.note == note) &&
+            (identical(other.quantity, quantity) ||
+                other.quantity == quantity));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_dishes));
+  int get hashCode => Object.hash(runtimeType, dish, selectedSize,
+      const DeepCollectionEquality().hash(_selectedToppings), note, quantity);
 
   @override
   String toString() {
-    return 'DishListState.success(dishes: $dishes)';
+    return 'DishListState.success(dish: $dish, selectedSize: $selectedSize, selectedToppings: $selectedToppings, note: $note, quantity: $quantity)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$SuccessCopyWith<$Res>
+abstract mixin class $SuccessCopyWith<$Res>
     implements $DishListStateCopyWith<$Res> {
-  factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) =
-      __$SuccessCopyWithImpl;
+  factory $SuccessCopyWith(Success value, $Res Function(Success) _then) =
+      _$SuccessCopyWithImpl;
   @useResult
-  $Res call({List<Dish> dishes});
+  $Res call(
+      {Dish dish,
+      PortionSize? selectedSize,
+      List<CustomizationOption> selectedToppings,
+      String note,
+      int quantity});
+
+  $DishCopyWith<$Res> get dish;
 }
 
 /// @nodoc
-class __$SuccessCopyWithImpl<$Res> implements _$SuccessCopyWith<$Res> {
-  __$SuccessCopyWithImpl(this._self, this._then);
+class _$SuccessCopyWithImpl<$Res> implements $SuccessCopyWith<$Res> {
+  _$SuccessCopyWithImpl(this._self, this._then);
 
-  final _Success _self;
-  final $Res Function(_Success) _then;
+  final Success _self;
+  final $Res Function(Success) _then;
 
   /// Create a copy of DishListState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? dishes = null,
+    Object? dish = null,
+    Object? selectedSize = freezed,
+    Object? selectedToppings = null,
+    Object? note = null,
+    Object? quantity = null,
   }) {
-    return _then(_Success(
-      dishes: null == dishes
-          ? _self._dishes
-          : dishes // ignore: cast_nullable_to_non_nullable
-              as List<Dish>,
+    return _then(Success(
+      dish: null == dish
+          ? _self.dish
+          : dish // ignore: cast_nullable_to_non_nullable
+              as Dish,
+      selectedSize: freezed == selectedSize
+          ? _self.selectedSize
+          : selectedSize // ignore: cast_nullable_to_non_nullable
+              as PortionSize?,
+      selectedToppings: null == selectedToppings
+          ? _self._selectedToppings
+          : selectedToppings // ignore: cast_nullable_to_non_nullable
+              as List<CustomizationOption>,
+      note: null == note
+          ? _self.note
+          : note // ignore: cast_nullable_to_non_nullable
+              as String,
+      quantity: null == quantity
+          ? _self.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
+  }
+
+  /// Create a copy of DishListState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DishCopyWith<$Res> get dish {
+    return $DishCopyWith<$Res>(_self.dish, (value) {
+      return _then(_self.copyWith(dish: value));
+    });
   }
 }
 
 /// @nodoc
 
-class _Empty implements DishListState {
-  const _Empty();
+class Empty implements DishListState {
+  const Empty();
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _Empty);
+        (other.runtimeType == runtimeType && other is Empty);
   }
 
   @override
@@ -355,8 +431,8 @@ class _Empty implements DishListState {
 
 /// @nodoc
 
-class _Error implements DishListState {
-  const _Error({required this.message});
+class Error implements DishListState {
+  const Error({required this.message});
 
   final String message;
 
@@ -364,14 +440,14 @@ class _Error implements DishListState {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$ErrorCopyWith<_Error> get copyWith =>
-      __$ErrorCopyWithImpl<_Error>(this, _$identity);
+  $ErrorCopyWith<Error> get copyWith =>
+      _$ErrorCopyWithImpl<Error>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Error &&
+            other is Error &&
             (identical(other.message, message) || other.message == message));
   }
 
@@ -385,20 +461,20 @@ class _Error implements DishListState {
 }
 
 /// @nodoc
-abstract mixin class _$ErrorCopyWith<$Res>
+abstract mixin class $ErrorCopyWith<$Res>
     implements $DishListStateCopyWith<$Res> {
-  factory _$ErrorCopyWith(_Error value, $Res Function(_Error) _then) =
-      __$ErrorCopyWithImpl;
+  factory $ErrorCopyWith(Error value, $Res Function(Error) _then) =
+      _$ErrorCopyWithImpl;
   @useResult
   $Res call({String message});
 }
 
 /// @nodoc
-class __$ErrorCopyWithImpl<$Res> implements _$ErrorCopyWith<$Res> {
-  __$ErrorCopyWithImpl(this._self, this._then);
+class _$ErrorCopyWithImpl<$Res> implements $ErrorCopyWith<$Res> {
+  _$ErrorCopyWithImpl(this._self, this._then);
 
-  final _Error _self;
-  final $Res Function(_Error) _then;
+  final Error _self;
+  final $Res Function(Error) _then;
 
   /// Create a copy of DishListState
   /// with the given fields replaced by the non-null parameter values.
@@ -406,7 +482,7 @@ class __$ErrorCopyWithImpl<$Res> implements _$ErrorCopyWith<$Res> {
   $Res call({
     Object? message = null,
   }) {
-    return _then(_Error(
+    return _then(Error(
       message: null == message
           ? _self.message
           : message // ignore: cast_nullable_to_non_nullable

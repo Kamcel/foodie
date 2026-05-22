@@ -69,6 +69,7 @@ _Dish _$DishFromJson(Map<String, dynamic> json) => _Dish(
       name: json['name'] as String,
       description: json['description'] as String,
       basePrice: (json['basePrice'] as num).toDouble(),
+      imageUrl: json['imageUrl'] as String,
       originalPrice: (json['originalPrice'] as num?)?.toDouble(),
       images: (json['images'] as List<dynamic>?)
               ?.map((e) => e as String)
@@ -122,6 +123,7 @@ Map<String, dynamic> _$DishToJson(_Dish instance) => <String, dynamic>{
       'name': instance.name,
       'description': instance.description,
       'basePrice': instance.basePrice,
+      'imageUrl': instance.imageUrl,
       'originalPrice': instance.originalPrice,
       'images': instance.images,
       'videoUrl': instance.videoUrl,

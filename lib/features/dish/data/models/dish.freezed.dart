@@ -955,6 +955,7 @@ mixin _$Dish {
   String get name;
   String get description;
   double get basePrice;
+  String get imageUrl;
   double? get originalPrice;
   List<String> get images;
   String? get videoUrl; // Classification
@@ -1001,6 +1002,8 @@ mixin _$Dish {
                 other.description == description) &&
             (identical(other.basePrice, basePrice) ||
                 other.basePrice == basePrice) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.originalPrice, originalPrice) ||
                 other.originalPrice == originalPrice) &&
             const DeepCollectionEquality().equals(other.images, images) &&
@@ -1052,6 +1055,7 @@ mixin _$Dish {
         name,
         description,
         basePrice,
+        imageUrl,
         originalPrice,
         const DeepCollectionEquality().hash(images),
         videoUrl,
@@ -1078,7 +1082,7 @@ mixin _$Dish {
 
   @override
   String toString() {
-    return 'Dish(id: $id, restaurantId: $restaurantId, name: $name, description: $description, basePrice: $basePrice, originalPrice: $originalPrice, images: $images, videoUrl: $videoUrl, categories: $categories, dietaryTags: $dietaryTags, allergens: $allergens, spiceLevel: $spiceLevel, status: $status, calories: $calories, customizations: $customizations, isAvailable: $isAvailable, isSoldOut: $isSoldOut, isPopular: $isPopular, isNew: $isNew, isBestseller: $isBestseller, isChefSpecial: $isChefSpecial, dailyLimit: $dailyLimit, prepTime: $prepTime, suggestedPairingIds: $suggestedPairingIds, createdAt: $createdAt, updatedAt: $updatedAt, isActive: $isActive)';
+    return 'Dish(id: $id, restaurantId: $restaurantId, name: $name, description: $description, basePrice: $basePrice, imageUrl: $imageUrl, originalPrice: $originalPrice, images: $images, videoUrl: $videoUrl, categories: $categories, dietaryTags: $dietaryTags, allergens: $allergens, spiceLevel: $spiceLevel, status: $status, calories: $calories, customizations: $customizations, isAvailable: $isAvailable, isSoldOut: $isSoldOut, isPopular: $isPopular, isNew: $isNew, isBestseller: $isBestseller, isChefSpecial: $isChefSpecial, dailyLimit: $dailyLimit, prepTime: $prepTime, suggestedPairingIds: $suggestedPairingIds, createdAt: $createdAt, updatedAt: $updatedAt, isActive: $isActive)';
   }
 }
 
@@ -1093,6 +1097,7 @@ abstract mixin class $DishCopyWith<$Res> {
       String name,
       String description,
       double basePrice,
+      String imageUrl,
       double? originalPrice,
       List<String> images,
       String? videoUrl,
@@ -1134,6 +1139,7 @@ class _$DishCopyWithImpl<$Res> implements $DishCopyWith<$Res> {
     Object? name = null,
     Object? description = null,
     Object? basePrice = null,
+    Object? imageUrl = null,
     Object? originalPrice = freezed,
     Object? images = null,
     Object? videoUrl = freezed,
@@ -1178,6 +1184,10 @@ class _$DishCopyWithImpl<$Res> implements $DishCopyWith<$Res> {
           ? _self.basePrice
           : basePrice // ignore: cast_nullable_to_non_nullable
               as double,
+      imageUrl: null == imageUrl
+          ? _self.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       originalPrice: freezed == originalPrice
           ? _self.originalPrice
           : originalPrice // ignore: cast_nullable_to_non_nullable
@@ -1369,6 +1379,7 @@ extension DishPatterns on Dish {
             String name,
             String description,
             double basePrice,
+            String imageUrl,
             double? originalPrice,
             List<String> images,
             String? videoUrl,
@@ -1403,6 +1414,7 @@ extension DishPatterns on Dish {
             _that.name,
             _that.description,
             _that.basePrice,
+            _that.imageUrl,
             _that.originalPrice,
             _that.images,
             _that.videoUrl,
@@ -1451,6 +1463,7 @@ extension DishPatterns on Dish {
             String name,
             String description,
             double basePrice,
+            String imageUrl,
             double? originalPrice,
             List<String> images,
             String? videoUrl,
@@ -1484,6 +1497,7 @@ extension DishPatterns on Dish {
             _that.name,
             _that.description,
             _that.basePrice,
+            _that.imageUrl,
             _that.originalPrice,
             _that.images,
             _that.videoUrl,
@@ -1531,6 +1545,7 @@ extension DishPatterns on Dish {
             String name,
             String description,
             double basePrice,
+            String imageUrl,
             double? originalPrice,
             List<String> images,
             String? videoUrl,
@@ -1564,6 +1579,7 @@ extension DishPatterns on Dish {
             _that.name,
             _that.description,
             _that.basePrice,
+            _that.imageUrl,
             _that.originalPrice,
             _that.images,
             _that.videoUrl,
@@ -1601,6 +1617,7 @@ class _Dish extends Dish {
       required this.name,
       required this.description,
       required this.basePrice,
+      required this.imageUrl,
       this.originalPrice,
       final List<String> images = const [],
       this.videoUrl,
@@ -1642,6 +1659,8 @@ class _Dish extends Dish {
   final String description;
   @override
   final double basePrice;
+  @override
+  final String imageUrl;
   @override
   final double? originalPrice;
   final List<String> _images;
@@ -1776,6 +1795,8 @@ class _Dish extends Dish {
                 other.description == description) &&
             (identical(other.basePrice, basePrice) ||
                 other.basePrice == basePrice) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.originalPrice, originalPrice) ||
                 other.originalPrice == originalPrice) &&
             const DeepCollectionEquality().equals(other._images, _images) &&
@@ -1828,6 +1849,7 @@ class _Dish extends Dish {
         name,
         description,
         basePrice,
+        imageUrl,
         originalPrice,
         const DeepCollectionEquality().hash(_images),
         videoUrl,
@@ -1854,7 +1876,7 @@ class _Dish extends Dish {
 
   @override
   String toString() {
-    return 'Dish(id: $id, restaurantId: $restaurantId, name: $name, description: $description, basePrice: $basePrice, originalPrice: $originalPrice, images: $images, videoUrl: $videoUrl, categories: $categories, dietaryTags: $dietaryTags, allergens: $allergens, spiceLevel: $spiceLevel, status: $status, calories: $calories, customizations: $customizations, isAvailable: $isAvailable, isSoldOut: $isSoldOut, isPopular: $isPopular, isNew: $isNew, isBestseller: $isBestseller, isChefSpecial: $isChefSpecial, dailyLimit: $dailyLimit, prepTime: $prepTime, suggestedPairingIds: $suggestedPairingIds, createdAt: $createdAt, updatedAt: $updatedAt, isActive: $isActive)';
+    return 'Dish(id: $id, restaurantId: $restaurantId, name: $name, description: $description, basePrice: $basePrice, imageUrl: $imageUrl, originalPrice: $originalPrice, images: $images, videoUrl: $videoUrl, categories: $categories, dietaryTags: $dietaryTags, allergens: $allergens, spiceLevel: $spiceLevel, status: $status, calories: $calories, customizations: $customizations, isAvailable: $isAvailable, isSoldOut: $isSoldOut, isPopular: $isPopular, isNew: $isNew, isBestseller: $isBestseller, isChefSpecial: $isChefSpecial, dailyLimit: $dailyLimit, prepTime: $prepTime, suggestedPairingIds: $suggestedPairingIds, createdAt: $createdAt, updatedAt: $updatedAt, isActive: $isActive)';
   }
 }
 
@@ -1870,6 +1892,7 @@ abstract mixin class _$DishCopyWith<$Res> implements $DishCopyWith<$Res> {
       String name,
       String description,
       double basePrice,
+      String imageUrl,
       double? originalPrice,
       List<String> images,
       String? videoUrl,
@@ -1911,6 +1934,7 @@ class __$DishCopyWithImpl<$Res> implements _$DishCopyWith<$Res> {
     Object? name = null,
     Object? description = null,
     Object? basePrice = null,
+    Object? imageUrl = null,
     Object? originalPrice = freezed,
     Object? images = null,
     Object? videoUrl = freezed,
@@ -1955,6 +1979,10 @@ class __$DishCopyWithImpl<$Res> implements _$DishCopyWith<$Res> {
           ? _self.basePrice
           : basePrice // ignore: cast_nullable_to_non_nullable
               as double,
+      imageUrl: null == imageUrl
+          ? _self.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       originalPrice: freezed == originalPrice
           ? _self.originalPrice
           : originalPrice // ignore: cast_nullable_to_non_nullable

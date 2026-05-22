@@ -10,7 +10,8 @@ import 'package:hive_ce_flutter/hive_flutter.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  ApiService.instance.init(baseUrl: 'https://placeholder.foodie.com');
+  ApiService.instance.init(
+      baseUrl: 'https://6a03b7d22afe8349b4b571b3.mockapi.io/api/v1/dishes');
 
   await Hive.initFlutter();
   HiveRegistrar.registerAdapters();

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:foodie/features/dish/data/models/dish_enums.dart';
+import 'package:foodie/features/dish/presentation/providers/menu_dish_notifier.dart';
+import 'package:foodie/features/dish/presentation/widgets/dish_tile.dart';
 import 'package:foodie/features/restaurant/data/models/restaurant.dart';
 import 'package:foodie/features/restaurant/presentation/providers/restaurant_screen_notifier.dart';
 import 'package:foodie/features/restaurant/presentation/widgets/restaurant_details.dart';
 import 'package:foodie/features/restaurant/presentation/widgets/restaurant_hero_header.dart';
 import 'package:foodie/features/restaurant/presentation/widgets/restaurant_tab_bar.dart';
+import 'package:go_router/go_router.dart';
 
 class RestaurantDetailScreen extends ConsumerStatefulWidget {
   final Restaurant restaurant;
@@ -71,21 +75,11 @@ class _RestaurantDetailsScreenState
             SliverFillRemaining(
                 child: TabBarView(controller: _tabController, children: [
               //TODO: add real data when discard is ready
-              ListView.builder(
-                itemBuilder: (BuildContext context, int index) {},
-              ),
-              ListView.builder(
-                itemBuilder: (BuildContext context, int index) {},
-              ),
-              ListView.builder(
-                itemBuilder: (BuildContext context, int index) {},
-              ),
-              ListView.builder(
-                itemBuilder: (BuildContext context, int index) {},
-              ),
-              ListView.builder(
-                itemBuilder: (BuildContext context, int index) {},
-              ),
+              _DishTab(category: DishCategory.popular),
+              _DishTab(category: DishCategory.burgers),
+              _DishTab(category: DishCategory.sides),
+              _DishTab(category: DishCategory.drinks),
+              _DishTab(category: DishCategory.desserts),
             ]))
             // SliverList(delegate: delegate),
           ],
@@ -116,4 +110,31 @@ class _MenuTabDelegate extends SliverPersistentHeaderDelegate {
   @override
   bool shouldRebuild(covariant _MenuTabDelegate oldDelegate) =>
       oldDelegate.child != child;
+}
+
+class _DishTab extends ConsumerWidget {
+  final DishCategory category;
+  const _DishTab({required this.category});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final dishes = ref.watch(menuDishProvider);
+    final filtered =
+        dishes.where((d) => d.categories.contains(category)).toList();
+
+    return ListView.builder(
+      itemCount: filtered.length,
+      itemBuilder: (_, i) {
+        final dish = filtered[i];
+        return DishTile(
+            imageUrl: dish.imageUrl,
+            dishName: dish.name,
+            description: dish.description,
+            price: dish.basePrice,
+            onAdd: () {
+              context.pushNamed('dishDetailScreen', extra: dish);
+            });
+      },
+    );
+  }
 }

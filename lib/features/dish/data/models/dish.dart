@@ -65,6 +65,7 @@ abstract class Dish with _$Dish {
     required String name,
     required String description,
     required double basePrice,
+    required String imageUrl,
     double? originalPrice,
     @Default([]) List<String> images,
     String? videoUrl,

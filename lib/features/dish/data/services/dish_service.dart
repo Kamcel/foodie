@@ -5,7 +5,8 @@ import 'package:foodie/features/dish/data/models/dish.dart';
 
 class DishService {
   final Dio _dio = ApiService.instance.dio;
-  static const String _path = '/dishes';
+  static const String _path =
+      'https://6a03b7d22afe8349b4b571b3.mockapi.io/api/v1/dishes';
 
   // ── GET ALL ─────────────────────────────────────────────
   Future<List<Dish>> getAll({
