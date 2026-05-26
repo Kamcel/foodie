@@ -47,7 +47,7 @@ lib/
 | Framework | Flutter |
 | State Management | Riverpod (riverpod_annotation) |
 | Models | Freezed |
-| Local Storage | Hive CE | Drift (Coming soon) |
+| Local Storage | Hive CE, Drift (Coming soon) |  
 | Networking | Dio |
 | Navigation | GoRouter |
 | Backend (coming) | Supabase |
