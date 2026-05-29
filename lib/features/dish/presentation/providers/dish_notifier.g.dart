@@ -41,7 +41,7 @@ final class DishNotifierProvider
   }
 }
 
-String _$dishNotifierHash() => r'dda850a2f5440c97e1f941b39c97bb65bc59316e';
+String _$dishNotifierHash() => r'53790863e57139e2b1f4ea20fa31eb965b61558c';
 
 abstract class _$DishNotifier extends $Notifier<DishListState> {
   DishListState build();

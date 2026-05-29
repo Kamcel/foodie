@@ -63,6 +63,9 @@ dependencies:
   dotted_border: ^2.1.0
   csc_picker: ^0.2.7
   geocoding: ^3.0.0
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
+  flutter_osm_plugin: ^1.4.1
 
 
 
@@ -146,6 +149,3 @@ flutter_native_splash:
   android_12:
     color: "0D0D0D"
     image: assets/images/logo.png
-
-
-

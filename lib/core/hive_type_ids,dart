@@ -1,0 +1,16 @@
+// TypeId registry — NEVER reuse or change these
+// 0 → User
+// 1 → Address
+// 2 → SubScriptionType
+// 3 → AuthProvider
+// 4 → CartItem
+// 5 → CartState
+// 6 → OrderStatus
+// 7 → OrderItemModel
+// 8 → OrderModel
+// 9 → TrackingProgress
+// 10 → PaymentMethodModel
+// 11 → PromoOfferModel
+// 12 → NotificationSettings
+// 13 → AppPreferencesSettings
+// 14 → SettingsModel

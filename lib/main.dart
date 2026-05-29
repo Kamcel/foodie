@@ -22,6 +22,10 @@ void main() async {
   await Hive.openBox('favorites');
   await Hive.openBox('recent_searches');
   await Hive.openBox('dishes');
+  await Hive.openBox('carts');
+  await Hive.openBox('orders');
+  await Hive.openBox('tracking');
+
   runApp(ProviderScope(child: const FoodieApp()));
 }
 

@@ -41,7 +41,7 @@ final class MenuDishNotifierProvider
   }
 }
 
-String _$menuDishNotifierHash() => r'7317a9edc13d2bb82ba74a416ea9662952301687';
+String _$menuDishNotifierHash() => r'4064a794300066cf4a1afa6b7babf40c6f1555e0';
 
 abstract class _$MenuDishNotifier extends $Notifier<List<Dish>> {
   List<Dish> build();
