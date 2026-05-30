@@ -6,8 +6,17 @@ A production-grade food delivery app built with Flutter and clean architecture.
 
 ---
 
-## Screenshots
-*Coming soon*
+## 📱 Screenshots
+
+### Onboarding & Authentication
+| Light Mode Onboarding | Dark Mode Onboarding | Sign Up / Authenticate |
+| :---: | :---: | :---: |
+| <img src="screenshots/onboarding_light.png" width="250" alt="Discover Convenience Light"/> | <img src="screenshots/onboarding_dark.png" width="250" alt="Discover Deliciousness Dark"/> | <img src="screenshots/auth_screen.png" width="250" alt="Authentication Screen"/> |
+
+### Discovery & Menu Details
+| Exploration / Search | Restaurant Profile | Item Customisation |
+| :---: | :---: | :---: |
+| <img src="screenshots/explore.png" width="250" alt="Search and Filters"/> | <img src="screenshots/restaurant_detail.png" width="250" alt="Shake House Menu"/> | <img src="screenshots/dish_customise.png" width="250" alt="The Classic Smash Customisation"/> |
 
 ---
 
