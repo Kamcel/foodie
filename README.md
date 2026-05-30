@@ -9,14 +9,19 @@ A production-grade food delivery app built with Flutter and clean architecture.
 ## 📱 Screenshots
 
 ### Onboarding & Authentication
-| Light Mode Onboarding | Dark Mode Onboarding | Sign Up / Authenticate |
-| :---: | :---: | :---: |
-| <img src="screenshots/onboarding_light.png" width="250" alt="Discover Convenience Light"/> | <img src="screenshots/onboarding_dark.png" width="250" alt="Discover Deliciousness Dark"/> | <img src="screenshots/auth_screen.png" width="250" alt="Authentication Screen"/> |
+| Welcome / Light Mode | Welcome / Dark Mode | Create Account (Light) | Create Account (Dark) |
+| :---: | :---: | :---: | :---: |
+| <img src="screenshots/Screenshot_20260530-145042_X.jpg" width="220" alt="Onboarding Light"/> | <img src="screenshots/Screenshot_20260530-145102_X.jpg" width="220" alt="Onboarding Dark"/> | <img src="screenshots/Screenshot_20260530-145118_X.jpg" width="220" alt="Auth Light"/> | <img src="screenshots/Screenshot_20260530-145133_X.jpg" width="220" alt="Auth Dark"/> |
 
-### Discovery & Menu Details
-| Exploration / Search | Restaurant Profile | Item Customisation |
+### Discovery & Exploration
+| Restaurant Search | Category Filters | Reviews & Ratings |
 | :---: | :---: | :---: |
-| <img src="screenshots/explore.png" width="250" alt="Search and Filters"/> | <img src="screenshots/restaurant_detail.png" width="250" alt="Shake House Menu"/> | <img src="screenshots/dish_customise.png" width="250" alt="The Classic Smash Customisation"/> |
+| <img src="screenshots/Screenshot_20260530-145149.jpg" width="220" alt="Explore Search"/> | <img src="screenshots/Screenshot_20260530-145157.jpg" width="220" alt="Cuisine Filters"/> | <img src="screenshots/Screenshot_20260530-145204.jpg" width="220" alt="Customer Reviews"/> |
+
+### Menu Details & Customisation
+| Restaurant Profile | Menu Overview | Item Choices (Top) | Item Choices (Bottom) |
+| :---: | :---: | :---: | :---: |
+| <img src="screenshots/Screenshot_20260530-145208.jpg" width="220" alt="Shake House Header"/> | <img src="screenshots/Screenshot_20260530-145220.jpg" width="220" alt="Menu List"/> | <img src="screenshots/Screenshot_20260530-145223.jpg" width="220" alt="Dish Customise Sizes"/> | <img src="screenshots/Screenshot_20260530-145237.jpg" width="220" alt="Dish Customise Toppings"/> |
 
 ---
 
