@@ -6,8 +6,23 @@ A production-grade food delivery app built with Flutter and clean architecture.
 
 ---
 
-## Screenshots
-*Coming soon*
+## 📱 Screenshots
+
+### Onboarding & Authentication
+| Welcome / Light Mode | Welcome / Dark Mode | Create Account (Light) | Create Account (Dark) |
+| :---: | :---: | :---: | :---: |
+| <img src="Screenshot_20260530-145042_X.jpg" width="220" alt="Onboarding Light"/> | <img src="Screenshot_20260530-145102_X.jpg" width="220" alt="Onboarding Dark"/> | <img src="Screenshot_20260530-145118_X.jpg" width="220" alt="Auth Light"/> | <img src="Screenshot_20260530-145133_X.jpg" width="220" alt="Auth Dark"/> |
+
+### Discovery & Exploration
+| Restaurant Search | Category Filters | Reviews & Ratings |
+| :---: | :---: | :---: |
+| <img src="Screenshot_20260530-145149.jpg" width="220" alt="Explore Search"/> | <img src="Screenshot_20260530-145157.jpg" width="220" alt="Cuisine Filters"/> | <img src="Screenshot_20260530-145204.jpg" width="220" alt="Customer Reviews"/> |
+
+### Menu Details & Customisation
+| Restaurant Profile | Menu Overview | Item Choices (Top) | Item Choices (Bottom) |
+| :---: | :---: | :---: | :---: |
+| <img src="Screenshot_20260530-145208.jpg" width="220" alt="Shake House Header"/> | <img src="Screenshot_20260530-145220.jpg" width="220" alt="Menu List"/> | <img src="Screenshot_20260530-145223.jpg" width="220" alt="Dish Customise Sizes"/> | <img src="Screenshot_20260530-145237.jpg" width="220" alt="Dish Customise Toppings"/> |
+
 
 ---
 
