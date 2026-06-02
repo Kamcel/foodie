@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cart_notifier.dart';
+part of 'order_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,47 +9,48 @@ part of 'cart_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(CartNotifier)
-final cartProvider = CartNotifierProvider._();
+@ProviderFor(OrderNotifier)
+final orderProvider = OrderNotifierProvider._();
 
-final class CartNotifierProvider extends $NotifierProvider<CartNotifier, Cart> {
-  CartNotifierProvider._()
+final class OrderNotifierProvider
+    extends $NotifierProvider<OrderNotifier, OrderState> {
+  OrderNotifierProvider._()
       : super(
           from: null,
           argument: null,
           retry: null,
-          name: r'cartProvider',
+          name: r'orderProvider',
           isAutoDispose: true,
           dependencies: null,
           $allTransitiveDependencies: null,
         );
 
   @override
-  String debugGetCreateSourceHash() => _$cartNotifierHash();
+  String debugGetCreateSourceHash() => _$orderNotifierHash();
 
   @$internal
   @override
-  CartNotifier create() => CartNotifier();
+  OrderNotifier create() => OrderNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Cart value) {
+  Override overrideWithValue(OrderState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<Cart>(value),
+      providerOverride: $SyncValueProvider<OrderState>(value),
     );
   }
 }
 
-String _$cartNotifierHash() => r'a882a629fb46cc62570ab6b2777e5f48bbc1276d';
+String _$orderNotifierHash() => r'17b8b30096ccc052e7607e36ebbc9dda92f0ac7a';
 
-abstract class _$CartNotifier extends $Notifier<Cart> {
-  Cart build();
+abstract class _$OrderNotifier extends $Notifier<OrderState> {
+  OrderState build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<Cart, Cart>;
+    final ref = this.ref as $Ref<OrderState, OrderState>;
     final element = ref.element as $ClassProviderElement<
-        AnyNotifier<Cart, Cart>, Cart, Object?, Object?>;
+        AnyNotifier<OrderState, OrderState>, OrderState, Object?, Object?>;
     element.handleCreate(ref, build);
   }
 }

@@ -1,32 +1,51 @@
-import 'package:foodie/features/orders/data/models/order_item.dart';
+import 'package:foodie/features/cart/data/model/cart_item.dart';
 import 'package:foodie/features/orders/data/models/order_status.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:intl/intl.dart';
 
 part 'order.freezed.dart';
 part 'order.g.dart';
 
-// E -- Entity: ClassName represents a description
 @freezed
 abstract class Order with _$Order {
-  const Order._(); // required for computed properties
+  const Order._(); // Required for computed properties
 
-  // I -- Immutability enforced by Freezed
   const factory Order({
-    // F -- Fields
-    required String orderId,
-    required String restaurantName,
-    required String restaurantImage,
-    @Default([]) List<OrderItem> items,
-    required int totalPriceInCents,
+    required String id,
+    required List<CartItem> items,
     required OrderStatus status,
-    required DateTime dateOrdered,
-    String? calculatedEta,
-    String? driverName,
+    required DateTime createdAt,
+    required double totalAmount,
+    String? deliveryAddress,
+    int? rating,
   }) = _Order;
 
-  // M -- Map: fromJson
   factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
 
-  // V -- Validation / computed properties go here
-  // bool get isValid => id.isNotEmpty;
+  // V -- Validation / computed properties
+
+  // Status checks
+  bool get isActive => status == OrderStatus.active;
+  bool get isCancelled => status == OrderStatus.cancelled;
+  bool get isDelivered => status == OrderStatus.delivered;
+
+  // Business Logic Getters
+  bool get canCancel => isActive;
+  bool get canRate => isDelivered && rating == null;
+
+  int get itemCount => items.fold(0, (sum, item) => sum + item.quantity);
+
+  // UI formatters
+  String get formattedTotal => '₦${NumberFormat('#,###').format(totalAmount)}';
+
+  String get formattedDate {
+    return DateFormat('dd MMM yyyy, hh:mm a').format(createdAt);
+  }
+
+  // Summary of items (e.g., "Pizza, Burger + 2 more")
+  String get itemsSummary {
+    if (items.isEmpty) return 'No items';
+    final firstTwo = items.take(2).map((e) => e.dishName).join(', ');
+    return items.length > 2 ? '$firstTwo + ${items.length - 2} more' : firstTwo;
+  }
 }

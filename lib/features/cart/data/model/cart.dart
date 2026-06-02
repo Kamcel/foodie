@@ -31,4 +31,18 @@ abstract class Cart with _$Cart {
 
   // Total number of items in the cart
   int get itemCount => items.fold(0, (sum, item) => sum + item.quantity);
+
+  //getters for applied promo code discount (if any)
+  double get discount {
+    if (promoCode == 'SAVE10') {
+      return subtotal * 0.1; // 10% off
+    }
+    return 0.0;
+  }
+
+  //tax calculation (e.g., 8% of subtotal)
+  double get calculatedTax => subtotal * 0.08;
+
+  //delivery fee calculation (e.g., free delivery for orders over ₦10,000)
+  double get calculatedDeliveryFee => subtotal > 10000 ? 0.0 : 1500.0;
 }

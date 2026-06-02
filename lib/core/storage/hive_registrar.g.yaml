@@ -191,26 +191,22 @@ types:
         index: 4
   Order:
     typeId: 17
-    nextIndex: 9
+    nextIndex: 14
     fields:
-      orderId:
-        index: 0
-      restaurantName:
-        index: 1
-      restaurantImage:
-        index: 2
       items:
         index: 3
-      totalPriceInCents:
-        index: 4
       status:
         index: 5
-      dateOrdered:
-        index: 6
-      calculatedEta:
-        index: 7
-      driverName:
-        index: 8
+      id:
+        index: 9
+      createdAt:
+        index: 10
+      totalAmount:
+        index: 11
+      deliveryAddress:
+        index: 12
+      rating:
+        index: 13
   Tracking:
     typeId: 18
     nextIndex: 11

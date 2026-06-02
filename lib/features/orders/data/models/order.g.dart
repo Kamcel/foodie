@@ -7,30 +7,25 @@ part of 'order.dart';
 // **************************************************************************
 
 _Order _$OrderFromJson(Map<String, dynamic> json) => _Order(
-      orderId: json['orderId'] as String,
-      restaurantName: json['restaurantName'] as String,
-      restaurantImage: json['restaurantImage'] as String,
-      items: (json['items'] as List<dynamic>?)
-              ?.map((e) => OrderItem.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
-      totalPriceInCents: (json['totalPriceInCents'] as num).toInt(),
+      id: json['id'] as String,
+      items: (json['items'] as List<dynamic>)
+          .map((e) => CartItem.fromJson(e as Map<String, dynamic>))
+          .toList(),
       status: $enumDecode(_$OrderStatusEnumMap, json['status']),
-      dateOrdered: DateTime.parse(json['dateOrdered'] as String),
-      calculatedEta: json['calculatedEta'] as String?,
-      driverName: json['driverName'] as String?,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      totalAmount: (json['totalAmount'] as num).toDouble(),
+      deliveryAddress: json['deliveryAddress'] as String?,
+      rating: (json['rating'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$OrderToJson(_Order instance) => <String, dynamic>{
-      'orderId': instance.orderId,
-      'restaurantName': instance.restaurantName,
-      'restaurantImage': instance.restaurantImage,
+      'id': instance.id,
       'items': instance.items,
-      'totalPriceInCents': instance.totalPriceInCents,
       'status': _$OrderStatusEnumMap[instance.status]!,
-      'dateOrdered': instance.dateOrdered.toIso8601String(),
-      'calculatedEta': instance.calculatedEta,
-      'driverName': instance.driverName,
+      'createdAt': instance.createdAt.toIso8601String(),
+      'totalAmount': instance.totalAmount,
+      'deliveryAddress': instance.deliveryAddress,
+      'rating': instance.rating,
     };
 
 const _$OrderStatusEnumMap = {

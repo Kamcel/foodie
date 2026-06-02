@@ -14,16 +14,13 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$Order {
-// F -- Fields
-  String get orderId;
-  String get restaurantName;
-  String get restaurantImage;
-  List<OrderItem> get items;
-  int get totalPriceInCents;
+  String get id;
+  List<CartItem> get items;
   OrderStatus get status;
-  DateTime get dateOrdered;
-  String? get calculatedEta;
-  String? get driverName;
+  DateTime get createdAt;
+  double get totalAmount;
+  String? get deliveryAddress;
+  int? get rating;
 
   /// Create a copy of Order
   /// with the given fields replaced by the non-null parameter values.
@@ -40,40 +37,33 @@ mixin _$Order {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is Order &&
-            (identical(other.orderId, orderId) || other.orderId == orderId) &&
-            (identical(other.restaurantName, restaurantName) ||
-                other.restaurantName == restaurantName) &&
-            (identical(other.restaurantImage, restaurantImage) ||
-                other.restaurantImage == restaurantImage) &&
+            (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality().equals(other.items, items) &&
-            (identical(other.totalPriceInCents, totalPriceInCents) ||
-                other.totalPriceInCents == totalPriceInCents) &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.dateOrdered, dateOrdered) ||
-                other.dateOrdered == dateOrdered) &&
-            (identical(other.calculatedEta, calculatedEta) ||
-                other.calculatedEta == calculatedEta) &&
-            (identical(other.driverName, driverName) ||
-                other.driverName == driverName));
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.totalAmount, totalAmount) ||
+                other.totalAmount == totalAmount) &&
+            (identical(other.deliveryAddress, deliveryAddress) ||
+                other.deliveryAddress == deliveryAddress) &&
+            (identical(other.rating, rating) || other.rating == rating));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      orderId,
-      restaurantName,
-      restaurantImage,
+      id,
       const DeepCollectionEquality().hash(items),
-      totalPriceInCents,
       status,
-      dateOrdered,
-      calculatedEta,
-      driverName);
+      createdAt,
+      totalAmount,
+      deliveryAddress,
+      rating);
 
   @override
   String toString() {
-    return 'Order(orderId: $orderId, restaurantName: $restaurantName, restaurantImage: $restaurantImage, items: $items, totalPriceInCents: $totalPriceInCents, status: $status, dateOrdered: $dateOrdered, calculatedEta: $calculatedEta, driverName: $driverName)';
+    return 'Order(id: $id, items: $items, status: $status, createdAt: $createdAt, totalAmount: $totalAmount, deliveryAddress: $deliveryAddress, rating: $rating)';
   }
 }
 
@@ -83,15 +73,13 @@ abstract mixin class $OrderCopyWith<$Res> {
       _$OrderCopyWithImpl;
   @useResult
   $Res call(
-      {String orderId,
-      String restaurantName,
-      String restaurantImage,
-      List<OrderItem> items,
-      int totalPriceInCents,
+      {String id,
+      List<CartItem> items,
       OrderStatus status,
-      DateTime dateOrdered,
-      String? calculatedEta,
-      String? driverName});
+      DateTime createdAt,
+      double totalAmount,
+      String? deliveryAddress,
+      int? rating});
 }
 
 /// @nodoc
@@ -106,53 +94,43 @@ class _$OrderCopyWithImpl<$Res> implements $OrderCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? orderId = null,
-    Object? restaurantName = null,
-    Object? restaurantImage = null,
+    Object? id = null,
     Object? items = null,
-    Object? totalPriceInCents = null,
     Object? status = null,
-    Object? dateOrdered = null,
-    Object? calculatedEta = freezed,
-    Object? driverName = freezed,
+    Object? createdAt = null,
+    Object? totalAmount = null,
+    Object? deliveryAddress = freezed,
+    Object? rating = freezed,
   }) {
     return _then(_self.copyWith(
-      orderId: null == orderId
-          ? _self.orderId
-          : orderId // ignore: cast_nullable_to_non_nullable
-              as String,
-      restaurantName: null == restaurantName
-          ? _self.restaurantName
-          : restaurantName // ignore: cast_nullable_to_non_nullable
-              as String,
-      restaurantImage: null == restaurantImage
-          ? _self.restaurantImage
-          : restaurantImage // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       items: null == items
           ? _self.items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<OrderItem>,
-      totalPriceInCents: null == totalPriceInCents
-          ? _self.totalPriceInCents
-          : totalPriceInCents // ignore: cast_nullable_to_non_nullable
-              as int,
+              as List<CartItem>,
       status: null == status
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as OrderStatus,
-      dateOrdered: null == dateOrdered
-          ? _self.dateOrdered
-          : dateOrdered // ignore: cast_nullable_to_non_nullable
+      createdAt: null == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      calculatedEta: freezed == calculatedEta
-          ? _self.calculatedEta
-          : calculatedEta // ignore: cast_nullable_to_non_nullable
+      totalAmount: null == totalAmount
+          ? _self.totalAmount
+          : totalAmount // ignore: cast_nullable_to_non_nullable
+              as double,
+      deliveryAddress: freezed == deliveryAddress
+          ? _self.deliveryAddress
+          : deliveryAddress // ignore: cast_nullable_to_non_nullable
               as String?,
-      driverName: freezed == driverName
-          ? _self.driverName
-          : driverName // ignore: cast_nullable_to_non_nullable
-              as String?,
+      rating: freezed == rating
+          ? _self.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -251,31 +229,21 @@ extension OrderPatterns on Order {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
-            String orderId,
-            String restaurantName,
-            String restaurantImage,
-            List<OrderItem> items,
-            int totalPriceInCents,
+            String id,
+            List<CartItem> items,
             OrderStatus status,
-            DateTime dateOrdered,
-            String? calculatedEta,
-            String? driverName)?
+            DateTime createdAt,
+            double totalAmount,
+            String? deliveryAddress,
+            int? rating)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _Order() when $default != null:
-        return $default(
-            _that.orderId,
-            _that.restaurantName,
-            _that.restaurantImage,
-            _that.items,
-            _that.totalPriceInCents,
-            _that.status,
-            _that.dateOrdered,
-            _that.calculatedEta,
-            _that.driverName);
+        return $default(_that.id, _that.items, _that.status, _that.createdAt,
+            _that.totalAmount, _that.deliveryAddress, _that.rating);
       case _:
         return orElse();
     }
@@ -297,30 +265,20 @@ extension OrderPatterns on Order {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
-            String orderId,
-            String restaurantName,
-            String restaurantImage,
-            List<OrderItem> items,
-            int totalPriceInCents,
+            String id,
+            List<CartItem> items,
             OrderStatus status,
-            DateTime dateOrdered,
-            String? calculatedEta,
-            String? driverName)
+            DateTime createdAt,
+            double totalAmount,
+            String? deliveryAddress,
+            int? rating)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _Order():
-        return $default(
-            _that.orderId,
-            _that.restaurantName,
-            _that.restaurantImage,
-            _that.items,
-            _that.totalPriceInCents,
-            _that.status,
-            _that.dateOrdered,
-            _that.calculatedEta,
-            _that.driverName);
+        return $default(_that.id, _that.items, _that.status, _that.createdAt,
+            _that.totalAmount, _that.deliveryAddress, _that.rating);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -341,30 +299,20 @@ extension OrderPatterns on Order {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
-            String orderId,
-            String restaurantName,
-            String restaurantImage,
-            List<OrderItem> items,
-            int totalPriceInCents,
+            String id,
+            List<CartItem> items,
             OrderStatus status,
-            DateTime dateOrdered,
-            String? calculatedEta,
-            String? driverName)?
+            DateTime createdAt,
+            double totalAmount,
+            String? deliveryAddress,
+            int? rating)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _Order() when $default != null:
-        return $default(
-            _that.orderId,
-            _that.restaurantName,
-            _that.restaurantImage,
-            _that.items,
-            _that.totalPriceInCents,
-            _that.status,
-            _that.dateOrdered,
-            _that.calculatedEta,
-            _that.driverName);
+        return $default(_that.id, _that.items, _that.status, _that.createdAt,
+            _that.totalAmount, _that.deliveryAddress, _that.rating);
       case _:
         return null;
     }
@@ -375,45 +323,37 @@ extension OrderPatterns on Order {
 @JsonSerializable()
 class _Order extends Order {
   const _Order(
-      {required this.orderId,
-      required this.restaurantName,
-      required this.restaurantImage,
-      final List<OrderItem> items = const [],
-      required this.totalPriceInCents,
+      {required this.id,
+      required final List<CartItem> items,
       required this.status,
-      required this.dateOrdered,
-      this.calculatedEta,
-      this.driverName})
+      required this.createdAt,
+      required this.totalAmount,
+      this.deliveryAddress,
+      this.rating})
       : _items = items,
         super._();
   factory _Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
 
-// F -- Fields
   @override
-  final String orderId;
+  final String id;
+  final List<CartItem> _items;
   @override
-  final String restaurantName;
-  @override
-  final String restaurantImage;
-  final List<OrderItem> _items;
-  @override
-  @JsonKey()
-  List<OrderItem> get items {
+  List<CartItem> get items {
     if (_items is EqualUnmodifiableListView) return _items;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_items);
   }
 
   @override
-  final int totalPriceInCents;
-  @override
   final OrderStatus status;
   @override
-  final DateTime dateOrdered;
+  final DateTime createdAt;
   @override
-  final String? calculatedEta;
+  final double totalAmount;
   @override
-  final String? driverName;
+  final String? deliveryAddress;
+  @override
+  final int? rating;
 
   /// Create a copy of Order
   /// with the given fields replaced by the non-null parameter values.
@@ -435,40 +375,33 @@ class _Order extends Order {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Order &&
-            (identical(other.orderId, orderId) || other.orderId == orderId) &&
-            (identical(other.restaurantName, restaurantName) ||
-                other.restaurantName == restaurantName) &&
-            (identical(other.restaurantImage, restaurantImage) ||
-                other.restaurantImage == restaurantImage) &&
+            (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality().equals(other._items, _items) &&
-            (identical(other.totalPriceInCents, totalPriceInCents) ||
-                other.totalPriceInCents == totalPriceInCents) &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.dateOrdered, dateOrdered) ||
-                other.dateOrdered == dateOrdered) &&
-            (identical(other.calculatedEta, calculatedEta) ||
-                other.calculatedEta == calculatedEta) &&
-            (identical(other.driverName, driverName) ||
-                other.driverName == driverName));
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.totalAmount, totalAmount) ||
+                other.totalAmount == totalAmount) &&
+            (identical(other.deliveryAddress, deliveryAddress) ||
+                other.deliveryAddress == deliveryAddress) &&
+            (identical(other.rating, rating) || other.rating == rating));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      orderId,
-      restaurantName,
-      restaurantImage,
+      id,
       const DeepCollectionEquality().hash(_items),
-      totalPriceInCents,
       status,
-      dateOrdered,
-      calculatedEta,
-      driverName);
+      createdAt,
+      totalAmount,
+      deliveryAddress,
+      rating);
 
   @override
   String toString() {
-    return 'Order(orderId: $orderId, restaurantName: $restaurantName, restaurantImage: $restaurantImage, items: $items, totalPriceInCents: $totalPriceInCents, status: $status, dateOrdered: $dateOrdered, calculatedEta: $calculatedEta, driverName: $driverName)';
+    return 'Order(id: $id, items: $items, status: $status, createdAt: $createdAt, totalAmount: $totalAmount, deliveryAddress: $deliveryAddress, rating: $rating)';
   }
 }
 
@@ -479,15 +412,13 @@ abstract mixin class _$OrderCopyWith<$Res> implements $OrderCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String orderId,
-      String restaurantName,
-      String restaurantImage,
-      List<OrderItem> items,
-      int totalPriceInCents,
+      {String id,
+      List<CartItem> items,
       OrderStatus status,
-      DateTime dateOrdered,
-      String? calculatedEta,
-      String? driverName});
+      DateTime createdAt,
+      double totalAmount,
+      String? deliveryAddress,
+      int? rating});
 }
 
 /// @nodoc
@@ -502,53 +433,43 @@ class __$OrderCopyWithImpl<$Res> implements _$OrderCopyWith<$Res> {
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? orderId = null,
-    Object? restaurantName = null,
-    Object? restaurantImage = null,
+    Object? id = null,
     Object? items = null,
-    Object? totalPriceInCents = null,
     Object? status = null,
-    Object? dateOrdered = null,
-    Object? calculatedEta = freezed,
-    Object? driverName = freezed,
+    Object? createdAt = null,
+    Object? totalAmount = null,
+    Object? deliveryAddress = freezed,
+    Object? rating = freezed,
   }) {
     return _then(_Order(
-      orderId: null == orderId
-          ? _self.orderId
-          : orderId // ignore: cast_nullable_to_non_nullable
-              as String,
-      restaurantName: null == restaurantName
-          ? _self.restaurantName
-          : restaurantName // ignore: cast_nullable_to_non_nullable
-              as String,
-      restaurantImage: null == restaurantImage
-          ? _self.restaurantImage
-          : restaurantImage // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       items: null == items
           ? _self._items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<OrderItem>,
-      totalPriceInCents: null == totalPriceInCents
-          ? _self.totalPriceInCents
-          : totalPriceInCents // ignore: cast_nullable_to_non_nullable
-              as int,
+              as List<CartItem>,
       status: null == status
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as OrderStatus,
-      dateOrdered: null == dateOrdered
-          ? _self.dateOrdered
-          : dateOrdered // ignore: cast_nullable_to_non_nullable
+      createdAt: null == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      calculatedEta: freezed == calculatedEta
-          ? _self.calculatedEta
-          : calculatedEta // ignore: cast_nullable_to_non_nullable
+      totalAmount: null == totalAmount
+          ? _self.totalAmount
+          : totalAmount // ignore: cast_nullable_to_non_nullable
+              as double,
+      deliveryAddress: freezed == deliveryAddress
+          ? _self.deliveryAddress
+          : deliveryAddress // ignore: cast_nullable_to_non_nullable
               as String?,
-      driverName: freezed == driverName
-          ? _self.driverName
-          : driverName // ignore: cast_nullable_to_non_nullable
-              as String?,
+      rating: freezed == rating
+          ? _self.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }

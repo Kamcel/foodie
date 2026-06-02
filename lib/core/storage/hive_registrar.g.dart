@@ -633,40 +633,34 @@ class OrderAdapter extends TypeAdapter<Order> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Order(
-      orderId: fields[0] as String,
-      restaurantName: fields[1] as String,
-      restaurantImage: fields[2] as String,
-      items: fields[3] == null ? [] : (fields[3] as List).cast<OrderItem>(),
-      totalPriceInCents: (fields[4] as num).toInt(),
+      id: fields[9] as String,
+      items: (fields[3] as List).cast<CartItem>(),
       status: fields[5] as OrderStatus,
-      dateOrdered: fields[6] as DateTime,
-      calculatedEta: fields[7] as String?,
-      driverName: fields[8] as String?,
+      createdAt: fields[10] as DateTime,
+      totalAmount: (fields[11] as num).toDouble(),
+      deliveryAddress: fields[12] as String?,
+      rating: (fields[13] as num?)?.toInt(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Order obj) {
     writer
-      ..writeByte(9)
-      ..writeByte(0)
-      ..write(obj.orderId)
-      ..writeByte(1)
-      ..write(obj.restaurantName)
-      ..writeByte(2)
-      ..write(obj.restaurantImage)
+      ..writeByte(7)
       ..writeByte(3)
       ..write(obj.items)
-      ..writeByte(4)
-      ..write(obj.totalPriceInCents)
       ..writeByte(5)
       ..write(obj.status)
-      ..writeByte(6)
-      ..write(obj.dateOrdered)
-      ..writeByte(7)
-      ..write(obj.calculatedEta)
-      ..writeByte(8)
-      ..write(obj.driverName);
+      ..writeByte(9)
+      ..write(obj.id)
+      ..writeByte(10)
+      ..write(obj.createdAt)
+      ..writeByte(11)
+      ..write(obj.totalAmount)
+      ..writeByte(12)
+      ..write(obj.deliveryAddress)
+      ..writeByte(13)
+      ..write(obj.rating);
   }
 
   @override
