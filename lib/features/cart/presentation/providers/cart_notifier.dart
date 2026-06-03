@@ -50,6 +50,14 @@ class CartNotifier extends _$CartNotifier {
     _storage.saveCart(state);
   }
 
+  void applyPromoCode(String code) {
+    // For simplicity, we only handle one promo code "SAVE10" for a 10% discount
+    if (code == 'SAVE10') {
+      state = state.copyWith(promoCode: code);
+      _storage.saveCart(state);
+    }
+  }
+
   void clearCart() {
     state = const Cart(items: []);
     _storage.saveCart(state);

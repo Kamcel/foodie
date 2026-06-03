@@ -17,6 +17,7 @@ mixin _$CartItem {
   String get id;
   String get dishId;
   String get dishName;
+  String get description;
   String get imageUrl;
   String? get selectedSize;
   List<String> get selectedToppings;
@@ -43,6 +44,8 @@ mixin _$CartItem {
             (identical(other.dishId, dishId) || other.dishId == dishId) &&
             (identical(other.dishName, dishName) ||
                 other.dishName == dishName) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.selectedSize, selectedSize) ||
@@ -63,6 +66,7 @@ mixin _$CartItem {
       id,
       dishId,
       dishName,
+      description,
       imageUrl,
       selectedSize,
       const DeepCollectionEquality().hash(selectedToppings),
@@ -72,7 +76,7 @@ mixin _$CartItem {
 
   @override
   String toString() {
-    return 'CartItem(id: $id, dishId: $dishId, dishName: $dishName, imageUrl: $imageUrl, selectedSize: $selectedSize, selectedToppings: $selectedToppings, basePrice: $basePrice, quantity: $quantity, note: $note)';
+    return 'CartItem(id: $id, dishId: $dishId, dishName: $dishName, description: $description, imageUrl: $imageUrl, selectedSize: $selectedSize, selectedToppings: $selectedToppings, basePrice: $basePrice, quantity: $quantity, note: $note)';
   }
 }
 
@@ -85,6 +89,7 @@ abstract mixin class $CartItemCopyWith<$Res> {
       {String id,
       String dishId,
       String dishName,
+      String description,
       String imageUrl,
       String? selectedSize,
       List<String> selectedToppings,
@@ -108,6 +113,7 @@ class _$CartItemCopyWithImpl<$Res> implements $CartItemCopyWith<$Res> {
     Object? id = null,
     Object? dishId = null,
     Object? dishName = null,
+    Object? description = null,
     Object? imageUrl = null,
     Object? selectedSize = freezed,
     Object? selectedToppings = null,
@@ -127,6 +133,10 @@ class _$CartItemCopyWithImpl<$Res> implements $CartItemCopyWith<$Res> {
       dishName: null == dishName
           ? _self.dishName
           : dishName // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _self.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       imageUrl: null == imageUrl
           ? _self.imageUrl
@@ -253,6 +263,7 @@ extension CartItemPatterns on CartItem {
             String id,
             String dishId,
             String dishName,
+            String description,
             String imageUrl,
             String? selectedSize,
             List<String> selectedToppings,
@@ -269,6 +280,7 @@ extension CartItemPatterns on CartItem {
             _that.id,
             _that.dishId,
             _that.dishName,
+            _that.description,
             _that.imageUrl,
             _that.selectedSize,
             _that.selectedToppings,
@@ -299,6 +311,7 @@ extension CartItemPatterns on CartItem {
             String id,
             String dishId,
             String dishName,
+            String description,
             String imageUrl,
             String? selectedSize,
             List<String> selectedToppings,
@@ -314,6 +327,7 @@ extension CartItemPatterns on CartItem {
             _that.id,
             _that.dishId,
             _that.dishName,
+            _that.description,
             _that.imageUrl,
             _that.selectedSize,
             _that.selectedToppings,
@@ -343,6 +357,7 @@ extension CartItemPatterns on CartItem {
             String id,
             String dishId,
             String dishName,
+            String description,
             String imageUrl,
             String? selectedSize,
             List<String> selectedToppings,
@@ -358,6 +373,7 @@ extension CartItemPatterns on CartItem {
             _that.id,
             _that.dishId,
             _that.dishName,
+            _that.description,
             _that.imageUrl,
             _that.selectedSize,
             _that.selectedToppings,
@@ -377,6 +393,7 @@ class _CartItem implements CartItem {
       {required this.id,
       required this.dishId,
       required this.dishName,
+      required this.description,
       required this.imageUrl,
       this.selectedSize,
       final List<String> selectedToppings = const [],
@@ -393,6 +410,8 @@ class _CartItem implements CartItem {
   final String dishId;
   @override
   final String dishName;
+  @override
+  final String description;
   @override
   final String imageUrl;
   @override
@@ -439,6 +458,8 @@ class _CartItem implements CartItem {
             (identical(other.dishId, dishId) || other.dishId == dishId) &&
             (identical(other.dishName, dishName) ||
                 other.dishName == dishName) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.selectedSize, selectedSize) ||
@@ -459,6 +480,7 @@ class _CartItem implements CartItem {
       id,
       dishId,
       dishName,
+      description,
       imageUrl,
       selectedSize,
       const DeepCollectionEquality().hash(_selectedToppings),
@@ -468,7 +490,7 @@ class _CartItem implements CartItem {
 
   @override
   String toString() {
-    return 'CartItem(id: $id, dishId: $dishId, dishName: $dishName, imageUrl: $imageUrl, selectedSize: $selectedSize, selectedToppings: $selectedToppings, basePrice: $basePrice, quantity: $quantity, note: $note)';
+    return 'CartItem(id: $id, dishId: $dishId, dishName: $dishName, description: $description, imageUrl: $imageUrl, selectedSize: $selectedSize, selectedToppings: $selectedToppings, basePrice: $basePrice, quantity: $quantity, note: $note)';
   }
 }
 
@@ -483,6 +505,7 @@ abstract mixin class _$CartItemCopyWith<$Res>
       {String id,
       String dishId,
       String dishName,
+      String description,
       String imageUrl,
       String? selectedSize,
       List<String> selectedToppings,
@@ -506,6 +529,7 @@ class __$CartItemCopyWithImpl<$Res> implements _$CartItemCopyWith<$Res> {
     Object? id = null,
     Object? dishId = null,
     Object? dishName = null,
+    Object? description = null,
     Object? imageUrl = null,
     Object? selectedSize = freezed,
     Object? selectedToppings = null,
@@ -525,6 +549,10 @@ class __$CartItemCopyWithImpl<$Res> implements _$CartItemCopyWith<$Res> {
       dishName: null == dishName
           ? _self.dishName
           : dishName // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _self.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       imageUrl: null == imageUrl
           ? _self.imageUrl

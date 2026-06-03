@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:foodie/core/router/routes.dart';
 import 'package:foodie/features/dish/data/models/dish.dart';
 import 'package:foodie/features/dish/data/models/dish_list_state.dart';
 import 'package:foodie/features/dish/presentation/providers/dish_notifier.dart';
@@ -50,8 +52,10 @@ class _DishDetailScreenState extends ConsumerState<DishDetailScreen> {
             onToppingToggled: (topping) => notifier.toppingSelection(topping),
             onIncrement: () => notifier.incrementQuantity(),
             onDecrement: () => notifier.decrementQuantity(),
-            onAddToCart: () =>
-                notifier.addTocart(), //TODO: add when cart is ready
+            onAddToCart: () {
+              notifier.addTocart();
+              context.push(Routes.cart);
+            },
             noteController: _noteController,
             onChanged: (text) => notifier.setNote(text),
           ),

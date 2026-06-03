@@ -9,6 +9,7 @@ abstract class CartItem with _$CartItem {
     required String id,
     required String dishId,
     required String dishName,
+    required String description,
     required String imageUrl,
     String? selectedSize,
     @Default([]) List<String> selectedToppings,

@@ -77,7 +77,7 @@ types:
         index: 2
   CartItem:
     typeId: 4
-    nextIndex: 9
+    nextIndex: 10
     fields:
       id:
         index: 0
@@ -97,6 +97,8 @@ types:
         index: 7
       note:
         index: 8
+      description:
+        index: 9
   OrderStatus:
     typeId: 6
     nextIndex: 3

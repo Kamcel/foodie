@@ -12,6 +12,7 @@ import 'package:foodie/features/restaurant/presentation/widgets/restaurant_error
 import 'package:foodie/features/restaurant/presentation/widgets/restaurant_loading.dart';
 import 'package:foodie/features/restaurant/presentation/widgets/restaurant_success.dart';
 import 'package:foodie/features/restaurant/presentation/widgets/search_and_back.dart';
+import 'package:go_router/go_router.dart';
 
 class RestaurantScreen extends ConsumerStatefulWidget {
   const RestaurantScreen({super.key});
@@ -46,7 +47,13 @@ class _RestaurantScreenState extends ConsumerState<RestaurantScreen> {
         height: 70,
         child: AppNavBar(
           currentIndex: 1,
-          onTap: (_) {},
+          onTap: (index) {
+            if (index == 2) {
+              context.go('/cart');
+            } else if (index == 0 || index == 1) {
+              context.go('/restaurants');
+            }
+          },
         ),
       ),
       appBar: PreferredSize(

@@ -234,6 +234,7 @@ class CartItemAdapter extends TypeAdapter<CartItem> {
       id: fields[0] as String,
       dishId: fields[1] as String,
       dishName: fields[2] as String,
+      description: fields[9] as String,
       imageUrl: fields[3] as String,
       selectedSize: fields[4] as String?,
       selectedToppings:
@@ -247,7 +248,7 @@ class CartItemAdapter extends TypeAdapter<CartItem> {
   @override
   void write(BinaryWriter writer, CartItem obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -265,7 +266,9 @@ class CartItemAdapter extends TypeAdapter<CartItem> {
       ..writeByte(7)
       ..write(obj.quantity)
       ..writeByte(8)
-      ..write(obj.note);
+      ..write(obj.note)
+      ..writeByte(9)
+      ..write(obj.description);
   }
 
   @override

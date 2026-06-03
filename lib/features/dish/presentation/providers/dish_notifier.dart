@@ -1,3 +1,5 @@
+import 'package:foodie/features/cart/data/model/cart_item.dart';
+import 'package:foodie/features/cart/presentation/providers/cart_notifier.dart';
 import 'package:foodie/features/dish/data/models/dish.dart';
 import 'package:foodie/features/dish/data/models/dish_enums.dart';
 import 'package:foodie/features/dish/data/models/dish_list_state.dart';
@@ -87,7 +89,31 @@ class DishNotifier extends _$DishNotifier {
     if (state is! Success) return;
     final currentState = state as Success;
     if (!isOrderable) return;
-    //TODO: add when cart is ready
+
+    // Calculate the unit price including selected customizations
+    double unitPrice = currentState.dish.basePrice;
+    if (currentState.selectedSize != null) {
+      unitPrice += currentState.selectedSize!.extraCharge;
+    }
+    for (final topping in currentState.selectedToppings) {
+      unitPrice += topping.additionalPrice;
+    }
+
+    final cartItem = CartItem(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      dishId: currentState.dish.id,
+      dishName: currentState.dish.name,
+      description: currentState.dish.description,
+      imageUrl: currentState.dish.imageUrl,
+      selectedSize: currentState.selectedSize?.name,
+      selectedToppings:
+          currentState.selectedToppings.map((t) => t.name).toList(),
+      basePrice: unitPrice,
+      quantity: currentState.quantity,
+      note: currentState.note,
+    );
+
+    ref.read(cartProvider.notifier).addItem(cartItem);
   }
 
   final repository =

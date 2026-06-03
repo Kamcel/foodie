@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:foodie/core/router/routes.dart';
 import 'package:foodie/core/theme/app_dimensions.dart';
 import 'package:go_router/go_router.dart';
 
@@ -46,7 +47,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     final textTheme = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
     return TextButton(
-        onPressed: onBack ?? () => context.pop(),
+        onPressed: onBack ?? () {
+          if (Navigator.of(context).canPop()) {
+            context.pop();
+          } else {
+            context.go(Routes.restaurantScreen);
+          }
+        },
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

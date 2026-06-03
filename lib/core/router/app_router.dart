@@ -8,6 +8,7 @@ import 'package:foodie/features/auth/presentation/screens/reset_password_screen.
 import 'package:foodie/features/auth/presentation/screens/sign_up_email_screen.dart';
 import 'package:foodie/features/auth/presentation/screens/upcoming_screen.dart';
 import 'package:foodie/features/auth/presentation/screens/register_screen.dart';
+import 'package:foodie/features/cart/presentation/screens/cart_screen.dart';
 import 'package:foodie/features/dish/data/models/dish.dart';
 import 'package:foodie/features/dish/presentation/screens/dish_detail_screen.dart';
 import 'package:foodie/features/onboarding/presentation/screens/splash_screen.dart';
@@ -129,6 +130,11 @@ final GoRouter router = GoRouter(
         builder: (context, state) {
           final dish = state.extra as Dish;
           return DishDetailScreen(dish: dish);
-        })
+        }),
+    GoRoute(
+      path: '/cart',
+      name: 'cart',
+      builder: (context, state) => const CartScreen(),
+    ),
   ],
 );
