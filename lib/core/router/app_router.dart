@@ -52,7 +52,6 @@ GoRouter createRouter({String? initialLocation}) {
         Routes.profileSetup,
         Routes.profile,
         Routes.checkout,
-        Routes.orderScreen,
       ];
 
       if (!isLoggedIn && protectedPaths.any((p) => location.startsWith(p))) {
