@@ -37,7 +37,11 @@ class CartNotifier extends _$CartNotifier {
     }
 
     state = state.copyWith(items: updatedItems);
-    _storage.saveCart(state);
+    _storage.saveCart(state).then((_) {
+      debugPrint('CartNotifier.addItem: cart saved to storage');
+    }).catchError((e) {
+      debugPrint('CartNotifier.addItem: ERROR saving cart - $e');
+    });
     debugPrint(
         'CartNotifier.addItem: cart updated, ${state.items.length} items');
   }
@@ -46,7 +50,9 @@ class CartNotifier extends _$CartNotifier {
     final updatedItems =
         state.items.where((item) => item.id != itemId).toList();
     state = state.copyWith(items: updatedItems);
-    _storage.saveCart(state);
+    _storage.saveCart(state).catchError((e) {
+      debugPrint('CartNotifier.removeItem: ERROR saving cart - $e');
+    });
   }
 
   void incrementItem(String itemId) {
@@ -58,7 +64,9 @@ class CartNotifier extends _$CartNotifier {
     }).toList();
 
     state = state.copyWith(items: updatedItems);
-    _storage.saveCart(state);
+    _storage.saveCart(state).catchError((e) {
+      debugPrint('CartNotifier.incrementItem: ERROR saving cart - $e');
+    });
   }
 
   void decrementItem(String itemId) {
@@ -77,19 +85,25 @@ class CartNotifier extends _$CartNotifier {
     }).toList();
 
     state = state.copyWith(items: updatedItems);
-    _storage.saveCart(state);
+    _storage.saveCart(state).catchError((e) {
+      debugPrint('CartNotifier.decrementItem: ERROR saving cart - $e');
+    });
   }
 
   void applyPromoCode(String code) {
     final cleanCode = code.trim().toUpperCase();
     if (cleanCode == 'SAVE10') {
       state = state.copyWith(promoCode: cleanCode);
-      _storage.saveCart(state);
+      _storage.saveCart(state).catchError((e) {
+        debugPrint('CartNotifier.applyPromoCode: ERROR saving cart - $e');
+      });
     }
   }
 
   void clearCart() {
     state = const Cart(items: []);
-    _storage.saveCart(state);
+    _storage.saveCart(state).catchError((e) {
+      debugPrint('CartNotifier.clearCart: ERROR saving cart - $e');
+    });
   }
 }

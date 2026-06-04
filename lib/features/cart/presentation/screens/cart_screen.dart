@@ -25,6 +25,10 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     final state = ref.watch(cartProvider);
     final cartNotifier = ref.read(cartProvider.notifier);
 
+    debugPrint('CartScreen: building with ${state.items.length} items');
+    debugPrint(
+        'CartScreen: items = ${state.items.map((i) => i.dishName).toList()}');
+
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Your Cart',
@@ -40,100 +44,119 @@ class _CartScreenState extends ConsumerState<CartScreen> {
           if (index == 4) return context.go(Routes.profileSetup);
         },
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // 1. Cart Items List
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: state.items.length,
-              itemBuilder: (context, index) {
-                final item = state.items[index];
-                return Dismissible(
-                  key: ValueKey(item.id),
-                  direction: DismissDirection.endToStart,
-                  onDismissed: (_) => cartNotifier.removeItem(item.id),
-                  background: Container(
-                    color: colors.errorContainer,
-                    alignment: Alignment.centerRight,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: AppDimensions.spaceMD),
-                    child: const Icon(Icons.delete, color: Colors.white),
-                  ),
-                  child: CartTile(
-                    item: item,
-                    onIncrement: () => cartNotifier.incrementItem(item.id),
-                    onDecrement: () => cartNotifier.decrementItem(item.id),
-                  ),
-                );
-              },
-            ),
-            SizedBox(height: AppDimensions.spaceMD),
-            OutlinedButton(
-              onPressed: () => context.pop(),
-              child: const Text('+ Add More Items'),
-            ),
-            // 2. Promo Code Section
-            SizedBox(height: AppDimensions.spaceMD),
-            PromoSection(onApply: cartNotifier.applyPromoCode),
-            SizedBox(height: AppDimensions.spaceMD),
-
-            // 3. Price Summary
-            Container(
-              padding: const EdgeInsets.all(AppDimensions.spaceMD),
-              decoration: BoxDecoration(
-                color: colors.surfaceContainer,
-                borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
-              ),
+      body: state.items.isEmpty
+          ? Center(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Subtotal'),
-                      Text('₦${state.subtotal.toStringAsFixed(2)}'),
-                    ],
-                  ),
-                  SizedBox(height: AppDimensions.spaceXS),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Delivery Fee'),
-                      Text('₦${state.deliveryFee.toStringAsFixed(2)}'),
-                    ],
-                  ),
-                  Divider(height: AppDimensions.spaceMD),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Total',
-                          style: Theme.of(context).textTheme.titleMedium),
-                      Text('₦${state.total.toStringAsFixed(2)}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium), // Replace with dynamic total
-                    ],
+                  const Icon(Icons.shopping_cart_outlined, size: 64),
+                  const SizedBox(height: 16),
+                  const Text('Your cart is empty'),
+                  const SizedBox(height: 32),
+                  ElevatedButton(
+                    onPressed: () => context.pop(),
+                    child: const Text('Continue Shopping'),
                   ),
                 ],
               ),
-            ),
-            SizedBox(height: AppDimensions.spaceMD),
+            )
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  // 1. Cart Items List
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: state.items.length,
+                    itemBuilder: (context, index) {
+                      final item = state.items[index];
+                      return Dismissible(
+                        key: ValueKey(item.id),
+                        direction: DismissDirection.endToStart,
+                        onDismissed: (_) => cartNotifier.removeItem(item.id),
+                        background: Container(
+                          color: colors.errorContainer,
+                          alignment: Alignment.centerRight,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppDimensions.spaceMD),
+                          child: const Icon(Icons.delete, color: Colors.white),
+                        ),
+                        child: CartTile(
+                          item: item,
+                          onIncrement: () =>
+                              cartNotifier.incrementItem(item.id),
+                          onDecrement: () =>
+                              cartNotifier.decrementItem(item.id),
+                        ),
+                      );
+                    },
+                  ),
+                  SizedBox(height: AppDimensions.spaceMD),
+                  OutlinedButton(
+                    onPressed: () => context.pop(),
+                    child: const Text('+ Add More Items'),
+                  ),
+                  // 2. Promo Code Section
+                  SizedBox(height: AppDimensions.spaceMD),
+                  PromoSection(onApply: cartNotifier.applyPromoCode),
+                  SizedBox(height: AppDimensions.spaceMD),
 
-            // 4. Checkout Button
-            ElevatedButton(
-                onPressed: () {
-                  context.go(Routes.orderScreen);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: AppDimensions.spaceSM),
-                  child: Text(
-                      'Proceed to Checkout • ₦${state.total.toStringAsFixed(2)}'),
-                ))
-          ],
-        ),
-      ),
+                  // 3. Price Summary
+                  Container(
+                    padding: const EdgeInsets.all(AppDimensions.spaceMD),
+                    decoration: BoxDecoration(
+                      color: colors.surfaceContainer,
+                      borderRadius:
+                          BorderRadius.circular(AppDimensions.radiusMD),
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Subtotal'),
+                            Text('₦${state.subtotal.toStringAsFixed(2)}'),
+                          ],
+                        ),
+                        SizedBox(height: AppDimensions.spaceXS),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Delivery Fee'),
+                            Text('₦${state.deliveryFee.toStringAsFixed(2)}'),
+                          ],
+                        ),
+                        Divider(height: AppDimensions.spaceMD),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Total',
+                                style: Theme.of(context).textTheme.titleMedium),
+                            Text('₦${state.total.toStringAsFixed(2)}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium), // Replace with dynamic total
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: AppDimensions.spaceMD),
+
+                  // 4. Checkout Button
+                  ElevatedButton(
+                      onPressed: () {
+                        context.go(Routes.orderScreen);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: AppDimensions.spaceSM),
+                        child: Text(
+                            'Proceed to Checkout • ₦${state.total.toStringAsFixed(2)}'),
+                      ))
+                ],
+              ),
+            ),
     );
   }
 }

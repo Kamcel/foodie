@@ -16,12 +16,11 @@ class CartStorage {
     if (rawData == null) return const Cart();
 
     try {
-      final Map<String, dynamic> jsonMap = rawData is String 
-          ? Map<String, dynamic>.from(_box.get(_key)) // Fallback parser
-          : Map<String, dynamic>.from(rawData as Map);
-          
+      final Map<String, dynamic> jsonMap = 
+          Map<String, dynamic>.from(rawData as Map);
       return Cart.fromJson(jsonMap);
     } catch (e) {
+      print('CartStorage.loadCart error: $e');
       return const Cart(); // Fallback if data is corrupted
     }
   }
