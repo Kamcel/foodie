@@ -49,7 +49,7 @@ class _RestaurantScreenState extends ConsumerState<RestaurantScreen> {
         child: AppNavBar(
           currentIndex: 1,
           onTap: (index) {
-            if (index == 1) return; // already here
+            if (index == 1) return;
             if (index == 0) return context.go(Routes.restaurantScreen);
             if (index == 2) return context.go(Routes.cart);
             if (index == 3) return context.go(Routes.orderScreen);
