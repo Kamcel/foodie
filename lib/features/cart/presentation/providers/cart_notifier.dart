@@ -8,20 +8,36 @@ part 'cart_notifier.g.dart';
 @riverpod
 class CartNotifier extends _$CartNotifier {
   final _storage = CartStorage.instance;
+
   @override
   Cart build() {
     return _storage.loadCart();
   }
 
   void addItem(CartItem item) {
-    final updatedItems = [...state.items, item];
+    final existingIndex = state.items.indexWhere(
+      (element) => element.dishId == item.dishId && element.selectedSize == item.selectedSize
+    );
+    
+    List<CartItem> updatedItems;
+
+    if (existingIndex != -1) {
+      updatedItems = state.items.map((element) {
+        if (element.dishId == item.dishId && element.selectedSize == item.selectedSize) {
+          return element.copyWith(quantity: element.quantity + item.quantity);
+        }
+        return element;
+      }).toList();
+    } else {
+      updatedItems = [...state.items, item];
+    }
+
     state = state.copyWith(items: updatedItems);
     _storage.saveCart(state);
   }
 
   void removeItem(String itemId) {
-    final updatedItems =
-        state.items.where((item) => item.id != itemId).toList();
+    final updatedItems = state.items.where((item) => item.id != itemId).toList();
     state = state.copyWith(items: updatedItems);
     _storage.saveCart(state);
   }
@@ -39,8 +55,15 @@ class CartNotifier extends _$CartNotifier {
   }
 
   void decrementItem(String itemId) {
+    final targetItem = state.items.firstWhere((item) => item.id == itemId);
+    
+    if (targetItem.quantity <= 1) {
+      removeItem(itemId);
+      return;
+    }
+
     final updatedItems = state.items.map((item) {
-      if (item.id == itemId && item.quantity > 1) {
+      if (item.id == itemId) {
         return item.copyWith(quantity: item.quantity - 1);
       }
       return item;
@@ -51,9 +74,9 @@ class CartNotifier extends _$CartNotifier {
   }
 
   void applyPromoCode(String code) {
-    // For simplicity, we only handle one promo code "SAVE10" for a 10% discount
-    if (code == 'SAVE10') {
-      state = state.copyWith(promoCode: code);
+    final cleanCode = code.trim().toUpperCase();
+    if (cleanCode == 'SAVE10') {
+      state = state.copyWith(promoCode: cleanCode);
       _storage.saveCart(state);
     }
   }
