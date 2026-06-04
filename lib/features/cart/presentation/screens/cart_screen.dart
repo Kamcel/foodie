@@ -33,10 +33,11 @@ class _CartScreenState extends ConsumerState<CartScreen> {
       bottomNavigationBar: AppNavBar(
         currentIndex: 2,
         onTap: (index) {
-          if (index == 2) return;
-          if (index == 0 || index == 1) {
-            context.go(Routes.restaurantScreen);
-          }
+          if (index == 2) return; // already on cart
+          if (index == 0) return context.go(Routes.restaurantScreen);
+          if (index == 1) return context.go(Routes.restaurantScreen);
+          if (index == 3) return context.go(Routes.orderScreen);
+          if (index == 4) return context.go(Routes.profileSetup);
         },
       ),
       body: SingleChildScrollView(

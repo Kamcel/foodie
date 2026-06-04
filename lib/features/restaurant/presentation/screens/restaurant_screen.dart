@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:foodie/core/theme/app_dimensions.dart';
 import 'package:foodie/core/widgets/app_nav_bar.dart';
+import 'package:foodie/core/router/routes.dart';
 import 'package:foodie/features/restaurant/data/models/restaurant_screen_state.dart';
 import 'package:foodie/features/restaurant/presentation/providers/restaurant_screen_notifier.dart';
 import 'package:foodie/features/restaurant/presentation/widgets/category_filter.dart';
@@ -48,11 +49,11 @@ class _RestaurantScreenState extends ConsumerState<RestaurantScreen> {
         child: AppNavBar(
           currentIndex: 1,
           onTap: (index) {
-            if (index == 2) {
-              context.go('/cart');
-            } else if (index == 0 || index == 1) {
-              context.go('/restaurants');
-            }
+            if (index == 1) return; // already here
+            if (index == 0) return context.go(Routes.restaurantScreen);
+            if (index == 2) return context.go(Routes.cart);
+            if (index == 3) return context.go(Routes.orderScreen);
+            if (index == 4) return context.go(Routes.profileSetup);
           },
         ),
       ),

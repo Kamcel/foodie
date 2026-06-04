@@ -31,10 +31,11 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
         bottomNavigationBar: AppNavBar(
           currentIndex: 3,
           onTap: (index) {
-            if (index == 3) return;
-            if (index == 1 || index == 2) {
-              context.go(Routes.restaurantScreen);
-            }
+            if (index == 3) return; // already here
+            if (index == 0) return context.go(Routes.restaurantScreen);
+            if (index == 1) return context.go(Routes.restaurantScreen);
+            if (index == 2) return context.go(Routes.cart);
+            if (index == 4) return context.go(Routes.profileSetup);
           },
         ),
         body: state.map(
