@@ -12,16 +12,26 @@ class CartStorage {
 
   // ── READ ────────────────────────────────────────────────
   Cart loadCart() {
-    final data = _box.get(_key);
-    if (data == null) return const Cart();
-    return data as Cart;
+    final rawData = _box.get(_key);
+    if (rawData == null) return const Cart();
+
+    try {
+      final Map<String, dynamic> jsonMap = rawData is String 
+          ? Map<String, dynamic>.from(_box.get(_key)) // Fallback parser
+          : Map<String, dynamic>.from(rawData as Map);
+          
+      return Cart.fromJson(jsonMap);
+    } catch (e) {
+      return const Cart(); // Fallback if data is corrupted
+    }
   }
 
   // ── WRITE ───────────────────────────────────────────────
-  Future<void> saveCarts(List<Cart> carts) => _box.put(_key, carts);
-
-  Future<void> saveCart(Cart cart) => _box.put(_key, cart);
+  Future<void> saveCart(Cart cart) async {
+    final jsonMap = cart.toJson();
+    await _box.put(_key, jsonMap);
+  }
 
   // ── CLEAR ───────────────────────────────────────────────
-  Future<void> clear() => _box.delete(_key);
+  Future<void> clear() async => await _box.delete(_key);
 }
