@@ -65,6 +65,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 children: [
                   // 1. Cart Items List
                   ListView.builder(
+                    padding: const EdgeInsets.all(AppDimensions.spaceMD),
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: state.items.length,

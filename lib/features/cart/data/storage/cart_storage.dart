@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:foodie/features/cart/data/model/cart.dart';
+import 'package:foodie/features/cart/data/model/cart_item.dart';
 import 'package:hive_ce/hive.dart';
 
 class CartStorage {
@@ -16,11 +18,30 @@ class CartStorage {
     if (rawData == null) return const Cart();
 
     try {
-      final Map<String, dynamic> jsonMap = 
+      // Handle case where data might be stored as a Map with nested CartItem objects
+      if (rawData is Map<String, dynamic>) {
+        // If items exist and are CartItem objects, we need to convert them to Maps first
+        if (rawData['items'] is List) {
+          final itemsList = (rawData['items'] as List).map((item) {
+            if (item is CartItem) {
+              // If it's already a CartItem object, convert to JSON map
+              return item.toJson();
+            }
+            return item;
+          }).toList();
+
+          final correctedData = Map<String, dynamic>.from(rawData)
+            ..[('items')] = itemsList;
+
+          return Cart.fromJson(correctedData);
+        }
+      }
+
+      final Map<String, dynamic> jsonMap =
           Map<String, dynamic>.from(rawData as Map);
       return Cart.fromJson(jsonMap);
     } catch (e) {
-      print('CartStorage.loadCart error: $e');
+      debugPrint('CartStorage.loadCart error: $e');
       return const Cart(); // Fallback if data is corrupted
     }
   }
