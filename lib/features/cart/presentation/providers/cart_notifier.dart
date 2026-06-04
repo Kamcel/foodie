@@ -16,16 +16,18 @@ class CartNotifier extends _$CartNotifier {
   }
 
   void addItem(CartItem item) {
-    debugPrint('CartNotifier.addItem: incoming ${item.dishName} qty:${item.quantity}');
-    final existingIndex = state.items.indexWhere(
-      (element) => element.dishId == item.dishId && element.selectedSize == item.selectedSize
-    );
-    
+    debugPrint(
+        'CartNotifier.addItem: incoming ${item.dishName} qty:${item.quantity}');
+    final existingIndex = state.items.indexWhere((element) =>
+        element.dishId == item.dishId &&
+        element.selectedSize == item.selectedSize);
+
     List<CartItem> updatedItems;
 
     if (existingIndex != -1) {
       updatedItems = state.items.map((element) {
-        if (element.dishId == item.dishId && element.selectedSize == item.selectedSize) {
+        if (element.dishId == item.dishId &&
+            element.selectedSize == item.selectedSize) {
           return element.copyWith(quantity: element.quantity + item.quantity);
         }
         return element;
@@ -36,11 +38,13 @@ class CartNotifier extends _$CartNotifier {
 
     state = state.copyWith(items: updatedItems);
     _storage.saveCart(state);
-    debugPrint('CartNotifier.addItem: cart updated, ${state.items.length} items');
+    debugPrint(
+        'CartNotifier.addItem: cart updated, ${state.items.length} items');
   }
 
   void removeItem(String itemId) {
-    final updatedItems = state.items.where((item) => item.id != itemId).toList();
+    final updatedItems =
+        state.items.where((item) => item.id != itemId).toList();
     state = state.copyWith(items: updatedItems);
     _storage.saveCart(state);
   }
@@ -59,7 +63,7 @@ class CartNotifier extends _$CartNotifier {
 
   void decrementItem(String itemId) {
     final targetItem = state.items.firstWhere((item) => item.id == itemId);
-    
+
     if (targetItem.quantity <= 1) {
       removeItem(itemId);
       return;
