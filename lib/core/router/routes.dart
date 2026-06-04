@@ -36,4 +36,11 @@ class Routes {
   static const String checkout = '/checkout';
   static const String orderConfirmation = '/order-confirmation';
   static const String orderTracking = '/order/id';
+
+  // Route Names (for pushNamed/pushReplacementNamed)
+  static const String cartName = 'cart';
+  static const String dishDetailScreenName = 'dishDetailScreen';
+  static const String restaurantDetailScreenName = 'restaurantDetailScreen';
+  static const String restaurantReviewScreenName = 'restaurantReviewScreen';
+  static const String orderScreenName = 'orderScreen';
 }

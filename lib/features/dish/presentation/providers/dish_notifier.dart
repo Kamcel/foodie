@@ -86,7 +86,7 @@ class DishNotifier extends _$DishNotifier {
   }
 
 //add to  cart
-  void addTocart() {
+  void addTocart(CartItem cartItem) {
     if (state is! Success) return;
     final currentState = state as Success;
     if (!isOrderable) return;

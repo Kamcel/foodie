@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:foodie/features/cart/data/model/cart_item.dart';
 import 'package:go_router/go_router.dart';
 import 'package:foodie/core/router/routes.dart';
 import 'package:foodie/features/dish/data/models/dish.dart';
@@ -53,8 +54,15 @@ class _DishDetailScreenState extends ConsumerState<DishDetailScreen> {
             onIncrement: () => notifier.incrementQuantity(),
             onDecrement: () => notifier.decrementQuantity(),
             onAddToCart: () {
-              notifier.addTocart();
-              context.go(Routes.cart);
+              notifier.addTocart(CartItem(
+                  id: '${s.dish.id}_${DateTime.now().millisecondsSinceEpoch}',
+                  dishId: s.dish.id,
+                  dishName: s.dish.name,
+                  description: s.dish.description,
+                  imageUrl: s.dish.imageUrl,
+                  basePrice: notifier.totalPrice / s.quantity));
+
+              context.pushNamed(Routes.cartName);
             },
             noteController: _noteController,
             onChanged: (text) => notifier.setNote(text),
