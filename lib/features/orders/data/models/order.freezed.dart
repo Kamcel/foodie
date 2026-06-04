@@ -15,12 +15,16 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Order {
   String get id;
+  String get restaurantName;
+  String get restaurantImageUrl;
   List<CartItem> get items;
   OrderStatus get status;
   DateTime get createdAt;
   double get totalAmount;
   String? get deliveryAddress;
   int? get rating;
+  String? get riderName;
+  String? get estimatedDeliveryTime;
 
   /// Create a copy of Order
   /// with the given fields replaced by the non-null parameter values.
@@ -38,6 +42,10 @@ mixin _$Order {
         (other.runtimeType == runtimeType &&
             other is Order &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.restaurantName, restaurantName) ||
+                other.restaurantName == restaurantName) &&
+            (identical(other.restaurantImageUrl, restaurantImageUrl) ||
+                other.restaurantImageUrl == restaurantImageUrl) &&
             const DeepCollectionEquality().equals(other.items, items) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.createdAt, createdAt) ||
@@ -46,7 +54,11 @@ mixin _$Order {
                 other.totalAmount == totalAmount) &&
             (identical(other.deliveryAddress, deliveryAddress) ||
                 other.deliveryAddress == deliveryAddress) &&
-            (identical(other.rating, rating) || other.rating == rating));
+            (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.riderName, riderName) ||
+                other.riderName == riderName) &&
+            (identical(other.estimatedDeliveryTime, estimatedDeliveryTime) ||
+                other.estimatedDeliveryTime == estimatedDeliveryTime));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -54,16 +66,20 @@ mixin _$Order {
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      restaurantName,
+      restaurantImageUrl,
       const DeepCollectionEquality().hash(items),
       status,
       createdAt,
       totalAmount,
       deliveryAddress,
-      rating);
+      rating,
+      riderName,
+      estimatedDeliveryTime);
 
   @override
   String toString() {
-    return 'Order(id: $id, items: $items, status: $status, createdAt: $createdAt, totalAmount: $totalAmount, deliveryAddress: $deliveryAddress, rating: $rating)';
+    return 'Order(id: $id, restaurantName: $restaurantName, restaurantImageUrl: $restaurantImageUrl, items: $items, status: $status, createdAt: $createdAt, totalAmount: $totalAmount, deliveryAddress: $deliveryAddress, rating: $rating, riderName: $riderName, estimatedDeliveryTime: $estimatedDeliveryTime)';
   }
 }
 
@@ -74,12 +90,16 @@ abstract mixin class $OrderCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      String restaurantName,
+      String restaurantImageUrl,
       List<CartItem> items,
       OrderStatus status,
       DateTime createdAt,
       double totalAmount,
       String? deliveryAddress,
-      int? rating});
+      int? rating,
+      String? riderName,
+      String? estimatedDeliveryTime});
 }
 
 /// @nodoc
@@ -95,17 +115,29 @@ class _$OrderCopyWithImpl<$Res> implements $OrderCopyWith<$Res> {
   @override
   $Res call({
     Object? id = null,
+    Object? restaurantName = null,
+    Object? restaurantImageUrl = null,
     Object? items = null,
     Object? status = null,
     Object? createdAt = null,
     Object? totalAmount = null,
     Object? deliveryAddress = freezed,
     Object? rating = freezed,
+    Object? riderName = freezed,
+    Object? estimatedDeliveryTime = freezed,
   }) {
     return _then(_self.copyWith(
       id: null == id
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      restaurantName: null == restaurantName
+          ? _self.restaurantName
+          : restaurantName // ignore: cast_nullable_to_non_nullable
+              as String,
+      restaurantImageUrl: null == restaurantImageUrl
+          ? _self.restaurantImageUrl
+          : restaurantImageUrl // ignore: cast_nullable_to_non_nullable
               as String,
       items: null == items
           ? _self.items
@@ -131,6 +163,14 @@ class _$OrderCopyWithImpl<$Res> implements $OrderCopyWith<$Res> {
           ? _self.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as int?,
+      riderName: freezed == riderName
+          ? _self.riderName
+          : riderName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      estimatedDeliveryTime: freezed == estimatedDeliveryTime
+          ? _self.estimatedDeliveryTime
+          : estimatedDeliveryTime // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -230,20 +270,34 @@ extension OrderPatterns on Order {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
             String id,
+            String restaurantName,
+            String restaurantImageUrl,
             List<CartItem> items,
             OrderStatus status,
             DateTime createdAt,
             double totalAmount,
             String? deliveryAddress,
-            int? rating)?
+            int? rating,
+            String? riderName,
+            String? estimatedDeliveryTime)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _Order() when $default != null:
-        return $default(_that.id, _that.items, _that.status, _that.createdAt,
-            _that.totalAmount, _that.deliveryAddress, _that.rating);
+        return $default(
+            _that.id,
+            _that.restaurantName,
+            _that.restaurantImageUrl,
+            _that.items,
+            _that.status,
+            _that.createdAt,
+            _that.totalAmount,
+            _that.deliveryAddress,
+            _that.rating,
+            _that.riderName,
+            _that.estimatedDeliveryTime);
       case _:
         return orElse();
     }
@@ -266,19 +320,33 @@ extension OrderPatterns on Order {
   TResult when<TResult extends Object?>(
     TResult Function(
             String id,
+            String restaurantName,
+            String restaurantImageUrl,
             List<CartItem> items,
             OrderStatus status,
             DateTime createdAt,
             double totalAmount,
             String? deliveryAddress,
-            int? rating)
+            int? rating,
+            String? riderName,
+            String? estimatedDeliveryTime)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _Order():
-        return $default(_that.id, _that.items, _that.status, _that.createdAt,
-            _that.totalAmount, _that.deliveryAddress, _that.rating);
+        return $default(
+            _that.id,
+            _that.restaurantName,
+            _that.restaurantImageUrl,
+            _that.items,
+            _that.status,
+            _that.createdAt,
+            _that.totalAmount,
+            _that.deliveryAddress,
+            _that.rating,
+            _that.riderName,
+            _that.estimatedDeliveryTime);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -300,19 +368,33 @@ extension OrderPatterns on Order {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
             String id,
+            String restaurantName,
+            String restaurantImageUrl,
             List<CartItem> items,
             OrderStatus status,
             DateTime createdAt,
             double totalAmount,
             String? deliveryAddress,
-            int? rating)?
+            int? rating,
+            String? riderName,
+            String? estimatedDeliveryTime)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _Order() when $default != null:
-        return $default(_that.id, _that.items, _that.status, _that.createdAt,
-            _that.totalAmount, _that.deliveryAddress, _that.rating);
+        return $default(
+            _that.id,
+            _that.restaurantName,
+            _that.restaurantImageUrl,
+            _that.items,
+            _that.status,
+            _that.createdAt,
+            _that.totalAmount,
+            _that.deliveryAddress,
+            _that.rating,
+            _that.riderName,
+            _that.estimatedDeliveryTime);
       case _:
         return null;
     }
@@ -324,18 +406,26 @@ extension OrderPatterns on Order {
 class _Order extends Order {
   const _Order(
       {required this.id,
+      required this.restaurantName,
+      required this.restaurantImageUrl,
       required final List<CartItem> items,
       required this.status,
       required this.createdAt,
       required this.totalAmount,
       this.deliveryAddress,
-      this.rating})
+      this.rating,
+      this.riderName,
+      this.estimatedDeliveryTime})
       : _items = items,
         super._();
   factory _Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
 
   @override
   final String id;
+  @override
+  final String restaurantName;
+  @override
+  final String restaurantImageUrl;
   final List<CartItem> _items;
   @override
   List<CartItem> get items {
@@ -354,6 +444,10 @@ class _Order extends Order {
   final String? deliveryAddress;
   @override
   final int? rating;
+  @override
+  final String? riderName;
+  @override
+  final String? estimatedDeliveryTime;
 
   /// Create a copy of Order
   /// with the given fields replaced by the non-null parameter values.
@@ -376,6 +470,10 @@ class _Order extends Order {
         (other.runtimeType == runtimeType &&
             other is _Order &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.restaurantName, restaurantName) ||
+                other.restaurantName == restaurantName) &&
+            (identical(other.restaurantImageUrl, restaurantImageUrl) ||
+                other.restaurantImageUrl == restaurantImageUrl) &&
             const DeepCollectionEquality().equals(other._items, _items) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.createdAt, createdAt) ||
@@ -384,7 +482,11 @@ class _Order extends Order {
                 other.totalAmount == totalAmount) &&
             (identical(other.deliveryAddress, deliveryAddress) ||
                 other.deliveryAddress == deliveryAddress) &&
-            (identical(other.rating, rating) || other.rating == rating));
+            (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.riderName, riderName) ||
+                other.riderName == riderName) &&
+            (identical(other.estimatedDeliveryTime, estimatedDeliveryTime) ||
+                other.estimatedDeliveryTime == estimatedDeliveryTime));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -392,16 +494,20 @@ class _Order extends Order {
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      restaurantName,
+      restaurantImageUrl,
       const DeepCollectionEquality().hash(_items),
       status,
       createdAt,
       totalAmount,
       deliveryAddress,
-      rating);
+      rating,
+      riderName,
+      estimatedDeliveryTime);
 
   @override
   String toString() {
-    return 'Order(id: $id, items: $items, status: $status, createdAt: $createdAt, totalAmount: $totalAmount, deliveryAddress: $deliveryAddress, rating: $rating)';
+    return 'Order(id: $id, restaurantName: $restaurantName, restaurantImageUrl: $restaurantImageUrl, items: $items, status: $status, createdAt: $createdAt, totalAmount: $totalAmount, deliveryAddress: $deliveryAddress, rating: $rating, riderName: $riderName, estimatedDeliveryTime: $estimatedDeliveryTime)';
   }
 }
 
@@ -413,12 +519,16 @@ abstract mixin class _$OrderCopyWith<$Res> implements $OrderCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      String restaurantName,
+      String restaurantImageUrl,
       List<CartItem> items,
       OrderStatus status,
       DateTime createdAt,
       double totalAmount,
       String? deliveryAddress,
-      int? rating});
+      int? rating,
+      String? riderName,
+      String? estimatedDeliveryTime});
 }
 
 /// @nodoc
@@ -434,17 +544,29 @@ class __$OrderCopyWithImpl<$Res> implements _$OrderCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   $Res call({
     Object? id = null,
+    Object? restaurantName = null,
+    Object? restaurantImageUrl = null,
     Object? items = null,
     Object? status = null,
     Object? createdAt = null,
     Object? totalAmount = null,
     Object? deliveryAddress = freezed,
     Object? rating = freezed,
+    Object? riderName = freezed,
+    Object? estimatedDeliveryTime = freezed,
   }) {
     return _then(_Order(
       id: null == id
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      restaurantName: null == restaurantName
+          ? _self.restaurantName
+          : restaurantName // ignore: cast_nullable_to_non_nullable
+              as String,
+      restaurantImageUrl: null == restaurantImageUrl
+          ? _self.restaurantImageUrl
+          : restaurantImageUrl // ignore: cast_nullable_to_non_nullable
               as String,
       items: null == items
           ? _self._items
@@ -470,6 +592,14 @@ class __$OrderCopyWithImpl<$Res> implements _$OrderCopyWith<$Res> {
           ? _self.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as int?,
+      riderName: freezed == riderName
+          ? _self.riderName
+          : riderName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      estimatedDeliveryTime: freezed == estimatedDeliveryTime
+          ? _self.estimatedDeliveryTime
+          : estimatedDeliveryTime // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }

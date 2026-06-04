@@ -15,6 +15,7 @@ abstract class OrderItem with _$OrderItem {
     required String dishName,
     required int quantity,
     required String selectedSize,
+    required String dishIamge,
     @Default([]) List<String> selectedToppings,
   }) = _OrderItem;
 

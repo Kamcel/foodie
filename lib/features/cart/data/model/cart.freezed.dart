@@ -14,7 +14,6 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$Cart {
-// F -- Fields
   List<CartItem> get items;
   String? get promoCode;
   double get deliveryFee;
@@ -286,9 +285,7 @@ class _Cart extends Cart {
         super._();
   factory _Cart.fromJson(Map<String, dynamic> json) => _$CartFromJson(json);
 
-// F -- Fields
   final List<CartItem> _items;
-// F -- Fields
   @override
   @JsonKey()
   List<CartItem> get items {

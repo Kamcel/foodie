@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodie/core/theme/app_dimensions.dart';
+import 'package:foodie/core/router/routes.dart';
+import 'package:go_router/go_router.dart';
 
 // SingleTickerProviderStateMixin gives our AnimationController its heartbeat.
 // The "with" keyword is how you attach a mixin to a class in Dart.
@@ -49,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen>
       // Always check mounted before using context after an async gap.
       // The user could theoretically navigate away before 3 seconds is up.
       if (mounted) {
-        Navigator.pushReplacementNamed(context, '/home');
+        context.go(Routes.restaurantScreen);
       }
     });
   }

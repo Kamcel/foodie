@@ -28,6 +28,7 @@ class Routes {
   static const String restaurantDetailScreen = '/restaurant-detail';
   static const String restaurantReviewScreen = '/restaurant-review';
   static const String dishDetailScreen = '/dish-detail';
+  static const String orderScreen = '/order-screen';
 
   //Nested Routes
   static const String restaurantDetails = '/restaurant/:id';

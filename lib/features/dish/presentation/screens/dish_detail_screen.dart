@@ -54,7 +54,7 @@ class _DishDetailScreenState extends ConsumerState<DishDetailScreen> {
             onDecrement: () => notifier.decrementQuantity(),
             onAddToCart: () {
               notifier.addTocart();
-              context.push(Routes.cart);
+              context.go(Routes.cart);
             },
             noteController: _noteController,
             onChanged: (text) => notifier.setNote(text),

@@ -12,12 +12,16 @@ abstract class Order with _$Order {
 
   const factory Order({
     required String id,
+    required String restaurantName,
+    required String restaurantImageUrl,
     required List<CartItem> items,
     required OrderStatus status,
     required DateTime createdAt,
     required double totalAmount,
     String? deliveryAddress,
     int? rating,
+    String? riderName,
+    String? estimatedDeliveryTime,
   }) = _Order;
 
   factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);

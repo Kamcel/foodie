@@ -589,28 +589,31 @@ class OrderItemAdapter extends TypeAdapter<OrderItem> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return OrderItem(
-      dishId: fields[0] as String,
-      dishName: fields[1] as String,
-      quantity: (fields[2] as num).toInt(),
-      selectedSize: fields[3] as String,
+      dishId: fields[5] as String,
+      dishName: fields[6] as String,
+      quantity: (fields[7] as num).toInt(),
+      selectedSize: fields[8] as String,
+      dishIamge: fields[9] as String,
       selectedToppings:
-          fields[4] == null ? [] : (fields[4] as List).cast<String>(),
+          fields[10] == null ? [] : (fields[10] as List).cast<String>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, OrderItem obj) {
     writer
+      ..writeByte(6)
       ..writeByte(5)
-      ..writeByte(0)
       ..write(obj.dishId)
-      ..writeByte(1)
+      ..writeByte(6)
       ..write(obj.dishName)
-      ..writeByte(2)
+      ..writeByte(7)
       ..write(obj.quantity)
-      ..writeByte(3)
+      ..writeByte(8)
       ..write(obj.selectedSize)
-      ..writeByte(4)
+      ..writeByte(9)
+      ..write(obj.dishIamge)
+      ..writeByte(10)
       ..write(obj.selectedToppings);
   }
 
@@ -636,34 +639,46 @@ class OrderAdapter extends TypeAdapter<Order> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Order(
-      id: fields[9] as String,
-      items: (fields[3] as List).cast<CartItem>(),
-      status: fields[5] as OrderStatus,
-      createdAt: fields[10] as DateTime,
-      totalAmount: (fields[11] as num).toDouble(),
-      deliveryAddress: fields[12] as String?,
-      rating: (fields[13] as num?)?.toInt(),
+      id: fields[16] as String,
+      restaurantName: fields[17] as String,
+      restaurantImageUrl: fields[18] as String,
+      items: (fields[19] as List).cast<CartItem>(),
+      status: fields[20] as OrderStatus,
+      createdAt: fields[21] as DateTime,
+      totalAmount: (fields[22] as num).toDouble(),
+      deliveryAddress: fields[23] as String?,
+      rating: (fields[24] as num?)?.toInt(),
+      riderName: fields[25] as String?,
+      estimatedDeliveryTime: fields[26] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Order obj) {
     writer
-      ..writeByte(7)
-      ..writeByte(3)
-      ..write(obj.items)
-      ..writeByte(5)
-      ..write(obj.status)
-      ..writeByte(9)
-      ..write(obj.id)
-      ..writeByte(10)
-      ..write(obj.createdAt)
       ..writeByte(11)
+      ..writeByte(16)
+      ..write(obj.id)
+      ..writeByte(17)
+      ..write(obj.restaurantName)
+      ..writeByte(18)
+      ..write(obj.restaurantImageUrl)
+      ..writeByte(19)
+      ..write(obj.items)
+      ..writeByte(20)
+      ..write(obj.status)
+      ..writeByte(21)
+      ..write(obj.createdAt)
+      ..writeByte(22)
       ..write(obj.totalAmount)
-      ..writeByte(12)
+      ..writeByte(23)
       ..write(obj.deliveryAddress)
-      ..writeByte(13)
-      ..write(obj.rating);
+      ..writeByte(24)
+      ..write(obj.rating)
+      ..writeByte(25)
+      ..write(obj.riderName)
+      ..writeByte(26)
+      ..write(obj.estimatedDeliveryTime);
   }
 
   @override

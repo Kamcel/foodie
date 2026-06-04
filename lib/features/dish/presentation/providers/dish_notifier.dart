@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:foodie/features/cart/data/model/cart_item.dart';
 import 'package:foodie/features/cart/presentation/providers/cart_notifier.dart';
 import 'package:foodie/features/dish/data/models/dish.dart';
@@ -114,6 +115,11 @@ class DishNotifier extends _$DishNotifier {
     );
 
     ref.read(cartProvider.notifier).addItem(cartItem);
+    debugPrint(
+        'DishNotifier.addTocart: added ${cartItem.dishName} (${cartItem.quantity})');
+    final currentCart = ref.read(cartProvider);
+    debugPrint(
+        'DishNotifier.addTocart: cart now has ${currentCart.items.length} items');
   }
 
   final repository =

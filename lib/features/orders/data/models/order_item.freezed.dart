@@ -19,6 +19,7 @@ mixin _$OrderItem {
   String get dishName;
   int get quantity;
   String get selectedSize;
+  String get dishIamge;
   List<String> get selectedToppings;
 
   /// Create a copy of OrderItem
@@ -43,18 +44,26 @@ mixin _$OrderItem {
                 other.quantity == quantity) &&
             (identical(other.selectedSize, selectedSize) ||
                 other.selectedSize == selectedSize) &&
+            (identical(other.dishIamge, dishIamge) ||
+                other.dishIamge == dishIamge) &&
             const DeepCollectionEquality()
                 .equals(other.selectedToppings, selectedToppings));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, dishId, dishName, quantity,
-      selectedSize, const DeepCollectionEquality().hash(selectedToppings));
+  int get hashCode => Object.hash(
+      runtimeType,
+      dishId,
+      dishName,
+      quantity,
+      selectedSize,
+      dishIamge,
+      const DeepCollectionEquality().hash(selectedToppings));
 
   @override
   String toString() {
-    return 'OrderItem(dishId: $dishId, dishName: $dishName, quantity: $quantity, selectedSize: $selectedSize, selectedToppings: $selectedToppings)';
+    return 'OrderItem(dishId: $dishId, dishName: $dishName, quantity: $quantity, selectedSize: $selectedSize, dishIamge: $dishIamge, selectedToppings: $selectedToppings)';
   }
 }
 
@@ -68,6 +77,7 @@ abstract mixin class $OrderItemCopyWith<$Res> {
       String dishName,
       int quantity,
       String selectedSize,
+      String dishIamge,
       List<String> selectedToppings});
 }
 
@@ -87,6 +97,7 @@ class _$OrderItemCopyWithImpl<$Res> implements $OrderItemCopyWith<$Res> {
     Object? dishName = null,
     Object? quantity = null,
     Object? selectedSize = null,
+    Object? dishIamge = null,
     Object? selectedToppings = null,
   }) {
     return _then(_self.copyWith(
@@ -105,6 +116,10 @@ class _$OrderItemCopyWithImpl<$Res> implements $OrderItemCopyWith<$Res> {
       selectedSize: null == selectedSize
           ? _self.selectedSize
           : selectedSize // ignore: cast_nullable_to_non_nullable
+              as String,
+      dishIamge: null == dishIamge
+          ? _self.dishIamge
+          : dishIamge // ignore: cast_nullable_to_non_nullable
               as String,
       selectedToppings: null == selectedToppings
           ? _self.selectedToppings
@@ -207,8 +222,13 @@ extension OrderItemPatterns on OrderItem {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String dishId, String dishName, int quantity,
-            String selectedSize, List<String> selectedToppings)?
+    TResult Function(
+            String dishId,
+            String dishName,
+            int quantity,
+            String selectedSize,
+            String dishIamge,
+            List<String> selectedToppings)?
         $default, {
     required TResult orElse(),
   }) {
@@ -216,7 +236,7 @@ extension OrderItemPatterns on OrderItem {
     switch (_that) {
       case _OrderItem() when $default != null:
         return $default(_that.dishId, _that.dishName, _that.quantity,
-            _that.selectedSize, _that.selectedToppings);
+            _that.selectedSize, _that.dishIamge, _that.selectedToppings);
       case _:
         return orElse();
     }
@@ -237,15 +257,20 @@ extension OrderItemPatterns on OrderItem {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String dishId, String dishName, int quantity,
-            String selectedSize, List<String> selectedToppings)
+    TResult Function(
+            String dishId,
+            String dishName,
+            int quantity,
+            String selectedSize,
+            String dishIamge,
+            List<String> selectedToppings)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _OrderItem():
         return $default(_that.dishId, _that.dishName, _that.quantity,
-            _that.selectedSize, _that.selectedToppings);
+            _that.selectedSize, _that.dishIamge, _that.selectedToppings);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -265,15 +290,20 @@ extension OrderItemPatterns on OrderItem {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String dishId, String dishName, int quantity,
-            String selectedSize, List<String> selectedToppings)?
+    TResult? Function(
+            String dishId,
+            String dishName,
+            int quantity,
+            String selectedSize,
+            String dishIamge,
+            List<String> selectedToppings)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _OrderItem() when $default != null:
         return $default(_that.dishId, _that.dishName, _that.quantity,
-            _that.selectedSize, _that.selectedToppings);
+            _that.selectedSize, _that.dishIamge, _that.selectedToppings);
       case _:
         return null;
     }
@@ -288,6 +318,7 @@ class _OrderItem extends OrderItem {
       required this.dishName,
       required this.quantity,
       required this.selectedSize,
+      required this.dishIamge,
       final List<String> selectedToppings = const []})
       : _selectedToppings = selectedToppings,
         super._();
@@ -303,6 +334,8 @@ class _OrderItem extends OrderItem {
   final int quantity;
   @override
   final String selectedSize;
+  @override
+  final String dishIamge;
   final List<String> _selectedToppings;
   @override
   @JsonKey()
@@ -340,18 +373,26 @@ class _OrderItem extends OrderItem {
                 other.quantity == quantity) &&
             (identical(other.selectedSize, selectedSize) ||
                 other.selectedSize == selectedSize) &&
+            (identical(other.dishIamge, dishIamge) ||
+                other.dishIamge == dishIamge) &&
             const DeepCollectionEquality()
                 .equals(other._selectedToppings, _selectedToppings));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, dishId, dishName, quantity,
-      selectedSize, const DeepCollectionEquality().hash(_selectedToppings));
+  int get hashCode => Object.hash(
+      runtimeType,
+      dishId,
+      dishName,
+      quantity,
+      selectedSize,
+      dishIamge,
+      const DeepCollectionEquality().hash(_selectedToppings));
 
   @override
   String toString() {
-    return 'OrderItem(dishId: $dishId, dishName: $dishName, quantity: $quantity, selectedSize: $selectedSize, selectedToppings: $selectedToppings)';
+    return 'OrderItem(dishId: $dishId, dishName: $dishName, quantity: $quantity, selectedSize: $selectedSize, dishIamge: $dishIamge, selectedToppings: $selectedToppings)';
   }
 }
 
@@ -368,6 +409,7 @@ abstract mixin class _$OrderItemCopyWith<$Res>
       String dishName,
       int quantity,
       String selectedSize,
+      String dishIamge,
       List<String> selectedToppings});
 }
 
@@ -387,6 +429,7 @@ class __$OrderItemCopyWithImpl<$Res> implements _$OrderItemCopyWith<$Res> {
     Object? dishName = null,
     Object? quantity = null,
     Object? selectedSize = null,
+    Object? dishIamge = null,
     Object? selectedToppings = null,
   }) {
     return _then(_OrderItem(
@@ -405,6 +448,10 @@ class __$OrderItemCopyWithImpl<$Res> implements _$OrderItemCopyWith<$Res> {
       selectedSize: null == selectedSize
           ? _self.selectedSize
           : selectedSize // ignore: cast_nullable_to_non_nullable
+              as String,
+      dishIamge: null == dishIamge
+          ? _self.dishIamge
+          : dishIamge // ignore: cast_nullable_to_non_nullable
               as String,
       selectedToppings: null == selectedToppings
           ? _self._selectedToppings

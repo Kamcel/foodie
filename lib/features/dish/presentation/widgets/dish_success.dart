@@ -165,8 +165,9 @@ class DishSuccess extends StatelessWidget {
         ),
         SliverToBoxAdapter(
           child: Note(
-            note: '',
+            note: 'Add special instructions...',
             controller: noteController,
+            onChanged: onChanged,
           ),
         ),
         SliverToBoxAdapter(
@@ -186,7 +187,7 @@ class DishSuccess extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: AddToCartButton(
-                    onPressed: isOrderable ? onAddToCart : null,
+                    onPressed: onAddToCart,
                     price: totalPrice,
                   ),
                 ),

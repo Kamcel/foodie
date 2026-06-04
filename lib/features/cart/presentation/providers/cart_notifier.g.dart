@@ -40,7 +40,7 @@ final class CartNotifierProvider extends $NotifierProvider<CartNotifier, Cart> {
   }
 }
 
-String _$cartNotifierHash() => r'a882a629fb46cc62570ab6b2777e5f48bbc1276d';
+String _$cartNotifierHash() => r'1c9c04b35662b74f118121ad9d439d8365893ce0';
 
 abstract class _$CartNotifier extends $Notifier<Cart> {
   Cart build();

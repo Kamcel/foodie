@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:foodie/features/cart/data/model/cart.dart';
 import 'package:foodie/features/cart/data/model/cart_item.dart';
 import 'package:foodie/features/cart/data/storage/cart_storage.dart';
@@ -15,6 +16,7 @@ class CartNotifier extends _$CartNotifier {
   }
 
   void addItem(CartItem item) {
+    debugPrint('CartNotifier.addItem: incoming ${item.dishName} qty:${item.quantity}');
     final existingIndex = state.items.indexWhere(
       (element) => element.dishId == item.dishId && element.selectedSize == item.selectedSize
     );
@@ -34,6 +36,7 @@ class CartNotifier extends _$CartNotifier {
 
     state = state.copyWith(items: updatedItems);
     _storage.saveCart(state);
+    debugPrint('CartNotifier.addItem: cart updated, ${state.items.length} items');
   }
 
   void removeItem(String itemId) {
