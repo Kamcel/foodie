@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:foodie/features/cart/data/model/cart_item.dart';
 import 'package:foodie/features/orders/data/models/order.dart';
 import 'package:foodie/features/orders/data/models/order_state.dart';
@@ -35,51 +37,95 @@ class OrderNotifier extends _$OrderNotifier {
     }
   }
 
-  // 2. RATE ORDER
+  // ── PATH A: SIMULATED CHECKOUT PIPELINE ───────────────────
+  
+  Future<void> checkoutCartToActiveOrder(Order newOrder) async {
+    // G — Guard & Extract current orders list layer
+    final List<Order> currentOrders = state.maybeWhen(
+      success: (orders) => orders,
+      orElse: () => [],
+    );
+
+    // L — Logic: Prepend fresh active order to current history collection sequence
+    final updatedOrders = [newOrder, ...currentOrders];
+    
+    // S — State update to register active layout card target
+    state = OrderState.success(orders: updatedOrders);
+    
+    // Persist changes down to Hive local caching database
+    try {
+      await _repository.storage.saveOrders(updatedOrders);
+      debugPrint('OrderNotifier: Active order cached successfully. Commencing 30s delivery countdown simulation...');
+      
+      // Kick off background status mutation timer sequence
+      _startSimulatedDeliveryTimer(newOrder.id);
+    } catch (e) {
+      debugPrint('OrderNotifier error writing to local storage box: $e');
+    }
+  }
+
+  void _startSimulatedDeliveryTimer(String orderId) {
+    Future.delayed(const Duration(seconds: 30), () async {
+      // G — Guard check to make sure state hasn't been destroyed or altered violently
+      if (state is! Success) return;
+      
+      // C — Cast current working state context
+      final currentState = state as Success;
+      
+      debugPrint('OrderNotifier: Timer complete! Flipping order $orderId status to DELIVERED');
+
+      // L — Logic: SVTL Mapping mutation loop array conversion
+      final updatedOrders = currentState.orders.map((order) {
+        if (order.id == orderId) {
+          return order.copyWith(
+            status: OrderStatus.delivered,
+            estimatedDeliveryTime: 'Delivered',
+          );
+        }
+        return order;
+      }).toList();
+
+      // S — State rewrite to kick-off downstream UI reactive rendering hooks
+      state = currentState.copyWith(orders: updatedOrders);
+
+      // Persist delivery completion status record down to native disk storage
+      await _repository.storage.saveOrders(updatedOrders);
+    });
+  }
+
+  // ── EXISTING NOTIFIER LOGIC METHODS ───────────────────────
+  
   Future<void> rateOrder(String orderId, int rating) async {
-    // G — Guard
     if (state is! Success) return;
-    // C — Cast
     final c = state as Success;
-    // L — Logic: SVTL — List→List (same length, one changed), Transform conditional, .map() with copyWith
     final updated = c.orders.map((order) {
       if (order.id == orderId) return order.copyWith(rating: rating);
       return order;
     }).toList();
-    // S — State
     state = c.copyWith(orders: updated);
+    await _repository.storage.saveOrders(updated);
   }
 
-  // 3. CANCEL ORDER
   Future<void> cancelOrder(String orderId) async {
-    // G
     if (state is! Success) return;
-    // C
     final c = state as Success;
-    // L — SVTL: List→List (same length, one changed), Transform conditional, .map() with copyWith
     final updated = c.orders.map((order) {
-      if (order.id == orderId)
-        return order.copyWith(status: OrderStatus.cancelled);
+      if (order.id == orderId) return order.copyWith(status: OrderStatus.cancelled);
       return order;
     }).toList();
-    // S
     state = c.copyWith(orders: updated);
+    await _repository.storage.saveOrders(updated);
   }
 
-  // 4. REORDER — returns items as CartItem list for Cart to consume
   List<CartItem> getReorderItems(String orderId) {
     if (state is! Success) return [];
-
     final c = state as Success;
     for (final order in c.orders) {
-      if (order.id == orderId) {
-        return order.items;
-      }
+      if (order.id == orderId) return order.items;
     }
     return [];
   }
 
-  // 5. GET ORDER DETAILS
   Order? getOrderDetails(String orderId) {
     if (state is! Success) return null;
     final c = state as Success;
@@ -87,15 +133,12 @@ class OrderNotifier extends _$OrderNotifier {
     return index == -1 ? null : c.orders[index];
   }
 
-  // 6. ACTIVE ORDERS — getter
   List<Order> get activeOrders {
     if (state is! Success) return [];
     final c = state as Success;
-    // SVTL: List→List (shorter), Filter, .where().toList()
     return c.orders.where((o) => o.isActive).toList();
   }
 
-  // 7. PAST ORDERS — getter
   List<Order> get pastOrders {
     if (state is! Success) return [];
     final c = state as Success;
