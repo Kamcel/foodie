@@ -63,9 +63,11 @@ dependencies:
   dotted_border: ^2.1.0
   csc_picker: ^0.2.7
   geocoding: ^3.0.0
-  flutter_map: ^7.0.2
+  google_maps_flutter: ^2.3.0
+  flutter_polyline_points: ^2.1.0
   latlong2: ^0.9.1
   flutter_osm_plugin: ^1.4.1
+  flutter_map: ^8.3.0
 
 
 

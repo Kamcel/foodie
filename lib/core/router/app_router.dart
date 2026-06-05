@@ -20,6 +20,8 @@ import 'package:foodie/features/restaurant/data/models/review.dart';
 import 'package:foodie/features/restaurant/presentation/screens/restaurant_detail_screen.dart';
 import 'package:foodie/features/restaurant/presentation/screens/restaurant_review_screen.dart';
 import 'package:foodie/features/restaurant/presentation/screens/restaurant_screen.dart';
+import 'package:foodie/features/tracking/data/models/tracking.dart';
+import 'package:foodie/features/tracking/presentation/screens/tracking_screen.dart';
 import 'package:go_router/go_router.dart';
 
 //profileSetup- start here for profile
@@ -37,7 +39,6 @@ GoRouter createRouter({String? initialLocation}) {
         Routes.register,
         Routes.welcome,
         Routes.forgotPassword,
-        Routes.resetPassword,
         Routes.splash,
         Routes.otpVerify,
         Routes.onboarding,
@@ -151,7 +152,14 @@ GoRouter createRouter({String? initialLocation}) {
         path: '/order-screen',
         name: 'orderScreen',
         builder: (context, state) => const OrderScreen(),
-      )
+      ),
+      GoRoute(
+          path: '/tracking-screen',
+          name: 'trackingScreen',
+          builder: (context, state) {
+            final orderId = state.extra as Tracking;
+            return TrackingScreen(orderId: orderId);
+          })
     ],
   );
 }

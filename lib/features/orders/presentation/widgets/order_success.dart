@@ -12,7 +12,7 @@ class OrderSuccess extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    // Separate active and past datasets early for cleaner indexing
+    // Separate active and past datasets
     final activeOrders = orders.where((o) => o.isActive).toList();
     final pastOrders = orders.where((o) => !o.isActive).toList();
 
@@ -27,7 +27,7 @@ class OrderSuccess extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ── ANIMATED ACTIVE ORDERS SECTION ───────────────────
+              //  ANIMATED ACTIVE ORDERS SECTION
               AnimatedSwitcher(
                 duration: const Duration(milliseconds: 400),
                 // Custom layout builder layout keeps alignment locked to top-left during transition
@@ -70,13 +70,14 @@ class OrderSuccess extends StatelessWidget {
                           SizedBox(height: AppDimensions.spaceLG),
                         ],
                       )
-                    : const SizedBox.shrink(key: ValueKey('active_orders_empty')),
+                    : const SizedBox.shrink(
+                        key: ValueKey('active_orders_empty')),
               ),
 
-              // ── PAST ORDERS SECTION ──────────────────────────────
+              //  PAST ORDERS SECTION
               Text('PAST ORDERS', style: textTheme.titleSmall),
               SizedBox(height: AppDimensions.spaceMD),
-              
+
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -85,8 +86,8 @@ class OrderSuccess extends StatelessWidget {
                   final order = pastOrders[index];
                   return PastOrderCard(
                     order: order,
-                    onReorder: () {}, 
-                    onActionTap: () {}, 
+                    onReorder: () {},
+                    onActionTap: () {},
                   );
                 },
               ),
