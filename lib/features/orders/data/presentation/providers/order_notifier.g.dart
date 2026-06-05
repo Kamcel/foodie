@@ -41,7 +41,7 @@ final class OrderNotifierProvider
   }
 }
 
-String _$orderNotifierHash() => r'61ceb99fc597a06c20c987134dce3e9c7a8b9a93';
+String _$orderNotifierHash() => r'9e35ed8f550eb820016be619d32dd4416e5abc52';
 
 abstract class _$OrderNotifier extends $Notifier<OrderState> {
   OrderState build();

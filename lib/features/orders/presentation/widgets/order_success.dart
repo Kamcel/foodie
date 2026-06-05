@@ -15,11 +15,12 @@ class OrderSuccess extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //Active order section
             if (orders.any((o) => o.isActive)) ...[
-              Text('ACTIVE ORDERS', style: textTheme.headlineMedium),
+              Text('ACTIVE ORDERS', style: textTheme.titleSmall),
               SizedBox(height: AppDimensions.spaceMD),
               ActiveOrderCard(
                 order: orders.firstWhere((o) => o.isActive),
@@ -28,7 +29,7 @@ class OrderSuccess extends StatelessWidget {
               SizedBox(height: AppDimensions.spaceLG),
             ],
             //Past order section
-            Text('PAST ORDERS', style: textTheme.headlineMedium),
+            Text('PAST ORDERS', style: textTheme.titleSmall),
             SizedBox(height: AppDimensions.spaceMD),
             ListView.builder(
               shrinkWrap: true,

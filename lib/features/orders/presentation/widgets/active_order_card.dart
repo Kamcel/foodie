@@ -27,13 +27,16 @@ class ActiveOrderCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(AppDimensions.spaceSM),
-                  decoration: const BoxDecoration(
-                    color: Colors.white24,
-                    shape: BoxShape.circle,
+                SizedBox(
+                  width: 64,
+                  height: 64,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
+                    child: Image.network(
+                      order.restaurantImageUrl,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  child: const Text('🍔', style: TextStyle(fontSize: 24)),
                 ),
                 const SizedBox(width: AppDimensions.spaceSM),
                 Expanded(

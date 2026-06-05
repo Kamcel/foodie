@@ -37,8 +37,8 @@ class OrderNotifier extends _$OrderNotifier {
     }
   }
 
-  // ── PATH A: SIMULATED CHECKOUT PIPELINE ───────────────────
-  
+  // SIMULATED CHECKOUT PIPELINE
+
   Future<void> checkoutCartToActiveOrder(Order newOrder) async {
     // G — Guard & Extract current orders list layer
     final List<Order> currentOrders = state.maybeWhen(
@@ -48,15 +48,16 @@ class OrderNotifier extends _$OrderNotifier {
 
     // L — Logic: Prepend fresh active order to current history collection sequence
     final updatedOrders = [newOrder, ...currentOrders];
-    
+
     // S — State update to register active layout card target
     state = OrderState.success(orders: updatedOrders);
-    
+
     // Persist changes down to Hive local caching database
     try {
-      await _repository.storage.saveOrders(updatedOrders);
-      debugPrint('OrderNotifier: Active order cached successfully. Commencing 30s delivery countdown simulation...');
-      
+      await _repository.storage.savedOrders(updatedOrders);
+      debugPrint(
+          'OrderNotifier: Active order cached successfully. Commencing 30s delivery countdown simulation...');
+
       // Kick off background status mutation timer sequence
       _startSimulatedDeliveryTimer(newOrder.id);
     } catch (e) {
@@ -68,11 +69,12 @@ class OrderNotifier extends _$OrderNotifier {
     Future.delayed(const Duration(seconds: 30), () async {
       // G — Guard check to make sure state hasn't been destroyed or altered violently
       if (state is! Success) return;
-      
+
       // C — Cast current working state context
       final currentState = state as Success;
-      
-      debugPrint('OrderNotifier: Timer complete! Flipping order $orderId status to DELIVERED');
+
+      debugPrint(
+          'OrderNotifier: Timer complete! Flipping order $orderId status to DELIVERED');
 
       // L — Logic: SVTL Mapping mutation loop array conversion
       final updatedOrders = currentState.orders.map((order) {
@@ -89,12 +91,10 @@ class OrderNotifier extends _$OrderNotifier {
       state = currentState.copyWith(orders: updatedOrders);
 
       // Persist delivery completion status record down to native disk storage
-      await _repository.storage.saveOrders(updatedOrders);
+      await _repository.storage.savedOrders(updatedOrders);
     });
   }
 
-  // ── EXISTING NOTIFIER LOGIC METHODS ───────────────────────
-  
   Future<void> rateOrder(String orderId, int rating) async {
     if (state is! Success) return;
     final c = state as Success;
@@ -103,18 +103,19 @@ class OrderNotifier extends _$OrderNotifier {
       return order;
     }).toList();
     state = c.copyWith(orders: updated);
-    await _repository.storage.saveOrders(updated);
+    await _repository.storage.savedOrders(updated);
   }
 
   Future<void> cancelOrder(String orderId) async {
     if (state is! Success) return;
     final c = state as Success;
     final updated = c.orders.map((order) {
-      if (order.id == orderId) return order.copyWith(status: OrderStatus.cancelled);
+      if (order.id == orderId)
+        return order.copyWith(status: OrderStatus.cancelled);
       return order;
     }).toList();
     state = c.copyWith(orders: updated);
-    await _repository.storage.saveOrders(updated);
+    await _repository.storage.savedOrders(updated);
   }
 
   List<CartItem> getReorderItems(String orderId) {

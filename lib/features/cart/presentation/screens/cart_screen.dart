@@ -7,6 +7,9 @@ import 'package:foodie/core/widgets/custom_app_bar.dart';
 import 'package:foodie/features/cart/presentation/providers/cart_notifier.dart';
 import 'package:foodie/features/cart/presentation/widgets/cart_tile.dart';
 import 'package:foodie/features/cart/presentation/widgets/promo_section.dart';
+import 'package:foodie/features/orders/data/models/order.dart';
+import 'package:foodie/features/orders/data/models/order_status.dart';
+import 'package:foodie/features/orders/data/presentation/providers/order_notifier.dart';
 import 'package:go_router/go_router.dart';
 
 class CartScreen extends ConsumerStatefulWidget {
@@ -54,7 +57,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                   const Text('Your cart is empty'),
                   const SizedBox(height: 32),
                   ElevatedButton(
-                    onPressed: () => context.pop(),
+                    onPressed: () => context.go(Routes.restaurantScreen),
                     child: const Text('Continue Shopping'),
                   ),
                 ],
@@ -146,9 +149,35 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
                   // 4. Checkout Button
                   ElevatedButton(
-                      onPressed: () {
-                        context.go(Routes.orderScreen);
-                      },
+                      onPressed: state.items.isEmpty
+                          ? null
+                          : () async {
+                              final currentCart = ref.read(cartProvider);
+                              final orderNotifier =
+                                  ref.read(orderProvider.notifier);
+                              final cartOrder = ref.read(cartProvider.notifier);
+
+                              final dynamicOrderPayload = Order(
+                                  id:
+                                      'FOODIE-${DateTime.now().millisecondsSinceEpoch}',
+                                  restaurantName: 'The Classic Smash Hub',
+                                  restaurantImageUrl:
+                                      currentCart.items.first.imageUrl,
+                                  items: List.from(currentCart.items),
+                                  status: OrderStatus.active,
+                                  createdAt: DateTime.now(),
+                                  totalAmount: currentCart.total,
+                                  riderName: 'Marcel(Biker)',
+                                  deliveryAddress: '123, HiddenVille, Nigeria',
+                                  estimatedDeliveryTime: '30 seconds');
+                              await orderNotifier.checkoutCartToActiveOrder(
+                                  dynamicOrderPayload);
+                              cartNotifier.clearCart();
+
+                              if (context.mounted) {
+                                context.go(Routes.orderScreen);
+                              }
+                            },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: AppDimensions.spaceSM),

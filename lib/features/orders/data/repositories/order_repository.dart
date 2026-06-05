@@ -11,6 +11,8 @@ class OrderRepository {
       : _service = service,
         _storage = storage;
 
+  OrderStorage get storage => _storage;
+
   Future<List<Order>> getOrders() async {
     try {
       // Try API first
