@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:foodie/core/theme/app_dimensions.dart';
 import 'package:foodie/features/orders/data/models/order.dart';
-import 'package:latlong2/latlong2.dart';
+import 'package:latlong2/latlong.dart';
 
 class TrackingScreen extends StatefulWidget {
   final Order order;
@@ -14,9 +14,9 @@ class TrackingScreen extends StatefulWidget {
 }
 
 class _TrackingScreenState extends State<TrackingScreen> {
-  // 📍 Simulated Coordinates (Using coordinates for Lagos, Nigeria as a baseline)
-  final LatLng _restaurantLocation = const LatLng(6.5244, 3.3792); 
-  final LatLng _deliveryLocation = const LatLng(6.5350, 3.3900);   
+  // Simulated Coordinates (Using coordinates for Lagos, Nigeria as a baseline)
+  final LatLng _restaurantLocation = const LatLng(6.5244, 3.3792);
+  final LatLng _deliveryLocation = const LatLng(6.5350, 3.3900);
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +33,10 @@ class _TrackingScreenState extends State<TrackingScreen> {
       ),
       body: Stack(
         children: [
-          // ── 1. THE INTERACTIVE OPEN STREET MAP LAYER ────────
+          //  1. THE INTERACTIVE OPEN STREET MAP LAYER
           FlutterMap(
             options: MapOptions(
-              initialCenter: _restaurantLocation, // Focus on the food origin
+              initialCenter: _restaurantLocation,
               initialZoom: 14.0,
             ),
             children: [
@@ -45,8 +45,8 @@ class _TrackingScreenState extends State<TrackingScreen> {
                 urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                 userAgentPackageName: 'com.kamcel.foodie',
               ),
-              
-              // ── 2. THE ROUTE POLYLINE (The Road Path) ────────
+
+              // 2. THE ROUTE POLYLINE (The Road Path)
               PolylineLayer(
                 polylines: [
                   Polyline(
@@ -57,7 +57,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
                 ],
               ),
 
-              // ── 3. MAP MARKERS (Pins) ────────────────────────
+              //  3. MAP MARKERS (Pins)
               MarkerLayer(
                 markers: [
                   // Restaurant Pin
@@ -71,7 +71,8 @@ class _TrackingScreenState extends State<TrackingScreen> {
                         shape: BoxShape.circle,
                         border: Border.all(color: colors.primary, width: 2),
                       ),
-                      child: Icon(Icons.restaurant, color: colors.primary, size: 20),
+                      child: Icon(Icons.restaurant,
+                          color: colors.primary, size: 20),
                     ),
                   ),
                   // Delivery Destination Pin
@@ -85,7 +86,8 @@ class _TrackingScreenState extends State<TrackingScreen> {
                         shape: BoxShape.circle,
                         border: Border.all(color: colors.error, width: 2),
                       ),
-                      child: Icon(Icons.pin_drop, color: colors.error, size: 20),
+                      child:
+                          Icon(Icons.pin_drop, color: colors.error, size: 20),
                     ),
                   ),
                 ],
@@ -93,7 +95,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
             ],
           ),
 
-          // ── 4. FLOATING RIDER STATUS CARD ───────────────────
+          //  4. FLOATING RIDER STATUS CARD
           Positioned(
             bottom: AppDimensions.spaceLG,
             left: AppDimensions.spaceMD,
@@ -120,7 +122,8 @@ class _TrackingScreenState extends State<TrackingScreen> {
                         children: [
                           Text(
                             widget.order.riderName ?? 'Rider Assigned',
-                            style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                            style: textTheme.titleMedium
+                                ?.copyWith(fontWeight: FontWeight.bold),
                           ),
                           Text(
                             'On the way with your order',
@@ -130,10 +133,12 @@ class _TrackingScreenState extends State<TrackingScreen> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 6),
                       decoration: BoxDecoration(
                         color: colors.primaryContainer,
-                        borderRadius: BorderRadius.circular(AppDimensions.radiusSM),
+                        borderRadius:
+                            BorderRadius.circular(AppDimensions.radiusSM),
                       ),
                       child: Text(
                         widget.order.estimatedDeliveryTime ?? 'Calculating...',

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodie/core/theme/app_dimensions.dart';
 import 'package:foodie/features/orders/data/models/order.dart';
+import 'package:go_router/go_router.dart';
 
 class ActiveOrderCard extends StatelessWidget {
   final Order order;
@@ -69,7 +70,10 @@ class ActiveOrderCard extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   ),
-                  onPressed: onTrackTap,
+                  onPressed: () {
+                    context.push('/tracking-screen', extra: order);
+                    onTrackTap();
+                  },
                   child: const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [

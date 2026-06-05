@@ -13,6 +13,7 @@ import 'package:foodie/features/dish/data/models/dish.dart';
 import 'package:foodie/features/dish/presentation/screens/dish_detail_screen.dart';
 import 'package:foodie/features/onboarding/presentation/screens/splash_screen.dart';
 import 'package:foodie/features/onboarding/presentation/screens/welcome_screen.dart';
+import 'package:foodie/features/orders/data/models/order.dart';
 import 'package:foodie/features/orders/presentation/screens/order_screen.dart';
 import 'package:foodie/features/profile/presentation/screens/profile_setup_screen.dart';
 import 'package:foodie/features/restaurant/data/models/restaurant.dart';
@@ -20,7 +21,6 @@ import 'package:foodie/features/restaurant/data/models/review.dart';
 import 'package:foodie/features/restaurant/presentation/screens/restaurant_detail_screen.dart';
 import 'package:foodie/features/restaurant/presentation/screens/restaurant_review_screen.dart';
 import 'package:foodie/features/restaurant/presentation/screens/restaurant_screen.dart';
-import 'package:foodie/features/tracking/data/models/tracking.dart';
 import 'package:foodie/features/tracking/presentation/screens/tracking_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -154,12 +154,13 @@ GoRouter createRouter({String? initialLocation}) {
         builder: (context, state) => const OrderScreen(),
       ),
       GoRoute(
-          path: '/tracking-screen',
-          name: 'trackingScreen',
-          builder: (context, state) {
-            final orderId = state.extra as Tracking;
-            return TrackingScreen(orderId: orderId);
-          })
+        path: '/tracking-screen',
+        name: 'trackingScreen',
+        builder: (context, state) {
+          final order = state.extra as Order;
+          return TrackingScreen(order: order);
+        },
+      )
     ],
   );
 }
