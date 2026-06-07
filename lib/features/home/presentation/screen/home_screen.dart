@@ -20,6 +20,14 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(homeProvider.notifier).loadHome();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     final state = ref.watch(homeProvider);
@@ -35,20 +43,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           success: (successState) => CustomScrollView(
             slivers: [
               //SliverAppBar
-              SliverAppBar(
-                backgroundColor: colors.surface,
-                expandedHeight: 200,
-                automaticallyImplyLeading: false,
-                floating: true,
-                elevation: 0,
-                flexibleSpace: FlexibleSpaceBar(
-                    background: Column(
-                  children: [
-                    AddressHeader(onTap: () {}),
-                    const SizedBox(height: AppDimensions.spaceSM),
-                    SpacebarPadding()
-                  ],
-                )),
+              SliverPadding(
+                sliver: SliverAppBar(
+                  backgroundColor: colors.surface,
+                  expandedHeight: 230,
+                  automaticallyImplyLeading: false,
+                  pinned: true,
+                  floating: true,
+                  elevation: 0,
+                  flexibleSpace: FlexibleSpaceBar(
+                      background: Column(
+                    children: [
+                      AddressHeader(onTap: () {}),
+                      const SizedBox(height: AppDimensions.spaceSM),
+                      SpacebarPadding()
+                    ],
+                  )),
+                ),
+                padding: const EdgeInsets.only(bottom: AppDimensions.spaceMD),
               ),
 
               //promo card
@@ -118,8 +130,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
               ),
 
-              const SliverPadding(
-                  padding: EdgeInsets.only(top: AppDimensions.spaceMD)),
+              const SliverToBoxAdapter(
+                  child: SizedBox(height: AppDimensions.spaceMD)),
 
               //featured title
               SliverToBoxAdapter(
@@ -133,8 +145,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
               ),
 
-              const SliverPadding(
-                  padding: EdgeInsets.only(top: AppDimensions.spaceSM)),
+              const SliverToBoxAdapter(
+                  child: SizedBox(height: AppDimensions.spaceSM)),
 
               //featured list(Row)
               SliverToBoxAdapter(
@@ -158,6 +170,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           onFavoriteTap: () {
                             notifier.favoriteRestaurant(restaurant.id);
                           },
+                          onTap: () => context.pushNamed(
+                            Routes.restaurantDetailScreenName,
+                            extra: restaurant,
+                          ),
                         ),
                       );
                     },
@@ -165,8 +181,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
               ),
 
-              const SliverPadding(
-                  padding: EdgeInsets.only(top: AppDimensions.spaceMD)),
+              const SliverToBoxAdapter(
+                  child: SizedBox(height: AppDimensions.spaceMD)),
 
               //trending near by title
               SliverToBoxAdapter(
@@ -180,8 +196,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
               ),
 
-              const SliverPadding(
-                  padding: EdgeInsets.only(top: AppDimensions.spaceSM)),
+              const SliverToBoxAdapter(
+                  child: SizedBox(height: AppDimensions.spaceSM)),
 
               //trending near by list(ListView of big restaurant card)
               SliverPadding(
@@ -202,6 +218,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           onFavoriteTap: () {
                             notifier.favoriteRestaurant(restaurant.id);
                           },
+                          onTap: () => context.pushNamed(
+                            Routes.restaurantDetailScreenName,
+                            extra: restaurant,
+                          ),
                         ),
                       );
                     },
@@ -210,8 +230,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
               ),
 
-              const SliverPadding(
-                  padding: EdgeInsets.only(bottom: AppDimensions.spaceMD)),
+              const SliverToBoxAdapter(
+                  child: SizedBox(height: AppDimensions.spaceMD)),
             ],
           ),
           empty: (_) => Center(

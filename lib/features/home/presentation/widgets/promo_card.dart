@@ -10,7 +10,6 @@ class PromoCard extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
     return Container(
       width: double.infinity,
-      height: 150,
       decoration: BoxDecoration(
         color: colors.primary,
         borderRadius: BorderRadius.circular(AppDimensions.radiusMD),

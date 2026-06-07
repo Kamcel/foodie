@@ -11,7 +11,7 @@ import 'package:foodie/features/auth/presentation/screens/register_screen.dart';
 import 'package:foodie/features/cart/presentation/screens/cart_screen.dart';
 import 'package:foodie/features/dish/data/models/dish.dart';
 import 'package:foodie/features/dish/presentation/screens/dish_detail_screen.dart';
-import 'package:foodie/features/home/presentation/screens/home_screen.dart';
+import 'package:foodie/features/home/presentation/screen/home_screen.dart';
 import 'package:foodie/features/onboarding/presentation/screens/splash_screen.dart';
 import 'package:foodie/features/onboarding/presentation/screens/welcome_screen.dart';
 import 'package:foodie/features/orders/data/models/order.dart';
