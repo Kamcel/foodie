@@ -20,14 +20,6 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
-  void initState() {
-    super.initState();
-    Future.microtask(() {
-      ref.read(homeProvider.notifier).loadHome();
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     final state = ref.watch(homeProvider);
@@ -147,7 +139,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               //featured list(Row)
               SliverToBoxAdapter(
                 child: SizedBox(
-                  height: 200,
+                  height: 300,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.symmetric(
@@ -195,23 +187,26 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               SliverPadding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: AppDimensions.spaceMD),
-                sliver: SliverList.builder(
-                  itemCount: successState.trendingRestaurants.length,
-                  itemBuilder: (context, index) {
-                    final restaurant = successState.trendingRestaurants[index];
-                    return Padding(
-                      padding:
-                          const EdgeInsets.only(bottom: AppDimensions.spaceMD),
-                      child: RestaurantCard(
-                        restaurant: restaurant,
-                        isFavorited: notifier.isFavorite(restaurant.id),
-                        variant: RestaurantCardVariant.big,
-                        onFavoriteTap: () {
-                          notifier.favoriteRestaurant(restaurant.id);
-                        },
-                      ),
-                    );
-                  },
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      final restaurant =
+                          successState.trendingRestaurants[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(
+                            bottom: AppDimensions.spaceMD),
+                        child: RestaurantCard(
+                          restaurant: restaurant,
+                          isFavorited: notifier.isFavorite(restaurant.id),
+                          variant: RestaurantCardVariant.big,
+                          onFavoriteTap: () {
+                            notifier.favoriteRestaurant(restaurant.id);
+                          },
+                        ),
+                      );
+                    },
+                    childCount: successState.trendingRestaurants.length,
+                  ),
                 ),
               ),
 

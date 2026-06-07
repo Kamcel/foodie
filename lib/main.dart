@@ -28,7 +28,6 @@ void main() async {
   await Hive.openBox('orders');
   await Hive.openBox('tracking');
 
-  // Allow overriding start route for testing via `--dart-define=START_ROUTE=/path`
   final startRoute =
       const String.fromEnvironment('START_ROUTE', defaultValue: Routes.home);
   final router = createRouter(initialLocation: startRoute);

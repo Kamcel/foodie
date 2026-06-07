@@ -33,8 +33,7 @@ class HomeNotifier extends _$HomeNotifier {
   @override
   HomeState build() {
     _loadFavorites();
-    _emit();
-    return const HomeState.loading();
+    return _createSuccessState();
   }
 
   void _loadFavorites() {
@@ -43,11 +42,24 @@ class HomeNotifier extends _$HomeNotifier {
 
   void loadHome() {
     try {
+      state = const HomeState.loading();
       _loadFavorites();
-      _emit();
+      state = _createSuccessState();
     } catch (e) {
       state = HomeState.error(message: e.toString());
     }
+  }
+
+  HomeState _createSuccessState() {
+    final featured = _getFilteredRestaurants(5);
+    final trending = _getFilteredRestaurants(null);
+
+    return HomeState.success(
+      featuredRestaurants: featured,
+      trendingRestaurants: trending,
+      popularCuisines: _popularCuisines,
+      selectedCuisine: _selectedCuisine,
+    );
   }
 
   void selectCuisine(CuisineType? cuisine) {
@@ -77,19 +89,7 @@ class HomeNotifier extends _$HomeNotifier {
   }
 
   void _emit() {
-    final featured = _getFilteredRestaurants(5);
-    final trending = _getFilteredRestaurants(null);
-
-    if (featured.isEmpty && trending.isEmpty) {
-      state = const HomeState.empty();
-    } else {
-      state = HomeState.success(
-        featuredRestaurants: featured,
-        trendingRestaurants: trending,
-        popularCuisines: _popularCuisines,
-        selectedCuisine: _selectedCuisine,
-      );
-    }
+    state = _createSuccessState();
   }
 
   List<Restaurant> _getFilteredRestaurants(int? limit) {
