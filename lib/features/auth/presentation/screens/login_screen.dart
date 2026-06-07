@@ -151,7 +151,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       next.whenOrNull(
         error: (message) => AppSnackbar.show(context,
             message: message, type: SnackbarType.error),
-        authenticated: (_) => context.goNamed('home'),
+        authenticated: (_) => context.go(Routes.home),
       );
     });
 

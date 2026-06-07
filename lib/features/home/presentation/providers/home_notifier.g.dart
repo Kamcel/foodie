@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'order_notifier.dart';
+part of 'home_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,48 +9,48 @@ part of 'order_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(OrderNotifier)
-final orderProvider = OrderNotifierProvider._();
+@ProviderFor(HomeNotifier)
+final homeProvider = HomeNotifierProvider._();
 
-final class OrderNotifierProvider
-    extends $NotifierProvider<OrderNotifier, OrderState> {
-  OrderNotifierProvider._()
+final class HomeNotifierProvider
+    extends $NotifierProvider<HomeNotifier, HomeState> {
+  HomeNotifierProvider._()
       : super(
           from: null,
           argument: null,
           retry: null,
-          name: r'orderProvider',
+          name: r'homeProvider',
           isAutoDispose: true,
           dependencies: null,
           $allTransitiveDependencies: null,
         );
 
   @override
-  String debugGetCreateSourceHash() => _$orderNotifierHash();
+  String debugGetCreateSourceHash() => _$homeNotifierHash();
 
   @$internal
   @override
-  OrderNotifier create() => OrderNotifier();
+  HomeNotifier create() => HomeNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(OrderState value) {
+  Override overrideWithValue(HomeState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<OrderState>(value),
+      providerOverride: $SyncValueProvider<HomeState>(value),
     );
   }
 }
 
-String _$orderNotifierHash() => r'54ae0e1816841faadd8221a400196bdfb39f45b9';
+String _$homeNotifierHash() => r'fc71c450c586b8c3a3c1e272cf75e9d8ea089df2';
 
-abstract class _$OrderNotifier extends $Notifier<OrderState> {
-  OrderState build();
+abstract class _$HomeNotifier extends $Notifier<HomeState> {
+  HomeState build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<OrderState, OrderState>;
+    final ref = this.ref as $Ref<HomeState, HomeState>;
     final element = ref.element as $ClassProviderElement<
-        AnyNotifier<OrderState, OrderState>, OrderState, Object?, Object?>;
+        AnyNotifier<HomeState, HomeState>, HomeState, Object?, Object?>;
     element.handleCreate(ref, build);
   }
 }

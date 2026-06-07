@@ -164,12 +164,7 @@ class _SignUpEmailScreenState extends ConsumerState<SignUpEmailScreen> {
       next.whenOrNull(
         error: (message) => AppSnackbar.show(context,
             message: message, type: SnackbarType.error),
-        authenticated: (_) => context.pushNamed('otp-verify',
-            extra: OtpArgs(
-              flow: OtpFlow.register,
-              destination: _emailController.text,
-              destinationLabel: _emailController.text,
-            )),
+        authenticated: (_) => context.go(Routes.home),
       );
     });
 

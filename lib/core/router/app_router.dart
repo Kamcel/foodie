@@ -11,6 +11,7 @@ import 'package:foodie/features/auth/presentation/screens/register_screen.dart';
 import 'package:foodie/features/cart/presentation/screens/cart_screen.dart';
 import 'package:foodie/features/dish/data/models/dish.dart';
 import 'package:foodie/features/dish/presentation/screens/dish_detail_screen.dart';
+import 'package:foodie/features/home/presentation/screens/home_screen.dart';
 import 'package:foodie/features/onboarding/presentation/screens/splash_screen.dart';
 import 'package:foodie/features/onboarding/presentation/screens/welcome_screen.dart';
 import 'package:foodie/features/orders/data/models/order.dart';
@@ -27,7 +28,7 @@ import 'package:go_router/go_router.dart';
 //profileSetup- start here for profile
 GoRouter createRouter({String? initialLocation}) {
   return GoRouter(
-    initialLocation: initialLocation ?? Routes.restaurantScreen,
+    initialLocation: initialLocation ?? Routes.home,
     redirect: (context, state) {
       final isLoggedIn = AuthStorage.instance.hasTokens;
       final location = state.uri.toString();
@@ -59,7 +60,7 @@ GoRouter createRouter({String? initialLocation}) {
         return Routes.login;
       }
 
-      if (isLoggedIn && isOnAuthScreen) return Routes.restaurantScreen;
+      if (isLoggedIn && isOnAuthScreen) return Routes.home;
       return null;
     },
     routes: [
@@ -110,6 +111,11 @@ GoRouter createRouter({String? initialLocation}) {
           path: '/profile-setup',
           name: 'profile-setup',
           builder: (context, state) => const ProfileSetupScreen()),
+      GoRoute(
+        path: '/home',
+        name: 'home',
+        builder: (context, state) => const HomeScreen(),
+      ),
       GoRoute(
           path: '/restaurant',
           name: 'restaurant',

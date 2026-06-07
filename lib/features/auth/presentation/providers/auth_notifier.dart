@@ -1,9 +1,8 @@
 import 'package:foodie/core/exceptions/app_exception.dart';
 import 'package:foodie/features/auth/data/models/auth_request/forgot_password_request.dart';
-import 'package:foodie/features/auth/data/models/auth_request/login_request.dart';
 import 'package:foodie/features/auth/data/models/auth_request/otp_request.dart';
-import 'package:foodie/features/auth/data/models/auth_request/register_request.dart';
 import 'package:foodie/features/auth/data/models/auth_request/reset_password_request.dart';
+import 'package:foodie/features/auth/data/models/auth_response/user.dart';
 import 'package:foodie/features/auth/data/models/auth_state.dart';
 import 'package:foodie/features/auth/data/models/otp_args.dart';
 import 'package:foodie/features/auth/data/services/auth_service.dart';
@@ -34,40 +33,19 @@ class AuthNotifier extends _$AuthNotifier {
     required String email,
     required String password,
   }) async {
-    //Tell Ui loading
     state = const AuthState.loading();
-    try {
-      // Call server
-      final response = await _api.login(
-        LoginRequest(email: email, password: password),
-      );
-      // Save tokens and user to Hive
-      await _auth.saveTokens(
-          accessToken: response.accessToken,
-          refreshToken: response.refreshToken);
-      await _user.saveUser(response.user);
-      // Tell Ui we are authenticated
-      state = AuthState.authenticated(response.user);
-    } catch (e) {
-      //Tell Ui whats wrong
-      final message = e is AppException
-          ? e.when(
-              noInternet: () => 'No internet Connection',
-              unauthorized: () => 'Invalid credentials',
-              badRequest: (message) => message,
-              conflict: (message) => message,
-              serverError: () => 'Server error, try again',
-              unknown: (message) => message,
-              forbidden: () => 'Access Denied',
-              notFound: () => 'Not found',
-              tooManyRequests: () => 'Too many attempts, slow down',
-              validation: (message) => message,
-              connectionTimeout: () => 'Connection timed out. Try again',
-            )
-          : 'Somthing went wrong';
-
-      state = AuthState.error(message: message);
-    }
+    await Future.delayed(const Duration(milliseconds: 300));
+    final user = User.createLocal(
+      id: email.hashCode.toString(),
+      name: email.split('@').first,
+      email: email,
+    );
+    await _auth.saveTokens(
+      accessToken: 'local_token_${email.hashCode}',
+      refreshToken: 'local_refresh_${email.hashCode}',
+    );
+    await _user.saveUser(user);
+    state = AuthState.authenticated(user);
   }
 
   // Register
@@ -76,34 +54,18 @@ class AuthNotifier extends _$AuthNotifier {
     required String password,
   }) async {
     state = const AuthState.loading();
-    try {
-      final response = await _api.register(
-        RegisterRequest(email: email, password: password),
-      );
-      await _auth.saveTokens(
-          accessToken: response.accessToken,
-          refreshToken: response.refreshToken);
-      await _user.saveUser(response.user);
-      state = AuthState.authenticated(response.user);
-    } catch (e) {
-      final message = e is AppException
-          ? e.when(
-              noInternet: () => 'No internet Connection',
-              unauthorized: () => 'Invalid credentials',
-              badRequest: (message) => message,
-              conflict: (message) => message,
-              serverError: () => 'Server error, try again',
-              unknown: (message) => message,
-              forbidden: () => 'Access Denied',
-              notFound: () => 'Not found',
-              tooManyRequests: () => 'Too many attempts, slow down',
-              validation: (message) => message,
-              connectionTimeout: () => 'Connection timed out. Try again',
-            )
-          : 'Somthing went wrong';
-
-      state = AuthState.error(message: message);
-    }
+    await Future.delayed(const Duration(milliseconds: 300));
+    final user = User.createLocal(
+      id: email.hashCode.toString(),
+      name: email.split('@').first,
+      email: email,
+    );
+    await _auth.saveTokens(
+      accessToken: 'local_token_${email.hashCode}',
+      refreshToken: 'local_refresh_${email.hashCode}',
+    );
+    await _user.saveUser(user);
+    state = AuthState.authenticated(user);
   }
 
   // Forgot Password
