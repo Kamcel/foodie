@@ -66,7 +66,7 @@ dependencies:
   google_maps_flutter: ^2.3.0
   flutter_polyline_points: ^2.1.0
   latlong2: ^0.9.1
-  flutter_osm_plugin: ^1.4.1
+  # flutter_osm_plugin: ^1.4.6
   flutter_map: ^8.3.0
 
 
