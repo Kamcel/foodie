@@ -38,7 +38,7 @@ ThemeData get lightTheme => ThemeData(
 
       // ── Text Theme ─────────────────────────────────────────────
       // Every slot that AppTypography defines is wired here.
-      // This guarantees Poppins is always used — no Flutter fallback.
+      // This guarantees Poppins is always used.
       textTheme: TextTheme(
         // Display
         displayLarge: AppTypography.displayLarge.copyWith(
